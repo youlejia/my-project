@@ -1,0 +1,35 @@
+.login{
+    background: #fff;
+    height: 100vh;
+}
+.login-bg{
+    position: relative;
+    width: 100%;
+    background: #2E81F3;
+    height: 213px;
+}
+.login-bg>div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.login-bg img{
+    width: 102px;
+}
+.login-box{
+    position: absolute;
+    top: 174px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+.lxkf{
+    position: absolute;
+    bottom: 20px;
+    transform: translate(-50%, 0);
+    left: 50%;
+    color: #2E81F3;
+}
