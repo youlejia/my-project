@@ -1,7 +1,7 @@
 <template>
   <div class="maintain">
     <div class="header-two">
-        <div class="nav-bar__left lf"><i></i></div>
+        <div class="nav-bar_left lf" @click="goback()"><van-icon name="arrow-left" size='18px' color="#fff" /></div>
     </div>
     
     <van-swipe @change="onChange">
@@ -74,6 +74,9 @@ export default {
     onChange(index) {
       this.current = index;
     },
+    goback(){
+     this.$router.go(-1);
+    }
     
     
   },
