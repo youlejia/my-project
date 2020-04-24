@@ -10,8 +10,12 @@
           <ul>
             <li v-for='(item,index) in list' :key="index" :class="{active:istrue==index}" @click="toolEventSlot(index)">
               <div class="pt25 f14">
-                <p class="c-ff5000 f12 mb5" v-if="showEagleMap">{{item.grade}}</p>
-                {{item.grade_name}}
+                <!-- <p class="c-ff5000 f12 mb5" v-if="showEagleMap">{{item.grade}}</p> -->
+                <p class="c-ff5000 f12 mb5 vsp" v-if="istrue==index">
+                  <img class="imgs" src="../assets/image/vip3.png" alt="">
+                </p>
+                <p class="c-ff5000 f12 mb5" v-else>{{item.grade}}</p>
+                <p>{{item.grade_name}}</p>
               </div>
               <div class="dlm">￥<span class="f18">{{item.grade_money}}</span></div>
             </li>
@@ -111,6 +115,20 @@ export default {
   background:linear-gradient(180deg,#68b9fe 0%,#5298f5 100%);
   color: #fff;
   line-height: 25px;
+}
+.gradeList li .vsp{
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255,0.7);
+}
+.gradeList li .vsp .imgs{
+  width: 25px;
+  height: 25px;
+  margin: 0 auto;
+  margin-top: 8px;
 }
 .gradeList li.active{
   background:linear-gradient(180deg,rgba(46,129,243,1) 0%,rgba(76,177,255,1) 100%);
