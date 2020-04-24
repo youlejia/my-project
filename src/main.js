@@ -6,7 +6,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs} from 'vant'
+import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup} from 'vant'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
@@ -26,6 +26,7 @@ Vue.use(AddressList);
 Vue.use(Popup);
 Vue.use(Tab);
 Vue.use(Tabs);
+Vue.use(CellGroup);
 //css
 import './assets/css/style.css'
 
