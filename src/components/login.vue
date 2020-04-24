@@ -35,7 +35,6 @@
         </div>
         <div>
             <router-link to='' class="lxkf">联系客服</router-link>
-            
         </div>
     </div>
   
