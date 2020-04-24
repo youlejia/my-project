@@ -4,6 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+//mock
+require('./mock/mock.js')
+
+//axios
+import Axios from 'axios'
+Vue.prototype.Axios = Axios
+
+
+
+
 Vue.config.productionTip = false
 
 import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup} from 'vant'
