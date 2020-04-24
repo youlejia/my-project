@@ -17,7 +17,7 @@
         </div>
         <div class="home-recommend mt25">
             <div class="title-s">
-                <span class="fl f17 fb"><i class="line"></i>为你推荐</span>
+                <span class="fl f17 fb"><i class="line"></i>为ddd荐</span>
                 <span class="fr" style="color:#999">精品会员专享推荐</span>
             </div>
             <div>
