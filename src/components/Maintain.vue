@@ -28,7 +28,7 @@
         <div class="clear"></div>
         <span>共计：<span class="f18 c-ff5000">￥149.00</span></span>
         <span class="fr">库存：996<span class="ml5">已售：78</span></span>
-        <p>当前身份为<span class="c-ff5000">VIP</span>，立减50元现金</p>
+        <p>当前身份为<span class="c-ff5000">{{identity}}</span>，立减50元现金</p>
       </div>
       
     </div>
@@ -44,48 +44,39 @@
       <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)">立刻购买</van-button>
     </div>
     
- 
-      
-   
-    
-    
-      
   </div>
 </template>
 
 <script>
 
 export default {
- 
   data() {
     return {
-        current: 0,
-        ProductItem:[
-          {
-            "price": "149",
-            "stock": "237",
-            "sold": "100"
-          },
-          {
-            "price": "169",
-            "stock": "187",
-            "sold": "10"
-          },
-          {
-            "price": "189",
-            "stock": "100",
-            "sold": "10"
-          },
-          {
-            "price": "209",
-            "stock": "1000",
-            "sold": "10"
-          },
-
-        ]
-        
-    }
-      
+      current: 0,
+      ProductItem:[
+        {
+          "price": "149",
+          "stock": "237",
+          "sold": "100"
+        },
+        {
+          "price": "169",
+          "stock": "187",
+          "sold": "10"
+        },
+        {
+          "price": "189",
+          "stock": "100",
+          "sold": "10"
+        },
+        {
+          "price": "209",
+          "stock": "1000",
+          "sold": "10"
+        },
+      ],
+      identity:"VIP"
+    }   
   },
   methods: {
     onChange(index) {

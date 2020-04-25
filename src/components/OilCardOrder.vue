@@ -2,7 +2,7 @@
     <div class="OilCardOrder all">
         <div class="oil-card">
             <van-card
-            :price="price"
+            :price="price|numFilter"
             desc="购买之后提交油卡信息，稍后即可到账"
             title="VIP专享折扣-加油卡"
             thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
@@ -27,7 +27,7 @@
             <van-radio-group v-model="radioHorizontal" direction="horizontal">
                 <van-radio name="1"><img src="../assets/image/zfb.png" alt=""></van-radio>
                 <van-radio name="2"><img src="../assets/image/vxzf.png" alt=""></van-radio><br>
-                <van-radio name="3" class="mt15 f14">账户余额（¥<span>{{balance}}</span>）</van-radio>
+                <van-radio name="3" class="mt15 f14">账户余额（¥<span>{{balance|numFilter}}</span>）</van-radio>
             </van-radio-group>
             <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25">立即开通</van-button>
             <p class="tc mt10">只有VIP用户拥有升级代理权限</p>
@@ -38,23 +38,26 @@
 <script>
 
 export default {
- 
-  data() {
-    return {
-        radioHorizontal: '1',
-        price:"2400.00",
-        ordernumber:"46431534341157",
-        balance:"26730.00"
+    data() {
+        return {
+            radioHorizontal: '1',
+            price:2400.00,
+            ordernumber:"46431534341157",
+            balance:26730.00
+        }    
+    },
+    methods: {
+            
+    },
+    filters: {
+        numFilter(value) {
+            let realVal = ''
+            if(value) {
+                realVal = parseFloat(value).toFixed(2)
+            }
+            return realVal
+        }
     }
-      
-  },
-  methods: {
-    
-    
-    
-  },
-  
-
 }
 </script>
 
