@@ -17,6 +17,10 @@
 						<div class="yh_zh">{{user.vip}}</div>
 					</div>
 				</div>
+				<div class="card_quan">
+					<div class="quan_zhang">3</div>
+					<div class="quan_name">我的保养卡</div>
+				</div>
 			</div>
 			<div class="head_bot">
 				<div class="ye_bt">账户余额</div>
@@ -110,6 +114,10 @@
 	@font-face {
 		font-family: 'ps';
 		src: url('../assets/font/PingFangSC.ttf');
+	}
+	@font-face {
+		font-family: 'cp';
+		src: url('../assets/font/ChaparralPro-Light.otf');
 	}	
 	.mycore {
 		font-family: 'ps';
@@ -131,6 +139,8 @@
 			.zhongbu {
 				width: 92%;
 				margin: 0 auto;
+				position: relative;
+				margin-bottom: 10px;
 				.yh_tx {
 					display: inline-block;
 					vertical-align: middle;
@@ -143,28 +153,46 @@
 				}
 				.yh_js {
 					display: inline-block;
+					position: absolute;
+					left: 80px;
+					top: 12px;
 					color: #ffffff;
 					.yh_name {
 						font-size: 15px;
 					}
 					.yh_c {
 						display: inline-block;
+						margin-top: 6px;
 						.yh_dj {
 							display: inline-block;
-							padding-top: 3px;
+							// padding-top: 3px;
 							text-align: center;
 							vertical-align: middle;
 							img {
-								width: 25px;
-								height: 25px;
+								width: 15px;
+								height: 15px;
 							}
 						}
 						.yh_zh {
 							font-size: 11px;
 							display: inline-block;
 							color: #FF5000;
-							margin-left: -5px;
+							margin-top: 1px;
+							// margin-left: -5px;
 						}
+					}
+				}
+				.card_quan{
+					display: inline-block;
+					color: #ffffff;
+					position: absolute;
+					right: 25px;
+					top: 15px;
+					text-align: center;
+					.quan_zhang{
+						font-size: 16px;
+						font-family: 'cp';
+						font-weight: bold;
 					}
 				}
 			}
@@ -190,8 +218,11 @@
 					line-height: 30px;
 					font-weight: 600;
 					color: #E0DCAB;
+					font-family: 'cp';
 					span {
 						font-size: 12px;
+						font-family: 'ps';
+						margin-right: 3px;
 					}
 				}
 				.but {
