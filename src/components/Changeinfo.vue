@@ -1,7 +1,7 @@
 <template>
     <div class="information">
         <van-cell-group>
-            <van-cell title="头像" :border='false'>
+            <van-cell center title="头像" :border='false'>
                 <div slot="default" class='info-img'><img src="../assets/image/user.png" alt=""></div>
             </van-cell>
             <van-cell title="电话号" value="132 1513 1214" />

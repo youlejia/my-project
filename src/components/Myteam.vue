@@ -129,9 +129,6 @@ export default {
             font-size: 22px;
             color: #2E81F3;
         }
-        .rule{
-
-        }
     }
    
 }
