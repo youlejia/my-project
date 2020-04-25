@@ -93,8 +93,8 @@ a:link,a:active,a:visited,a:hover {background: none;-webkit-tap-highlight-color:
 .title-s .line{width: 4px;height: 15px;background: linear-gradient(180deg,rgba(46,129,243,1) 0%,rgba(76,177,255,1) 100%);display: block;float: left;margin:9px 10px 0 0;}
 /* 公共头部 */
 .header-two{height: 55px;line-height: 55px;padding: 0 23px; position: absolute;box-sizing: border-box;top: 0;width: 100%;z-index: 2;}
-.nav-bar__left{display: inline-block;margin:13px 0;}
-.nav-bar__left i{display:block;width:28px;height:28px;background:#79a5d7;border-radius:50%;}
+.nav-bar_left{display: inline-block;margin:13px 0;width:28px;height:28px;background:#79a5d7;border-radius:50%;line-height:38px;text-align: center;}
+
 /* 商品详情 */
 .custom-indicator {position: absolute;right: 5px;bottom: 5px;padding: 2px 8px;font-size: 12px;border-radius: 9px;color: #fff;background: rgba(46,129,243,1);}
 .maintain-m{width: 90%;margin: 0 auto;}

@@ -1,7 +1,7 @@
 <template>
   <div class="maintain">
     <div class="header-two">
-        <div class="nav-bar__left lf"><i></i></div>
+        <div class="nav-bar_left lf" @click="goback()"><van-icon name="arrow-left" size='18px' color="#fff" /></div>
         <!-- <div class="nav-bar__right fr f16"><span>联系客服</span></div> -->
     </div>
     
@@ -81,6 +81,9 @@ export default {
     },
     buyOK(){
         this.show = false;
+    },
+    goback(){
+     this.$router.go(-1);
     }
   },
   

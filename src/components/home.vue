@@ -115,7 +115,11 @@ export default {
   }
 }
 </script>
-
+<style>
+    .home .van-grid-item__content{
+        padding:5px 8px;
+    }
+</style>
 <style lang="less" scoped="scoped">
 .home{
     .home-box{
@@ -173,15 +177,6 @@ export default {
     }
     .van-grid{
         margin: 10px 0;
-        .van-grid-item .van-grid-item__content{
-            padding: 5px 8px;
-        }
     }
-
-
 }
-
-
-
-
 </style>
