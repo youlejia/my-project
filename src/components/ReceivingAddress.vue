@@ -7,8 +7,8 @@
 			<div class="address_count">
 				<div class="count_img"><img src="../assets/image/shdz.png" alt="" /></div>
 				<div class="address_dz">
-					<div class="dz">曼哈顿18号楼2单元2304</div>
-					<div class="user_name"><span>米岚</span>18768888888</div>
+					<div class="dz">{{address}}</div>
+					<div class="user_name"><span>{{name}}</span>{{mobile}}</div>
 				</div>
 				<!--<div class="exit">修改</div>-->
 			</div>
@@ -103,6 +103,8 @@
 				}
 				.address_dz {
 					display: inline-block;
+					position: absolute;
+					top: 15px;
 					.dz {
 						font-size: 14px;
 						font-weight: 600;

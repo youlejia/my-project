@@ -2,31 +2,31 @@
     <div class="team all pt20">
         <h2>团队</h2>
         <div class="team-user">
-            <div class="fl"><img src="../assets/image/user_portrait.png" alt=""></div>
+            <div class="fl"><img :src="user.portrait" alt=""></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/user_vip.png" alt="">
-                    刘瑞琪
+                    {{user.username}}
                 </p>
-                <p class="ml10 c-fff">1876888888</p>
+                <p class="ml10 c-fff">{{user.phone}}</p>
             </div>
         </div>
         <div class="team-number">
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>团队人数</span>
-                <span class="f18 ml5 c-2e81f3">77</span>
+                <span class="f18 ml5 c-2e81f3">{{teamNum}}</span>
             </div>
             <van-grid :column-num="3" :border='false'>
                 <van-grid-item>
-                    <p slot="default" class="hy">58</p>
+                    <p slot="default" class="hy">{{underUmbrellaNum}}</p>
                     <p>伞下会员</p>
                 </van-grid-item>
                 <van-grid-item to="/MyDirectPush">
-                    <p slot="default" class="hy">19</p>
+                    <p slot="default" class="hy">{{directPushNum}}</p>
                     <p>直推会员</p>
                 </van-grid-item>
                 <van-grid-item>
-                    <p slot="default" class="hy">27600</p>
+                    <p slot="default" class="hy">{{earnings}}</p>
                     <p>累计收益(元)</p>
                 </van-grid-item>
                
@@ -39,11 +39,11 @@
             </div>
             <van-grid :column-num="2" :border='false'>
                 <van-grid-item>
-                    <p slot="default" class="hy">6000</p>
+                    <p slot="default" class="hy">{{currentSalary}}</p>
                     <p>目前工资(元)</p>
                 </van-grid-item>
                 <van-grid-item text="文字">
-                    <p slot="default" class="hy">9000</p>
+                    <p slot="default" class="hy">{{lowerSalary}}</p>
                     <p>下一档工资(元)</p>
                 </van-grid-item>
             </van-grid>
@@ -52,15 +52,15 @@
         <div class="team-number">
             <p class="fb f14">我的邀请人</p>
             <div class="team-user yqr">
-                <div class="fl"><img src="../assets/image/user_portrait.png" alt=""></div>
+                <div class="fl"><img :src="superiorUser.superiorPortrait" alt=""></div>
                 <div class="user-n mt10">
                     <p class="c-ff5000 f14">
                         <img src="../assets/image/user_vip.png" alt="">
-                        刘瑞琪
+                        {{superiorUser.superiorName}}
                     </p>
                     <p>
                         <img src="../assets/image/phone.png" alt="">
-                        1876888888
+                        {{superiorUser.superiorPhone}}
                     </p>
                 </div>
             </div>
@@ -73,17 +73,32 @@
 
 <script>
 
-export default {
- 
-  data() {
-    return {
-    }
-      
-  },
-  methods: {
-  },
-  
+export default { 
+    data() {
+        return {
+            user: {//用户
+                id: 0,
+                portrait: require('../assets/image/user_portrait.png'),
+                username: "刘瑞琪",
+                phone:1876888888
+            },  
+            currentSalary:6000,
+            lowerSalary:9000,
+            teamNum:77,
+            underUmbrellaNum:58,
+            directPushNum:19,
+            earnings:27600,
+            superiorUser:{//上级用户
+                superiorId:0,
+                superiorPortrait: require('../assets/image/user_portrait.png'),
+                superiorName: "刘瑞琪",
+                superiorPhone:1876888888
+            }
+        }    
+    },
+    methods: {
 
+    },
 }
 </script>
 

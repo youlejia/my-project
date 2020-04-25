@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div class="card_quan">
-					<div class="quan_zhang">3</div>
+					<div class="quan_zhang">{{user.maintain}}</div>
 					<div class="quan_name">我的保养卡</div>
 				</div>
 			</div>
@@ -81,7 +81,8 @@
 					username: "刘瑞琪",
 					lv: "Lv1",
 					vip: "普通会员",
-					balance: "2400.00"
+					balance: "2400.00",
+					maintain:0
 				},
 				List:[
 					{

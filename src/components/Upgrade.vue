@@ -46,7 +46,7 @@
         <van-radio-group v-model="radioHorizontal" direction="horizontal">
           <van-radio name="1"><img src="../assets/image/zfb.png" alt=""></van-radio>
           <van-radio name="2"><img src="../assets/image/vxzf.png" alt=""></van-radio><br>
-          <van-radio name="3" class="mt15 f14">账户余额（¥<span>26730.00</span>）</van-radio>
+          <van-radio name="3" class="mt15 f14">账户余额（¥<span>{{balance}}</span>）</van-radio>
         </van-radio-group>
         <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25">立即开通</van-button>
         <p class="tc mt10">只有VIP用户拥有升级代理权限</p>
@@ -62,6 +62,7 @@ export default {
       istrue: 0,
       showEagleMap: true,
       radioHorizontal: '1',
+      balance: "26730.00",
       list:[
         {
           grade:'LEVEL 3',
