@@ -13,7 +13,7 @@
         </van-grid>
         <div class="home-box">
             <span class="fl"><i></i>以科技创新提升能源效益，助力全</span>
-            <span class="fr mr20"><b class="pr10">|</b>更多</span>
+            <span @click="$router.push('/Notice')" class="fr mr20"><b class="pr10">|</b>更多</span>
         </div>
         <div class="home-recommend mt25">
             <div class="title-s">
