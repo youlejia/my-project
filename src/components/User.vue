@@ -63,7 +63,7 @@
 		</van-cell>
 		<!--</van-cell-group>-->
 		<div class="user_but">
-			<van-button size="large">退出登录</van-button>
+			<van-button size="large"  @click="Logout">退出登录</van-button>
 		</div>
 	</div>
 </template>
@@ -106,6 +106,12 @@
 			},
 			setUp(){
 				this.$router.push('/Changeinfo');
+			},
+			Logout(){
+				setTimeout(() => {
+					localStorage.removeItem('Authorization');
+					this.$router.push('/login');
+				},1000)
 			}
 		}
 	}
