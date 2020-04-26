@@ -38,7 +38,7 @@ export default {
         return{
             background_image: require('../assets/image/download.png'),
             selection:0,
-            link: 'https://baidu.com',
+            link: 'https://www.baidu.com',
             links: 'https://www.jianshu.com'
         }
     },
