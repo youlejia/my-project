@@ -81,7 +81,7 @@ export default {
         .top{
             background: linear-gradient(top,#2E81F3,rgba(76, 177, 255, 0.05));
             img{
-                width: 145px;
+                width: 120px;
                 height: 52px;
                 margin: 0 auto;
                 padding: 100px 0;
