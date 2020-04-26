@@ -56,9 +56,6 @@ export default {
                 width: 124,
                 height: 124,        // 高度
                 text:  this.link,   // 二维码内容
-                render: 'canvas' ,   // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
-                background: '#f0f',   // 背景色
-                foreground: '#ff0'    // 前景色
             })
         },
         qrcodes () {
@@ -67,9 +64,6 @@ export default {
                 width: 124,
                 height: 124,        // 高度
                 text:  this.links,   // 二维码内容
-                render: 'canvas' ,   // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
-                background: '#f0f',   // 背景色
-                foreground: '#ff0'    // 前景色
             })
         }
     },
@@ -84,7 +78,6 @@ export default {
 
 <style lang="less" scoped="scoped">
     .download{
-        // background: linear-gradient(top,#2E81F3,#4CB1FF);
         .top{
             background: linear-gradient(top,#2E81F3,rgba(76, 177, 255, 0.05));
             img{
@@ -104,11 +97,6 @@ export default {
             .imgs{
                 text-align: center;
                 margin:10px 0 25px 0;
-                img{
-                    width: 134px;
-                    height: 134px;
-                    margin: 0 auto;
-                }
                 .qr{
                     width: 134px;
                     height: 134px;
