@@ -58,7 +58,7 @@
 		<van-cell title="我的银行卡" to='MyBankCard'>
 			<template slot="icon"><img src="../assets/image/user_yhk.png" /></template>
 		</van-cell>
-		<van-cell title="APP下载" :border="false">
+		<van-cell title="APP下载" to='/download' :border="false">
 			<template slot="icon"><img src="../assets/image/user_xz.png" /></template>
 		</van-cell>
 		<!--</van-cell-group>-->

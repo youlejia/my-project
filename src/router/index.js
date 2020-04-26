@@ -27,6 +27,7 @@ import Store from '@/components/Store' //门店
 import OilCardOrder from '@/components/OilCardOrder' //油卡订单
 import MemberAgreement from '@/components/MemberAgreement' //会员协议
 import Notice from '@/components/Notice' //公告
+import download from '@/components/Download'
 Vue.use(Router)
 
 const router = new Router({
@@ -169,6 +170,10 @@ const router = new Router({
       path: '/Notice',
       component: Notice,
       meta:{title:'公告',header:true,requireAuth: true,},
+    },
+    {
+      path: '/download',
+      component: download,
     },
   ]
 })
