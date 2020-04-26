@@ -16,7 +16,6 @@
                 />
                 <van-field
                     v-model="number"
-                    type="password"
                     name="验证码"
                     placeholder="请输入验证码"
                    
@@ -30,9 +29,15 @@
                 </van-field>
                 <van-field
                     v-model="codeNumber"
-                    type="password"
                     name="邀请码"
                     placeholder="邀请码"
+                   
+                />
+                <van-field
+                    v-model="password"
+                    type="password"
+                    name="密码"
+                    placeholder="请输入密码"
                    
                 />
                 <div style="margin-top: 45px;">
@@ -59,9 +64,10 @@ export default {
             phone: '',
             number: '',
             codeNumber:'',
+            password:'',
             content: '发送验证码',
             totalTime: 60,
-            canClick: true
+            canClick: true,
         };
     },
     methods: {
@@ -82,13 +88,25 @@ export default {
                     this.totalTime = 60
                     this.canClick = true
                 }
-            },1000)
+            },1000);
+            var params = { 
+                mobile:this.phone,
+            };
+            this.$axios.post('api/sms',params).then( res=>{
+                console.log(res)
+            }).catch( error=>{
+            　　console.log(error);
+            });
         },
         onSubmit() {
             var params = { 
-                phone:this.phone,
-                number:this.number,
-                codeNumber:this.codeNumber
+                // phone:this.phone,
+                // number:this.number,
+                // codeNumber:this.codeNumber
+                mobile:this.phone,
+                sms:this.number,
+                password:"123456",
+                parent_id:this.codeNumber
             };
             if(!(/^1[34578]\d{9}$/.test(this.phone))){
                 this.$toast('请输入正确的手机号格式');
@@ -97,8 +115,8 @@ export default {
             }else if(this.codeNumber == ''){
                  this.$toast('请输入正确的邀请码');
             }else{
-                this.$axios.post('/register',params).then( res=>{
-                    this.$router.push('/certification')
+                this.$axios.post('api/register',params).then( res=>{
+                    // this.$router.push('/certification')
                     console.log(res)
                 }).catch( error=>{
                 　　console.log(error);
