@@ -14,6 +14,7 @@
                     name="手机号"
                     placeholder="请输入手机号"
                 />
+                
                 <van-field
                     v-model="number"
                     type="password"
