@@ -67,9 +67,9 @@ export default {
                             this.changeLogin({ Authorization: this.userToken });
                             this.$toast(res.data.msg)
                             this.$router.push('/')
-                    } else {
-                        this.$toast(res.data.msg)
-                    }
+                        } else {
+                            this.$toast(res.data.msg)
+                        }
                 })
             }
             

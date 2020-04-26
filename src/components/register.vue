@@ -14,7 +14,6 @@
                     name="手机号"
                     placeholder="请输入手机号"
                 />
-                
                 <van-field
                     v-model="number"
                     type="password"
@@ -24,7 +23,8 @@
                 >
                     <template #button>
                         <span>|</span>
-                        <van-button size="small" type="default" style="border: none;">发送验证码</van-button>
+                        <van-button size="small" type="default" style="border: none;" @click="send">{{content}}</van-button>
+                       
                     </template>
                 
                 </van-field>
@@ -58,13 +58,55 @@ export default {
         return {
             phone: '',
             number: '',
-            codeNumber:''
+            codeNumber:'',
+            content: '发送验证码',
+            totalTime: 60,
+            canClick: true
         };
     },
     methods: {
+        send(){
+            if(!(/^1[34578]\d{9}$/.test(this.phone))){
+                this.$toast('请输入正确的手机号格式');
+                return false;
+            }
+            if (!this.canClick) return
+            this.canClick = false
+            this.content = '剩余'+ this.totalTime + '秒'
+            let clock = window.setInterval(() => {
+                this.totalTime--
+                this.content = '剩余'+ this.totalTime + '秒'
+                if (this.totalTime < 0) {
+                    window.clearInterval(clock)
+                    this.content = '重新发送验证码'
+                    this.totalTime = 60
+                    this.canClick = true
+                }
+            },1000)
+        },
         onSubmit() {
+            var params = { 
+                phone:this.phone,
+                number:this.number,
+                codeNumber:this.codeNumber
+            };
+            if(!(/^1[34578]\d{9}$/.test(this.phone))){
+                this.$toast('请输入正确的手机号格式');
+            }else if(this.number == ''){
+                this.$toast('请输入手机验证码！');
+            }else if(this.codeNumber == ''){
+                 this.$toast('请输入正确的邀请码');
+            }else{
+                this.$axios.post('/register',params).then( res=>{
+                    this.$router.push('/certification')
+                    console.log(res)
+                }).catch( error=>{
+                　　console.log(error);
+                });
+            }
             
-       
+            
+            
         },
     },
 }
