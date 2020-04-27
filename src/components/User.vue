@@ -61,7 +61,6 @@
 		<van-cell title="APP下载" to='/download' :border="false">
 			<template slot="icon"><img src="../assets/image/user_xz.png" /></template>
 		</van-cell>
-		<!--</van-cell-group>-->
 		<div class="user_but">
 			<van-button size="large"  @click="Logout">退出登录</van-button>
 		</div>
