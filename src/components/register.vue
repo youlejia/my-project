@@ -115,8 +115,6 @@ export default {
                 this.$axios.post('api/register',params).then( res=>{
                     this.$router.push('/certification')
                     console.log(res)
-                }).catch( error=>{
-                
                 });
             }
          },

@@ -104,7 +104,8 @@ export default {
                 }
             ],
             images: [], 
-            items:[]  
+            items:[],
+            id:0  
         }
         
     },
@@ -117,18 +118,23 @@ export default {
                 if (res.status == 200){
                     this.images = res.data.banners;
                     this.items = res.data.items;
+                    this.id = res.data.id;
                 }
             }).catch( error=>{
             　　console.log(error);
             });
         },
     addTo(){
-        this.$router.push('/AddTo');
-        // this.$axios.post('api/goodDetail').then((res) => {
-        //    console.log(res+"====");
-        // }).catch( error=>{
-        // 　　console.log(error);
-        // });
+        //this.$router.push('/AddTo');
+        var params = {
+            id:this.id,
+            goodId:4
+        }
+        this.$axios.post('api/goodDetail',params).then((res) => {
+           console.log(res+"====");
+        }).catch( error=>{
+        　　console.log(error);
+        });
     },
     fuelCard(){
         this.$router.push('/FuelCard');

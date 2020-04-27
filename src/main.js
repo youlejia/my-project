@@ -69,6 +69,29 @@ axios.interceptors.request.use(
    return Promise.error(error); 
 })
 
+// 响应拦截
+axios.interceptors.response.use(res => {
+  // 对响应数据做处理
+  console.log(res.status+"999999999999")
+  if (res.status === 422 && res.data) {
+    let error
+    if (res.data.error) {
+      error = res.data.error
+    } else {
+      let errors = res.data.errors
+      for (var key in errors) {
+        error = errors[key][0]
+        break
+      }
+    }
+    if (error) Toast(error)
+  }
+  return res;
+
+}, error => {
+  return Promise.reject(error); // 对响应错误做处理
+})  
+
 new Vue({
   el: '#app',
   router,
