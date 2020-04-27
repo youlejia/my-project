@@ -100,12 +100,9 @@ export default {
         },
         onSubmit() {
             var params = { 
-                // phone:this.phone,
-                // number:this.number,
-                // codeNumber:this.codeNumber
                 mobile:this.phone,
                 sms:this.number,
-                password:"123456",
+                password:this.password,
                 parent_id:this.codeNumber
             };
             if(!(/^1[34578]\d{9}$/.test(this.phone))){
