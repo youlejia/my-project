@@ -28,6 +28,8 @@ import OilCardOrder from '@/components/OilCardOrder' //油卡订单
 import MemberAgreement from '@/components/MemberAgreement' //会员协议
 import Notice from '@/components/Notice' //公告
 import download from '@/components/Download'
+import Cooperation from '@/components/Cooperation'
+import Customer from '@/components/Customer'
 Vue.use(Router)
 
 const router = new Router({
@@ -174,6 +176,14 @@ const router = new Router({
     {
       path: '/download',
       component: download,
+    },
+    {
+      path: '/Cooperation',
+      component: Cooperation,
+    },
+    {
+      path: '/Customer',
+      component: Customer,
     },
   ]
 })

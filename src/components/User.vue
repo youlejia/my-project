@@ -49,10 +49,10 @@
 		<van-cell title="会员协议" to='/MemberAgreement'>
 			<template slot="icon"><img src="../assets/image/user_xy.png" /></template>
 		</van-cell>
-		<van-cell title="商务合作" to=''>
+		<van-cell title="商务合作" to='/Cooperation'>
 			<template slot="icon"><img src="../assets/image/user_hz.png" /></template>
 		</van-cell>
-		<van-cell title="联系客服" to=''>
+		<van-cell title="联系客服" to='/Customer'>
 			<template slot="icon"><img src="../assets/image/user_kf.png" /></template>
 		</van-cell>
 		<van-cell title="我的银行卡" to='MyBankCard'>

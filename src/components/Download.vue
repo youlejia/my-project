@@ -1,5 +1,8 @@
 <template>
     <div class="download">
+        <div class="left"  @click="goback()">
+            <van-icon name="arrow-left" size='18px' color="#fff" />
+        </div>
         <div class="top">
             <img src="../assets/image/top.png" alt="">
         </div>
@@ -65,6 +68,9 @@ export default {
                 height: 124,        // 高度
                 text:  this.links,   // 二维码内容
             })
+        },
+        goback(){
+            this.$router.go(-1);
         }
     },
     mounted(){
@@ -78,6 +84,11 @@ export default {
 
 <style lang="less" scoped="scoped">
     .download{
+        .left{
+            position: absolute;
+            top: 12px;
+            left: 15px;
+        }
         .top{
             background: linear-gradient(top,#2E81F3,rgba(76, 177, 255, 0.05));
             img{
