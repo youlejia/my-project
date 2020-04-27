@@ -1,14 +1,14 @@
 <template>
   <div class="home pt20 all">
         <h2>HEY! 油乐嘉</h2>
-        <div class="mt10">
+        <div class="mt10 top">
             <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-                <!-- <van-swipe-item  v-for="(image, index) in images" :key="index">
+                <van-swipe-item  v-for="(image, index) in images" :key="index">
                     <img :src="image" alt="">
-                </van-swipe-item> -->
+                </van-swipe-item>
+                <!-- <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
                 <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
-                <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
-                <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
+                <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item> -->
             </van-swipe>
         </div>
         <van-grid :gutter="4" :border="false">
@@ -136,6 +136,14 @@ export default {
 </style>
 <style lang="less" scoped="scoped">
 .home{
+    .top{
+        .van-swipe{
+            img{
+                height: 140px;
+                border-radius: 8px;
+            }
+        }
+    }
     .home-box{
         width:100%;
         height:45px;
