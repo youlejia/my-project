@@ -113,10 +113,10 @@ export default {
                  this.$toast('请输入正确的邀请码');
             }else{
                 this.$axios.post('api/register',params).then( res=>{
-                    // this.$router.push('/certification')
+                    this.$router.push('/certification')
                     console.log(res)
                 }).catch( error=>{
-                　　console.log(error);
+                
                 });
             }
          },

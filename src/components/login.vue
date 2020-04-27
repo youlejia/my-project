@@ -75,7 +75,9 @@ export default {
                     } else {
                         this.$toast(res.data.msg)
                     }
-                })
+                }).catch( error=>{
+                　　this.$toast("账号或用户名错误！")
+                });
             }
             
 
