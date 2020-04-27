@@ -103,7 +103,8 @@ export default {
                     icon:require('../assets/image/icon_08.png')
                 }
             ],
-            images: [],   
+            images: [], 
+            items:[]  
         }
         
     },
@@ -115,6 +116,7 @@ export default {
             this.$axios.post('api/index').then((res) => {
                 if (res.status == 200){
                     this.images = res.data.banners;
+                    this.items = res.data.items;
                 }
             }).catch( error=>{
             　　console.log(error);
@@ -122,6 +124,11 @@ export default {
         },
     addTo(){
         this.$router.push('/AddTo');
+        // this.$axios.post('api/goodDetail').then((res) => {
+        //    console.log(res+"====");
+        // }).catch( error=>{
+        // 　　console.log(error);
+        // });
     },
     fuelCard(){
         this.$router.push('/FuelCard');
