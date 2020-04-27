@@ -66,17 +66,18 @@ export default {
                         'scope': ''
                     //}
                 }).then((res) => {
-                    console.log(res.status)
+                    console.log(res)
                     if(res.status == 200){
                         this.userToken = 'Bearer ' + res.data.access_token;
                         this.changeLogin({ Authorization: this.userToken });
                         this.$toast(res.data.msg)
-                        this.$router.push('/')
+                         console.log(res)
+                        // this.$router.push('/')
                     } else {
-                        this.$toast(res.data.msg)
+                        this.$toast(res.data.message)
                     }
                 }).catch( error=>{
-                　　this.$toast("账号或用户名错误！")
+                　　
                 });
             }
             
