@@ -10,7 +10,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
 //mock
-require('./mock/mock.js')
+//require('./mock/mock.js')
 
 //axios
 import axios from 'axios'

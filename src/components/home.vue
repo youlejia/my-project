@@ -3,6 +3,9 @@
         <h2>HEY! 油乐嘉</h2>
         <div class="mt10">
             <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+                <!-- <van-swipe-item  v-for="(image, index) in images" :key="index">
+                    <img :src="image" alt="">
+                </van-swipe-item> -->
                 <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
                 <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
                 <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
@@ -99,13 +102,24 @@ export default {
                     text:'敬请期待' ,
                     icon:require('../assets/image/icon_08.png')
                 }
-            ]
-                
+            ],
+            images: [],   
         }
         
     },
-  methods: {
-
+    mounted(){
+        this.initData();
+    },
+    methods: {
+        initData(){
+            this.$axios.post('api/index').then((res) => {
+                if (res.status == 200){
+                    this.images = res.data.banners;
+                }
+            }).catch( error=>{
+            　　console.log(error);
+            });
+        },
     addTo(){
         this.$router.push('/AddTo');
     },

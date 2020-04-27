@@ -56,20 +56,25 @@ export default {
             if(this.username === '' || this.password === ''){
                 this.$toast('账号或密码不能为空') 
             }else{
-                this.$axios.post('/login',{
-                    data:{
-                        username:this.username,   // 登录名
-                        password:this.password,  // 登录密码
-                    }
+                this.$axios.post('api/oauth/token',{
+                    // data:{
+                        'grant_type': 'password',
+                        'client_id': '2',
+                        'client_secret': 'u2vxPEC7scHT79djwP7gsN7oY4ZoJC8WDHvwzO2D',
+                        'username':this.username,   // 登录名
+                        'password':this.password,  // 登录密码
+                        'scope': ''
+                    //}
                 }).then((res) => {
-                    if(res.data.status == 200){
-                            this.userToken = 'Bearer ' + res.data.data.token;
-                            this.changeLogin({ Authorization: this.userToken });
-                            this.$toast(res.data.msg)
-                            this.$router.push('/')
-                        } else {
-                            this.$toast(res.data.msg)
-                        }
+                    console.log(res.status)
+                    if(res.status == 200){
+                        this.userToken = 'Bearer ' + res.data.access_token;
+                        this.changeLogin({ Authorization: this.userToken });
+                        this.$toast(res.data.msg)
+                        this.$router.push('/')
+                    } else {
+                        this.$toast(res.data.msg)
+                    }
                 })
             }
             
