@@ -8,14 +8,14 @@
         </div>
         <div class="login-box">
             <h2>实名认证</h2>
-            <van-form @submit="onSubmit" class="mt20">
+            
                 <van-field
                     v-model="username"
                     name="用户名"
                     placeholder="姓名"
                 />
                 <van-field
-                    v-model="password"
+                    v-model="idnumber"
                     type="password"
                     name="身份证号码"
                     placeholder="身份证号码"
@@ -30,12 +30,12 @@
                
                 
                 <div style="margin-top: 45px;">
-                    <van-button round block type="info" native-type="submit" color="linear-gradient(to right, #2E81F3, #4CB1FF)">
+                    <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" @click="onSubmit">
                         确认并注册
                     </van-button>
                 </div>
                 
-            </van-form>
+            
         </div>
         <div>
             <router-link to='' class="lxkf">联系客服</router-link>
@@ -50,13 +50,24 @@ export default {
     data() {
         return {
             username: '',
-            password: '',
+            idnumber: '',
             radio: '1'
         };
     },
     methods: {
-        onSubmit(values) {
-        console.log('submit', values);
+        onSubmit() {
+            var params={
+                id: this.id,
+                username:this.username,
+                idnumber:this.id_card,
+            }
+             this.$axios.post('api/real',params).then(res=>{
+                console.log(res)
+
+            })
+            .catch( error=>{
+        　　　　
+        　　});
         },
     },
 }
