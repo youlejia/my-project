@@ -18,7 +18,7 @@
       </template>
     </van-swipe>
     <div class="maintain-m">
-      <p class="f18 mt20">VIP专享折扣保养券<span class="fr c-2e81f3 f12 mt5">VIP特权立减50元现金</span></p>
+      <p class="f18 mt20"><span class="fr c-2e81f3 f12 mt5">VIP特权立减50元现金</span></p>
       <p style="color:#999999">购买之后在我的卡券中使用</p>
       <div class="label mt20 f14">
         <p>商品规格选择</p>
@@ -75,10 +75,15 @@ export default {
           "sold": "10"
         },
       ],
-      identity:"VIP"
+      identity:"VIP",
+      list:[]
     }   
   },
+  mounted(){
+    this.newDa()
+  },
   methods: {
+   
     onChange(index) {
       this.current = index;
     },

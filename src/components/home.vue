@@ -24,20 +24,11 @@
                 <span class="fr" style="color:#999">精品会员专享推荐</span>
             </div>
             <div>
-                <div class='recommend-l' @click="addTo()">
-                    <p class="f14 mb5">购买燃烧添加剂</p>
-                    <p>免费升级VIP会员</p>
+                <div class='recommend-l' @click="addTo(item.id)" v-for="item in items" :key="item.value">
+                    <p class="f14 mb5">{{item.name}}</p>
+                    <!-- <p>免费升级VIP会员</p> -->
                 </div>
-                <div class='recommend-r'>
-                    <div class='box' @click="addTo()">
-                        <p class="f14 mb5">汽车兴奋剂</p>
-                        <p>植物燃油添加剂</p>
-                    </div>
-                    <div class='box jyk' @click="fuelCard()">
-                        <p class="f14 mb5">加油卡7折</p>
-                        <p>VIP会员专享福利</p>
-                    </div>
-                </div>
+               
             </div>
         </div>
         <div class="clear"></div>
@@ -124,21 +115,10 @@ export default {
             　　console.log(error);
             });
         },
-    addTo(){
-        //this.$router.push('/AddTo');
-        var params = {
-            id:this.id,
-            goodId:4
+        addTo(id){
+            this.$router.push({name: 'AddTo',params:{id:id}})
         }
-        this.$axios.post('api/goodDetail',params).then((res) => {
-           console.log(res+"====");
-        }).catch( error=>{
-        　　console.log(error);
-        });
-    },
-    fuelCard(){
-        this.$router.push('/FuelCard');
-    }
+    
   }
 }
 </script>
@@ -185,27 +165,30 @@ export default {
         float: left;
         background:linear-gradient(133deg,rgba(76,177,255,1) 0%,rgba(76,177,255,0.3) 100%);
         height: 158px;
-        padding: 30px 0 0 20px;
+        text-align:center;
+        padding-top: 20px;
         box-sizing: border-box;
         color: #fff;
         border-radius: 6px;
     }
-    .recommend-r{
+    .recommend-l:nth-child(2){
         width:48%;
         float: right;
         color: #fff;
-        .box{
-            height: 75px;
-            background:linear-gradient(133deg,rgba(8,246,165,1) 0%,rgba(8,246,201,0.3) 100%);
-            padding: 16px 0 0 20px;
-            box-sizing: border-box;
-            border-radius: 6px
-        }
-        .box.jyk{
-            margin-top: 8px;
-            background:linear-gradient(133deg,rgba(245,192,85,1) 0%,rgba(245,192,85,0.3) 100%);
-        }
+        height: 75px;
+        background:linear-gradient(133deg,rgba(8,246,165,1) 0%,rgba(8,246,201,0.3) 100%);
+        box-sizing: border-box;
+        border-radius: 6px
     }
+    .recommend-l:nth-child(3){
+        width:48%;
+        float: right;
+        color: #fff;
+        height: 75px;
+        margin-top: 8px;
+        background:linear-gradient(133deg,rgba(245,192,85,1) 0%,rgba(245,192,85,0.3) 100%);
+    }
+   
     .usList a{
         margin-bottom: 10px;
         display: block;

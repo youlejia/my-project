@@ -71,7 +71,7 @@ axios.interceptors.response.use(response => {
   
   return response
 }, error => {
-  
+  // console.log(error.response)
   return Promise.resolve(error.response)
 })
 new Vue({

@@ -6,33 +6,52 @@
 			</div>
 			<div class="zhongbu">
 				<div class="yh_tx">
-					<img :src="user.portrait" alt="">
+					<img :src="userList.avatar" alt="">
 				</div>
 				<div class="yh_js">
-					<div class="yh_name">{{user.username}}</div>
+					<div class="yh_name">{{userList.name}}</div>
 					<div class="yh_c">
-						<div class="yh_dj">
+						<div class="yh_dj" v-if="userList.level_id >= 3">
 							<img src="../assets/image/user_vip.png" alt=""/>
 						</div>
-						<div class="yh_zh">{{user.vip}}</div>
+						<div class="yh_zh">{{userList.levelName}}</div>
 					</div>
 				</div>
 				<div class="card_quan">
-					<div class="quan_zhang">{{user.maintain}}</div>
+					<div class="quan_zhang">{{securities}}</div>
 					<div class="quan_name">我的保养卡</div>
 				</div>
 			</div>
 			<div class="head_bot">
 				<div class="ye_bt">账户余额</div>
-				<div class="ye_sy"> <span>¥</span>{{user.balance}}</div>
+				<div class="ye_sy"> <span>¥</span>{{userList.balance}}</div>
 				<div class="but" @click="balance()">查看详情</div>
 			</div>
 		</div>
 		<div class="user_dd">我的订单</div>
 		<van-grid :border="false" :column-num="3">
-			<van-grid-item v-for="item in List" :key="item.value" to='/CardOrder'>
-				<van-image :src="item.src" />
-				<p>{{item.text}}</p>
+			<van-grid-item to='/CardOrder'>
+				<div slot="default">
+					<img src="../assets/image/user_df.png" alt="">
+					<p class="tc">待发货</p>
+					<span class="num" v-if="userOrders.unship = 0">{{userOrders.unship}}</span>
+				</div>
+				
+			</van-grid-item>
+			<van-grid-item to='/CardOrder'>
+				<div>
+					<img src="../assets/image/user_ds.png" alt="">
+					<p>待收货</p>
+					<span class="num" v-if="userOrders.undelivery = 0">{{userOrders.undelivery}}</span>
+				</div>
+				
+			</van-grid-item>
+			<van-grid-item to='/CardOrder'>
+				<div>
+					<img src="../assets/image/user_wc.png" alt="">
+					<p>已完成</p>
+					<span class="num" v-if="userOrders.unpay = 0">{{userOrders.unpay}}</span>
+				</div>
 			</van-grid-item>
 		
 		</van-grid>
@@ -74,15 +93,9 @@
 				background_image: require('../assets/image/wd_bj.png'),
 				useric: require('../assets/image/user_setup.png'),
 				show: false,
-				user: {
-					id: 0,
-					portrait: require('../assets/image/user_portrait.png'),
-					username: "刘瑞琪",
-					lv: "Lv1",
-					vip: "普通会员",
-					balance: "2400.00",
-					maintain:0
-				},
+				userList:[],
+				userOrders:[],
+				securities:'',
 				List:[
 					{
 						text:'待发货',
@@ -99,7 +112,19 @@
 				]
 			}
 		},
+		mounted(){
+			this.$axios.post('api/user').then(res=>{
+				this.userList = res.data.user;
+				this.securities =res.data.securities;
+				this.userOrders = res.data.orders;
+				console.log(res)
+			})
+			.catch( error=>{
+		　　　　console.log(error);
+		　　});
+		},
 		methods:{
+			
 			balance(){
 				this.$router.push('/Mybalance');
 			},
@@ -254,6 +279,18 @@
 			margin-top: 28px;
 			padding-left: 5px;
 			font-weight: 600;
+		}
+		.num{
+			position: absolute;
+			top: 12px;
+			right: 26px;
+			background: #2e82f3;
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 100px;
+			color: #fff;
 		}
 		.van-cell {
 			font-size: 14px;

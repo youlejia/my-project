@@ -87,7 +87,8 @@ const router = new Router({
       component: FuelCard
     },
     {
-      path: '/AddTo',
+      name:'AddTo',
+      path: '/AddTo/:id',
       meta:{requireAuth: true,},
       component: AddTo
     },
