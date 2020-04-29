@@ -95,7 +95,7 @@ export default {
         goodId:this.$route.params.id,
         listGood:[],
         speci:[],
-        price:'149',
+        price:'',
     }
       
   },
@@ -111,6 +111,7 @@ export default {
         this.dataList = res.data.data;
         this.listGood=res.data.data.good;
         this.speci=res.data.data.speci;
+        this.price = res.data.data.speci[0].price
      
       }).catch( error=>{
       　　console.log(error);
@@ -120,18 +121,28 @@ export default {
       this.istrue=index;
       console.log(this.istrue)
       if(this.istrue == 0 ){
-        this.price='99'
+        this.price='149'
         
       }else{
-        this.price='49'
+        this.price='99'
       }
     },
-    goBuy(){
-      if(this.$route.params.id == 4 && this.dataList.user_level >= 3){
-        alert(2)
-      }else{
-         alert('请升级为vip才能购买')
-      }
+    goBuy(goodId){
+      this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price}});
+      
+        // var params = { 
+        //   goodId:this.goodId,
+        //   price:this.price,
+        //   num:2,
+        // };
+        // this.$axios.post('api/order/placeOrderEntity',params).then(res => {
+          
+        //   console.log(res)
+      
+        // }).catch( error=>{
+        // 　　console.log(error);
+        // });
+      
 
     },
     onChange(index) {

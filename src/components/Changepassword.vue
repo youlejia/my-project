@@ -105,8 +105,14 @@ export default {
                  this.$toast('请输入正确的邀请码');
             }else{
                 this.$axios.post('api/user/forgetPassword',params).then( res=>{
-                    // this.$router.push('/certification')
+                    
                     console.log(res)
+                    if(res.status == 200){
+                        this.$router.push('/login')
+                        this.$toast('修改成功')
+                    }else{
+                        this.$toast(res.data.message)
+                    }
                 }).catch( error=>{
                 　　console.log(error);
                 });

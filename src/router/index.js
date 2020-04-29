@@ -79,6 +79,7 @@ const router = new Router({
     },
     {
       path: '/GoodsOrder',
+      name:'GoodsOrder',
       meta:{title:'商品订单',header:true,requireAuth: true,},
       component: GoodsOrder
     },

@@ -117,7 +117,7 @@
 				this.userList = res.data.user;
 				this.securities =res.data.securities;
 				this.userOrders = res.data.orders;
-				console.log(res)
+				// console.log(res)
 			})
 			.catch( error=>{
 		　　　　console.log(error);
