@@ -45,7 +45,7 @@ export default {
         onRead(file){
                 var params = {
                     file:file.content,
-                    file:file.name
+                    name: file.file.name,
                 }
                 this.$axios.post('api/user/avatar', params).then(res=>{
                     this.$toast('修改成功');
