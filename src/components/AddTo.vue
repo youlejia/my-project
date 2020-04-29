@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="maintain-f">
-      <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)">立刻购买</van-button>
+      <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" @click="goBuy">立刻购买</van-button>
     </div>
 
   </div>
@@ -125,6 +125,14 @@ export default {
       }else{
         this.price='49'
       }
+    },
+    goBuy(){
+      if(this.$route.params.id == 4 && this.dataList.user_level >= 3){
+        alert(2)
+      }else{
+         alert('请升级为vip才能购买')
+      }
+
     },
     onChange(index) {
       this.current = index;

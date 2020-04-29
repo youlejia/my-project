@@ -30,6 +30,7 @@ import Notice from '@/components/Notice' //公告
 import download from '@/components/Download'
 import Cooperation from '@/components/Cooperation'
 import Customer from '@/components/Customer'
+import sdfds from '@/components/sdfds'
 Vue.use(Router)
 
 const router = new Router({
@@ -38,6 +39,11 @@ const router = new Router({
       path: '/',
       meta:{tabbar: true,requireAuth: true,},
       component: home
+    },
+    {
+      path: '/sdfds',
+    
+      component: sdfds
     },
     {
       path: '/home',
