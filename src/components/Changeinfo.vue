@@ -44,15 +44,17 @@ export default {
     methods: {
         onRead(file){
                 var params = {
-                    file:file.content
+                    file:file.content,
+                    name: file.file.name,
                 }
                 // params.append('upload', file.file)
                 console.log(file)
-                this.$axios.post('api/user/avatar', params, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                }).then(res=>{
+                // , {
+                //     headers: {
+                //         "Content-Type": "multipart/form-data"
+                //     }
+                // }
+                this.$axios.post('api/user/avatar', params).then(res=>{
                     console.log(params)
                     console.log(res)
                     // this.avatar = "/api"+ res.data.data.fileName;
