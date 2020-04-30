@@ -14,7 +14,7 @@
         </div> 
         <div class="address mt20" v-if="this.$route.query.goodId == 6">
             <div class="title-s" style="margin-bottom:0;">
-                <span class="fl f17 fb"><i></i>收货地址</span>
+                <span class="fl f17 fb"><i class="line"></i>收货地址</span>
             </div>
             <user-info :address="address" redirect="GoodsOrder" style="margin-bottom: 10px;"/>
 

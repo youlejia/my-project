@@ -1,10 +1,10 @@
 <template>
 	<div class="receivingAddress">
-	
-		<div class="address" v-for="item in addressList" :key="item.id">
-			<div class="time_count">
+		<van-radio-group v-model="default_address" @change="setDefaultAddress">
+		<div class="address mt20" v-for="item in addressList" :key="item.id">
+			<!-- <div class="time_count">
 				<span></span> 2020/04/10 20:16
-			</div>
+			</div> -->
 			<div class="address_count" @click="redirectUrl(item.id)">
 				<div class="count_img"><img src="../assets/image/shdz.png" alt="" /></div>
 				<div class="address_dz">
@@ -14,13 +14,12 @@
 			</div>
 			<van-cell-group>
 				<van-cell>
-					<van-radio-group v-model="default_address" @change="setDefaultAddress" slot="title">
-						<van-radio 
-						:name="item.id"
-						>
-						<span :class="item.is_default && 'red'">{{item.is_default ? ' 默认地址' : ' 设为默认'}}</span>
-						</van-radio>
-					</van-radio-group>
+					<van-radio 
+					:name="item.id"
+					slot="title">
+					<span :class="item.is_default && 'red'">{{item.is_default ? ' 默认地址' : ' 设为默认'}}</span>
+					</van-radio>
+					
 					<div>
 						<router-link
 							:to="{name: 'addressEdit', params: {addressId: item.id}}"
@@ -36,6 +35,7 @@
 				</van-cell>
 			</van-cell-group>
 		</div>
+		</van-radio-group>
 		<van-button class="bottom_btn" @click="setNewAddress" type="primary"  bottomAction color="#2E81F3">
 			添加地址
 		</van-button>
@@ -61,19 +61,26 @@
 			initData() {
 				this.$axios.post('api/address').then(res => {
 					if (res.status != 200) return
-					this.addressList =res.data.data
-					
-                }).catch( error=>{
+					this.setAddressList(res.data)
+				}).catch( error=>{
                 　　console.log(error);
                 });
 			},
-			
+			setAddressList(data) {
+				this.firstSet = true
+				this.addressList = data.data
+				console.log(data)
+				this.default_address = data.attributes.default
+				this.$nextTick(() => {
+					this.firstSet = false
+				});
+			},
 			setDefaultAddress(id){
 				if (this.firstSet) return
 				console.log(111)
 				this.$axios.post('api/address/setDefault',{id: id}).then(res => {
 					if (res.status != 200) return
-					this.setAddressList(res.data)
+      				this.setAddressList(res.data)
 				}).catch( error=>{
 				　　console.log(error);
 				});
@@ -93,10 +100,7 @@
 					.confirm({ message: "确定删除此收货地址吗?", cancelButtonText: "再想想" })
 					.then(async function() {
 						that.$axios.post('api/address/remove ',{id: id}).then(res => {
-							if (res.status = 200){
-						
-								this.initData();
-							}
+							that.setAddressList(res.data)
 							
 						}).catch( error=>{
 						　　console.log(error);

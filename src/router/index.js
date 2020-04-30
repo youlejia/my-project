@@ -23,6 +23,7 @@ import Mybalance from '@/components/Mybalance' //我的余额
 import MyBankCard from '@/components/MyBankCard' //我的银行卡
 import ReceivingAddress from '@/components/ReceivingAddress' //收货地址
 import UserAddressEdit from '@/components/UserAddressEdit' //新增收货地址
+import userBankAccountEdit from '@/components/userBankAccountEdit' //修改收货地址
 import Recharge from '@/components/Recharge' 
 import Store from '@/components/Store' //门店
 import OilCardOrder from '@/components/OilCardOrder' //油卡订单
@@ -174,6 +175,12 @@ const router = new Router({
       path: '/user/address/edit/:addressId', 
       name: 'addressEdit',
       component:UserAddressEdit,
+      meta:{title:'地址详情',header:true,requireAuth: true,},
+    },
+    {
+      path: '/user/bankAccount/edit/:id', 
+      name: 'userBankAccountEdit',
+      component:userBankAccountEdit,
       meta:{title:'地址详情',header:true,requireAuth: true,},
     },
     {

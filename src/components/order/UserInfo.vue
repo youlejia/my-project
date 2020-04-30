@@ -2,12 +2,13 @@
   <div class="user-info">
     <van-cell-group>
       <van-cell v-if="isAddress"
-        icon="user-dizhi" 
-        isLink 
-        :title="address.name + ' ' + address.tel" 
-        :label="'收货地址: ' + address.province + ' ' + address.city + ' ' + address.county + ' ' + address.addressDetail"
-        :to="toAddress()"
-      />
+      center 
+      is-link 
+      :label="address.province + address.city + address.county +address.addressDetail" 
+      :to="toAddress()"
+      >
+      <p slot="title">{{address.name}}<span> | </span>{{address.tel}}</p>
+      </van-cell>
        
       <van-cell v-else
         icon="add"
@@ -59,6 +60,9 @@ export default {
 .user-info{
   .van-address-list__add{
       line-height:24px;
+  }
+  .van-cell{
+      padding: 10px 0px;
   }
 }
 /* .user-info::after {
