@@ -30,14 +30,16 @@
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>订单信息提交</span>
             </div>
-            <van-cell-group v-if="this.$route.query.goodId == 6">
-                <van-field v-model="remarks" label="备注" input-align="right"/>
-            </van-cell-group>
-            <van-cell-group v-else>
+            
+            <van-cell-group v-if="this.$route.query.goodId == 5">
                 <van-cell title="姓名" value="刘瑞琪" />
                 <van-cell title="手机号" value="16515153689" />
                 <van-cell title="油卡卡号" value="1654 6416 9884 7987" />
             </van-cell-group>
+            <van-cell-group v-else>
+                <van-field v-model="remarks" label="备注" input-align="right"/>
+            </van-cell-group>
+           
         </div>
         <div class='mt20'>
             <div class="title-s" style="margin-bottom:20px;">
