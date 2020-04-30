@@ -16,19 +16,7 @@
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i></i>收货地址</span>
             </div>
-            <top-user-info/>
-            <!-- <van-cell-group>
-                <van-cell center is-link to="index" label="sdff" v-if="dataList.address">
-                    <p slot="title">asdsd<i style="margin:0 5px;">|</i><span class="f12">dd</span></p>
-                </van-cell>
-                <van-cell v-else
-                    icon="add"
-                    is-link
-                    class="van-address-list__add van-hairline--top"
-                    :title="'添加收货地址'"
-                    :to="toAddressAdd()"
-                />
-            </van-cell-group> -->
+            <user-info :address="address" redirect="GoodsOrder" style="margin-bottom: 10px;"/>
 
         </div>
         <div class='order_sub mt20'>
@@ -65,20 +53,10 @@
 </template>
 
 <script>
-import topUserInfo from "./order/top-user-info";
-export default {
-    components: {
-        topUserInfo: topUserInfo,
-    },
-    props: {
-        address: {
-        type: Object,
-        default: () => ({})
-        },
-        redirect: {
-        type: String,
-        default: ''
-        }
+import UserInfo from "./order/UserInfo";
+export default { 
+    components:{
+        UserInfo:UserInfo
     },
     
     data() {
@@ -112,7 +90,11 @@ export default {
         onChange(value) {
             this.$emit("payWayEvent", value)
         },
-       
+        toAddressAdd(){
+            let query = this.$route.query
+            query.redirect = this.redirect
+            return {name: 'addressEdit', params: {addressId: -1}, query: query}
+        },
         
     },
     filters: {
@@ -158,9 +140,8 @@ export default {
     .van-cell{
         padding: 10px 0;
     }
-    .van-address-list__add{
-        line-height:24px;
-    }
+    
+    
     .radioMore{
         .van-radio{
             width: 50%;

@@ -1,8 +1,5 @@
 <template>
   <div class="mall-cell">
-    <!-- <van-nav-bar title="地址详情" @click-left="$router.goBack()" >
-      <van-icon name="left" slot="left" style="font-size:16px;"/>
-    </van-nav-bar> -->
     <van-address-edit
       style="background-color: #fff;"
       :areaList="areaList"
@@ -46,24 +43,25 @@ export default {
    
 
     methods: {
-        save(){
-            if (this.isEdit) {
-                // const res = await this.$reqPost(this.$api.address_edit, data);
-                // if (res.status != 200) return
-                this.$toast.success('修改成功');
-            } else {
-                // const res = await this.$reqPost(this.$api.address_add, data);
-                // if (res.status != 200) return
-                // let query = this.$route.query
-                // if (query.redirect) {
-                // let redirect = query.redirect
-                // delete query.redirect
-                // query.addressId = res.data.id
-                // this.$router.push({name: redirect, query: query})
-                // } else {
-                // this.$router.goBack()
-                // }
-            }
+        save(data){
+            
+                this.$axios.post('api/address/add',data).then(res => {
+                    if (res.status != 200) return
+                    let query = this.$route.query
+                    if (query.redirect) {
+                        let redirect = query.redirect
+                        delete query.redirect
+                        query.addressId = res.data.id
+                        console.log(query)
+                        this.$router.push({name: redirect, query: query})
+                    } else {
+                        this.$router.go(-1);
+                    }
+            
+                }).catch( error=>{
+                　　console.log(error);
+                });
+            
 
         },
         onDelete(){
@@ -71,8 +69,17 @@ export default {
         },
         initData(){
 
-        }
+        },
+
 
   },
 }
 </script>
+<style lang="less" scoped="scoped">
+.mall-cell{
+    .van-address-edit{
+        padding: 0;
+    }
+}
+</style>
+

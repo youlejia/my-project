@@ -1,47 +1,45 @@
 <template>
 	<div class="receivingAddress">
-		<div class="address" v-if="address!==''">
+	
+		<div class="address" v-for="item in addressList" :key="item.id">
 			<div class="time_count">
 				<span></span> 2020/04/10 20:16
 			</div>
-			<div class="address_count">
+			<div class="address_count" @click="redirectUrl(item.id)">
 				<div class="count_img"><img src="../assets/image/shdz.png" alt="" /></div>
 				<div class="address_dz">
-					<div class="dz">{{address}}</div>
-					<div class="user_name"><span>{{name}}</span>{{mobile}}</div>
-				</div>
-				<!--<div class="exit">修改</div>-->
-			</div>
-		</div>
-		<div class="exit_address" v-if="address!==''">
-			<div class="address_title">收货地址修改</div>
-			<div class="address_c">
-				<van-field v-model="address" label="收货地址" input-align="right" />
-				<van-field v-model="name" label="姓名" input-align="right" />
-				<van-field v-model="mobile" label="电话号" input-align="right" />
-			</div>
-			<div class="but">保存</div>
-		</div>
-		<div class="addressadd" v-if="address==''">
-			<div class="time_count">
-				<span></span> 2020/04/10 20:16
-			</div>
-			<div class="address_add" @click="show=true">
-				<div class="count_img"><img src="../assets/image/shdz.png" alt="" /></div>
-				<div class="address_xz">
-					新增收货地址
+					<div class="dz">{{item.province}}{{item.city}}{{item.county}}{{item.addressDetail}}</div>
+					<div class="user_name"><span>{{item.name}}</span>{{item.tel}}</div>
 				</div>
 			</div>
+			<van-cell-group>
+				<van-cell>
+					<van-radio-group v-model="default_address" @change="setDefaultAddress" slot="title">
+						<van-radio 
+						:name="item.id"
+						>
+						<span :class="item.is_default && 'red'">{{item.is_default ? ' 默认地址' : ' 设为默认'}}</span>
+						</van-radio>
+					</van-radio-group>
+					<div>
+						<router-link
+							:to="{name: 'addressEdit', params: {addressId: item.id}}"
+							style="margin-right: 10px;">
+							<van-icon name="edit" />
+							编辑
+						</router-link>
+						<span @click="deleteAddress(item.id)">
+							<van-icon name="delete" />
+							删除
+						</span>
+					</div>
+				</van-cell>
+			</van-cell-group>
 		</div>
-		<van-popup class="popup" v-model="show">
-			<div class="address_title">添加收货地址</div>
-			<div class="address_c">
-				<van-field v-model="address" label="收货地址" placeholder="请输入收货地址"/>
-				<van-field v-model="name" label="姓名" placeholder="请输入姓名"/>
-				<van-field v-model="mobile" label="电话号" placeholder="请输入电话号"/>
-			</div>
-			<div class="but" @click="addAddress">添加</div>
-		</van-popup>
+		<van-button class="bottom_btn" @click="setNewAddress" type="primary"  bottomAction color="#2E81F3">
+			添加地址
+		</van-button>
+		
 	</div>
 </template>
 
@@ -49,17 +47,71 @@
 	export default {
 		data() {
 			return {
-				address:"曼哈顿18号楼2单元2304",//地址  如果为空时显示 只新增收货地址   不为空时显示地址和地址修改(隐藏新增)
-				name:"米岚",
-				mobile:"187 6888 8888",
-				show:false
+				addressList: [],
+				default_address: 0,
+				firstSet: true,
+				addressList: [],
 			}
 		},
+		created(){
+			this.initData();
+		},
 		methods: {
-			addAddress(){
-				this.show = false;
-			}
-		}
+		
+			initData() {
+				this.$axios.post('api/address').then(res => {
+					if (res.status != 200) return
+					this.addressList =res.data.data
+					
+                }).catch( error=>{
+                　　console.log(error);
+                });
+			},
+			
+			setDefaultAddress(id){
+				if (this.firstSet) return
+				console.log(111)
+				this.$axios.post('api/address/setDefault',{id: id}).then(res => {
+					if (res.status != 200) return
+					this.setAddressList(res.data)
+				}).catch( error=>{
+				　　console.log(error);
+				});
+			},
+			redirectUrl(id) {
+				let query = JSON.parse(JSON.stringify(this.$route.query));
+				if (query.redirect) {
+					query.addressId = id
+					let redirectName = query.redirect
+					delete query.redirect
+					this.$router.push({name: redirectName, query: query})
+				}
+			},
+			deleteAddress(id) {
+				let that = this
+				that.$dialog
+					.confirm({ message: "确定删除此收货地址吗?", cancelButtonText: "再想想" })
+					.then(async function() {
+						that.$axios.post('api/address/remove ',{id: id}).then(res => {
+							if (res.status = 200){
+						
+								this.initData();
+							}
+							
+						}).catch( error=>{
+						　　console.log(error);
+						});
+					})
+					
+				
+			},
+			setNewAddress() {
+				this.$router.push({ name: "addressEdit", params: { addressId: -1 } });
+			},
+			
+	
+		},
+		
 	}
 </script>
 
@@ -234,6 +286,12 @@
 				font-size: 13px;
 				font-weight: 600;
 			}
+		}
+		.bottom_btn {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%
 		}
 	}
 </style>
