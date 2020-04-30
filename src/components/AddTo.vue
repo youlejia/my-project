@@ -54,20 +54,6 @@
         
       </div>
     </div>
-      
-   
-    <!-- vip -->
-
-    <!-- <div class="maintain-m vip">
-      <p class="f18 mt20">油乐嘉植物燃油添加剂一箱</p>
-      <p style="color:#999999">购买即可享受折扣保养套餐及7折加油卡权限</p>
-      <div class="label mt20 f14">
-        <span class="f18 c-ff5000">￥1314.00</span>
-        <span class="fr">库存：996<span class="ml5">已售：78</span></span>
-      </div>
-      
-    </div> -->
-
     <div>
       <div class="title-s" style="width: 90%;margin:20px auto;">
           <span class="fl f17 fb"><i class="line"></i>商品详情</span>
@@ -129,21 +115,6 @@ export default {
     },
     goBuy(goodId){
       this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price}});
-      
-        // var params = { 
-        //   goodId:this.goodId,
-        //   price:this.price,
-        //   num:2,
-        // };
-        // this.$axios.post('api/order/placeOrderEntity',params).then(res => {
-          
-        //   console.log(res)
-      
-        // }).catch( error=>{
-        // 　　console.log(error);
-        // });
-      
-
     },
     onChange(index) {
       this.current = index;

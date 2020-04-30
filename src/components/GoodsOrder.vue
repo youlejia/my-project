@@ -16,14 +16,19 @@
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i></i>收货地址</span>
             </div>
-            <div v-if="dataList.address == null">
-                <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25">新增地址</van-button>
-            </div>
-            <van-cell-group v-else>
-                <van-cell center is-link to="index" label="sdff">
+            <top-user-info/>
+            <!-- <van-cell-group>
+                <van-cell center is-link to="index" label="sdff" v-if="dataList.address">
                     <p slot="title">asdsd<i style="margin:0 5px;">|</i><span class="f12">dd</span></p>
                 </van-cell>
-            </van-cell-group>
+                <van-cell v-else
+                    icon="add"
+                    is-link
+                    class="van-address-list__add van-hairline--top"
+                    :title="'添加收货地址'"
+                    :to="toAddressAdd()"
+                />
+            </van-cell-group> -->
 
         </div>
         <div class='order_sub mt20'>
@@ -60,7 +65,22 @@
 </template>
 
 <script>
-export default { 
+import topUserInfo from "./order/top-user-info";
+export default {
+    components: {
+        topUserInfo: topUserInfo,
+    },
+    props: {
+        address: {
+        type: Object,
+        default: () => ({})
+        },
+        redirect: {
+        type: String,
+        default: ''
+        }
+    },
+    
     data() {
         return {
             radioHorizontal:"1",
@@ -69,6 +89,7 @@ export default {
             dataList:[],
             gateways:[],
             goods:[],
+            address: {},
         }
         
         
@@ -80,6 +101,7 @@ export default {
             this.gateways=res.data.gateways;
             this.goods=res.data.goods;
             this.balance = res.data.gateways[0].balance;
+            this.address = res.data.address ? res.data.address : {} 
             console.log(res)
       
         }).catch( error=>{
@@ -88,8 +110,9 @@ export default {
     },
     methods: {
         onChange(value) {
-      this.$emit("payWayEvent", value)
-    }
+            this.$emit("payWayEvent", value)
+        },
+       
         
     },
     filters: {
@@ -134,6 +157,9 @@ export default {
     }
     .van-cell{
         padding: 10px 0;
+    }
+    .van-address-list__add{
+        line-height:24px;
     }
     .radioMore{
         .van-radio{
