@@ -22,7 +22,18 @@
       <p style="color:#999999">{{listGood.sell_point}}</p>
       <div class="label mt20 f14">
         <div v-if="this.$route.params.id == 6">
-          <span class="f18 c-ff5000" v-for="oitem in speci" :key="oitem.value">￥{{oitem.price}}.00</span>
+          <p>商品规格选择</p>
+          <ul class="mt10">
+              <li v-for="(oitem,index) in speci" :key="index" :class="{active:istrue==index}" @click="toolEventSlot(index)">
+                {{oitem.title}}
+                <input type="text" v-model='price' hidden>
+                <input type="text" v-model='goodsId' hidden>
+              </li>
+              
+          </ul>
+          <div class="clear"></div>
+          <span>共计：<span class="f18 c-ff5000">{{price}}</span></span>
+
           <span class="fr">库存：{{listGood.stock}}<span class="ml5">已售：{{listGood.sold_quantity}}</span></span>
         </div>
         <div v-if="this.$route.params.id == 4">
@@ -31,6 +42,7 @@
               <li v-for="(oitem,index) in speci" :key="index" :class="{active:istrue==index}" @click="toolEventSlot(index)">
                 {{oitem.title}}
                 <input type="text" v-model='price' hidden>
+                <input type="text" v-model='goodsId' hidden>
               </li>
               
           </ul>
@@ -76,12 +88,13 @@ export default {
   data() {
     return {
         current: 0,
-        istrue: 0,
+        istrue:0,
         id:0,
         goodId:this.$route.params.id,
         listGood:[],
         speci:[],
         price:'',
+        goodsId:''
     }
       
   },
@@ -98,23 +111,19 @@ export default {
         this.listGood=res.data.data.good;
         this.speci=res.data.data.speci;
         this.price = res.data.data.speci[0].price
-     
+        this.goodsId = res.data.data.speci[0].id
       }).catch( error=>{
       　　console.log(error);
       });
     },
     toolEventSlot(index){
       this.istrue=index;
-      console.log(this.istrue)
-      if(this.istrue == 0 ){
-        this.price='149'
-        
-      }else{
-        this.price='99'
-      }
+      this.goodsId = this.speci[index].id;
+      this.price = this.speci[index].price;
+      
     },
     goBuy(goodId){
-      this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price}});
+      this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
     },
     onChange(index) {
       this.current = index;
@@ -133,8 +142,9 @@ export default {
 
 <style>
 .maintain-m .label li{
-  width:31%;
+  /* width:31%; */
   margin-right: 3%;
+  padding: 0px 7px;
   height:26px;
   margin-bottom: 10px;
   line-height: 26px;

@@ -9,7 +9,7 @@
             :thumb="item.thumb"
             >
             <p slot="price">¥<span class="f16">{{item.price}}.00</span></p>
-            <p slot="footer" style="text-align:left;margin-top:10px;">订单号：{{dataList.trade_no}}</p>
+            <p slot="footer" style="text-align:left;margin-top:10px;">订单号：{{trade_no}}</p>
            </van-card>
         </div> 
         <div class="address mt20" v-if="this.$route.query.goodId == 6">
@@ -25,12 +25,14 @@
             </div>
             
             <van-cell-group v-if="this.$route.query.goodId == 5">
-                <van-cell title="姓名" value="刘瑞琪" />
-                <van-cell title="手机号" value="16515153689" />
-                <van-cell title="油卡卡号" value="1654 6416 9884 7987" />
+               
+                <van-field v-model="name" label="姓名" input-align="right" placeholder="请填写姓名"/>
+                <van-field v-model="phone" label="手机号" input-align="right" placeholder="请填写手机号"/>
+                <van-field v-model="card" label="油卡卡号" input-align="right"/>
+            
             </van-cell-group>
             <van-cell-group v-else>
-                <van-field v-model="remarks" label="备注" input-align="right"/>
+                <van-field v-model="remarks" label="备注" input-align="right" placeholder="请填写备注"/>
             </van-cell-group>
            
         </div>
@@ -38,74 +40,121 @@
             <div class="title-s" style="margin-bottom:20px;">
                 <span class="fl f17 fb"><i class="line"></i>支付方式</span>
             </div>
-            <van-radio-group v-model="payWay" @change="onChange">
+            <!-- <van-radio-group v-model="payWay" @change="onChange">
                 <div v-for="(item, i) in gateways" :key="i" class="radioMore">
-                    <van-radio v-if="item.key == 'balance'" name="1" :value='item.key'> {{item.name}} <span class="pay_way_balance">￥{{ item.balance }}</span> </van-radio>
-                    <van-radio v-else-if="item.key == 'wechat_weixin'" name="2" :value='item.key'><img src="../assets/image/vxzf.png" alt=""></van-radio>
-                    <van-radio v-else name="3" :value='item.key'><img src="../assets/image/zfb.png" alt=""></van-radio>
+                    <van-radio v-if="item.name == '支付宝'" :name="item.key"><img src="../assets/image/zfb.png" alt=""></van-radio>
+                    <van-radio v-else-if="item.key == 'balance'" :disabled="item.disabled" :name="item.key"> {{item.name}} <span class="pay_way_balance">￥{{ item.balance }}</span> </van-radio>
+                   
+                    <van-radio v-else :name="item.key"><img src="../assets/image/vxzf.png" alt=""></van-radio>
                 </div>
                 
-            </van-radio-group>
-            <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25">提交并支付</van-button>
+            </van-radio-group> -->
+            <pay-way :gateways="gateways" @payWayEvent="payWayEvent" />
+            <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25" @click="paySubmit">提交支付</van-button>
             <p class="tc mt10">如有问题请直接联系客服</p>
         </div>
     </div>
 </template>
 
 <script>
+import payWay from "./pay/way";
 import UserInfo from "./order/UserInfo";
 export default { 
     components:{
-        UserInfo:UserInfo
+        UserInfo:UserInfo,
+        [payWay.name]: payWay,
+
     },
     
     data() {
         return {
             radioHorizontal:"1",
-            payWay:'1',
-            remarks:'vvv',
+            payWay:'',
+            name:'',
+            phone:'',
+            card:'',
+            remarks:'',
             dataList:[],
             gateways:[],
             goods:[],
             address: {},
+            statuss:'',
+            addressId:'',
+            trade_no:''
         }
         
         
     },
     mounted(){
-        
         this.$axios.post('api/order/placeOrderEntity',this.$route.query).then(res => {
             this.dataList=res.data;
             this.gateways=res.data.gateways;
             this.goods=res.data.goods;
             this.balance = res.data.gateways[0].balance;
+            this.statuss = res.data.goods[0].statuss;
             this.address = res.data.address ? res.data.address : {} 
-            console.log(res)
-      
+            this.trade_no = res.data.trade_no
+            if(res.data.address){
+                this.addressId = res.data.address.id
+            }
         }).catch( error=>{
         　　console.log(error);
         });
     },
+   
     methods: {
-        onChange(value) {
-            this.$emit("payWayEvent", value)
-        },
         toAddressAdd(){
             let query = this.$route.query
             query.redirect = this.redirect
             return {name: 'addressEdit', params: {addressId: -1}, query: query}
         },
+       
+        paySubmit(){
+            var params={
+                statuss:this.statuss,
+                goodId:this.$route.query.goodId,
+                goodsId:this.$route.query.goodsId,
+                price:this.$route.query.price,
+                num:1,
+                addressId:this.addressId,
+                remark:this.remarks,
+                trade_no:this.trade_no,
+                type:this.payWay
+            }
+
+            this.$axios.post('api/order/paySub',params).then(res => {
+                if (res.status != 200) return
+                if (res.data.jump) {
+                    window.location = res.data.jump
+                } else if (res.data.router) {
+                    this.$router.push(res.data.router)
+                } else if (res.data.qrcode) {
+                    // console.log(res.data.qrcode)
+                    this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+                }else if (res.data.html) {
+                    const div = document.createElement('div') // 创建div
+                    div.innerHTML = res.data.html // 将返回的form 放入div
+                    document.body.appendChild(div)
+                    if (res.data.submitkey) {
+                    document.forms[res.data.submitkey].submit()
+                    }
+                } else {
+                    this.$toast.success('支付完成');
+                    setTimeout(() => {
+                    this.$router.push({ name: "user"})
+                    }, 500);
+                }
+            }).catch( error=>{
+            　　console.log(error);
+            });
+        },
+        payWayEvent(value) {
+            this.payWay = value
+        },
+
         
     },
-    filters: {
-        numFilter(value) {
-            let realVal = ''
-            if(value) {
-                realVal = parseFloat(value).toFixed(2)
-            }
-            return realVal
-        }
-    }
+    
 }
 </script>
 
@@ -141,14 +190,6 @@ export default {
         padding: 10px 0;
     }
     
-    
-    .radioMore{
-        .van-radio{
-            width: 50%;
-            float: left;
-            margin-bottom: 15px;
-        }
-    }
 }
 
 </style>

@@ -17,7 +17,7 @@
 						<div class="yh_zh">{{userList.levelName}}</div>
 					</div>
 				</div>
-				<div class="card_quan">
+				<div class="card_quan" @click="maintain">
 					<div class="quan_zhang">{{securities}}</div>
 					<div class="quan_name">我的保养卡</div>
 				</div>
@@ -30,27 +30,26 @@
 		</div>
 		<div class="user_dd">我的订单</div>
 		<van-grid :border="false" :column-num="3">
-			<van-grid-item to='/CardOrder'>
+			<van-grid-item  @click="$router.push({path: '/user/order/list/2'})">
 				<div slot="default">
 					<img src="../assets/image/user_df.png" alt="">
 					<p class="tc">待发货</p>
-					<span class="num" v-if="userOrders.unship = 0">{{userOrders.unship}}</span>
+					<span class="num" v-if="userOrders.unship ? userOrders.unship : ''">{{userOrders.unship}}</span>
 				</div>
 				
 			</van-grid-item>
-			<van-grid-item to='/CardOrder'>
+			<van-grid-item @click="$router.push({path: '/user/order/list/3'})">
 				<div>
 					<img src="../assets/image/user_ds.png" alt="">
 					<p>待收货</p>
-					<span class="num" v-if="userOrders.undelivery = 0">{{userOrders.undelivery}}</span>
+					<span class="num" v-if="userOrders.undelivery ? userOrders.undelivery : ''">{{userOrders.undelivery}}</span>
 				</div>
 				
 			</van-grid-item>
-			<van-grid-item to='/CardOrder'>
+			<van-grid-item  @click="$router.push({path: '/user/order/list/4'})">
 				<div>
 					<img src="../assets/image/user_wc.png" alt="">
 					<p>已完成</p>
-					<span class="num" v-if="userOrders.unpay = 0">{{userOrders.unpay}}</span>
 				</div>
 			</van-grid-item>
 		
@@ -90,6 +89,7 @@
 	export default {
 		data() {
 			return {
+				
 				background_image: require('../assets/image/wd_bj.png'),
 				useric: require('../assets/image/user_setup.png'),
 				show: false,
@@ -117,6 +117,7 @@
 				this.userList = res.data.user;
 				this.securities =res.data.securities;
 				this.userOrders = res.data.orders;
+				
 				// console.log(res)
 			})
 			.catch( error=>{
@@ -124,7 +125,11 @@
 		　　});
 		},
 		methods:{
+			maintain(){
 			
+			this.$router.push({ name: "MaintainCard", query:{id:this.userList.id}});
+				
+			},
 			balance(){
 				this.$router.push('/Mybalance');
 			},

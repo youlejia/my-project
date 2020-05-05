@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store/store'
 
+
 //Vuelidate
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
@@ -21,7 +22,7 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
-import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader} from 'vant'
+import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel } from 'vant'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
@@ -44,6 +45,8 @@ Vue.use(Tabs);
 Vue.use(CellGroup);
 Vue.use(Toast);
 Vue.use(Uploader);
+Vue.use(List);
+Vue.use(Panel);
 // Vue.use(AddressEdit);
 //css
 import './assets/css/style.css'

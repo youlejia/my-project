@@ -8,16 +8,21 @@
 
         <div class='gradeList'>
           <ul>
-            <li v-for='(item,index) in list' :key="index" :class="{active:istrue==index}" @click="toolEventSlot(index)">
+            <li 
+            v-for='(item,index) in list' 
+            v-if="index > 2"
+            :key="index" 
+            :class="{active:istrue==index}" 
+            @click="toolEventSlot(index)"
+            >
               <div class="pt25 f14">
-                <!-- <p class="c-ff5000 f12 mb5" v-if="showEagleMap">{{item.grade}}</p> -->
                 <p class="c-ff5000 f12 mb5 vsp" v-if="istrue==index">
                   <img class="imgs" src="../assets/image/vip3.png" alt="">
                 </p>
-                <p class="c-ff5000 f12 mb5" v-else>{{item.grade}}</p>
-                <p>{{item.grade_name}}</p>
+                <p class="c-ff5000 f12 mb5" v-else>LEVEL{{item.id}}</p>
+                <p>{{item.name}}</p>
               </div>
-              <div class="dlm">￥<span class="f18">{{item.grade_money}}</span></div>
+              <div class="dlm">￥<span class="f18">{{item.price}}</span></div>
             </li>
           </ul>
         </div>
@@ -43,51 +48,94 @@
         <div class="title-s">
           <span class="fl f17 fb"><i class="line"></i>支付方式</span>
         </div>
-        <van-radio-group v-model="radioHorizontal" direction="horizontal">
+        <pay-way :gateways="gateways" @payWayEvent="payWayEvent" />
+        <!-- <van-radio-group v-model="radioHorizontal" direction="horizontal">
           <van-radio name="1"><img src="../assets/image/zfb.png" alt=""></van-radio>
           <van-radio name="2"><img src="../assets/image/vxzf.png" alt=""></van-radio><br>
           <van-radio name="3" class="mt15 f14">账户余额（¥<span>{{balance}}</span>）</van-radio>
-        </van-radio-group>
-        <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25">立即开通</van-button>
+        </van-radio-group> -->
+        <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25" @click="subPay">立即开通</van-button>
         <p class="tc mt10">只有VIP用户拥有升级代理权限</p>
       </div>
     </div>
 </template>
 
 <script>
+import payWay from "./pay/way";
 export default {
-  name: 'App',
+  components:{
+  
+    [payWay.name]: payWay,
+
+  },
   data() {
     return {
-      istrue: 0,
+      istrue:3,
       showEagleMap: true,
       radioHorizontal: '1',
       balance: "26730.00",
-      list:[
-        {
-          grade:'LEVEL 3',
-          grade_name:'代理·助理',
-          grade_money:'3000'
-        },
-        {
-          grade:'LEVEL 4',
-          grade_name:'代理·乡镇',
-          grade_money:'5000'
-        },
-        {
-          grade:'LEVEL 5',
-          grade_name:'代理·县区',
-          grade_money:'10000'
-        }
-      ],
+      gateways:[],
+      list:{},
+      payWay:'',
+      id:'4',
+      userLevel:''
       
     };
   },
+  mounted(){
+    this.upgrade()
+  },
+
   methods: {
+    upgrade(){
+      this.$axios.post('api/up').then(res => {
+          if (res.status != 200) return
+          this.gateways=res.data.gateways;
+          this.list = res.data.upLevel
+          this.userLevel = res.data.userLevel
+          
+      }).catch( error=>{
+      　　console.log(error);
+      });
+    },
+    subPay(){
+      var params={
+        type:this.payWay,
+        id:this.id,
+      }
+      this.$axios.post('api/up/add',params).then(res => {
+          if (res.status != 200) return
+          if(this.userLevel == this.id){
+             this.$toast('当前等级不能升级');
+          }else{
+            if (res.data.qrcode) {
+              // console.log(res.data.qrcode)
+              this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+            }else if (res.data.html) {
+                const div = document.createElement('div') // 创建div
+                div.innerHTML = res.data.html // 将返回的form 放入div
+                document.body.appendChild(div)
+                if (res.data.submitkey) {
+                document.forms[res.data.submitkey].submit()
+                }
+            } else {
+                this.$toast.success('支付完成');
+            }
+          }
+          
+      }).catch( error=>{
+      　　console.log(error);
+      });
+    },
     toolEventSlot(index){
       this.istrue=index;
       this.showEagleMap = !this.showEagleMap;
-    }
+      this.id = this.list[index].id;
+      
+    },
+    payWayEvent(value) {
+      this.payWay = value
+    },
   }
 
 }

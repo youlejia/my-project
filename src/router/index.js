@@ -117,9 +117,9 @@ const router = new Router({
       meta:{tabbar: true,requireAuth: true,},
     },
     {
-      path: '/CardOrder',
+      path: '/user/order/list/:active',
       name:'CardOrder',
-      meta:{title:'油卡订单',header:true,requireAuth: true,},
+      meta:{title:'商品订单',header:true,requireAuth: true,},
       component: CardOrder,
     },
     {

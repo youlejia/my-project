@@ -1,27 +1,29 @@
 <template>
 	<div class="maintainCard all">
-        <div class="not-used mt10 mb20">
-            <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
+        <div class="not-used mt10 mb20" v-for="item in listCard">
+            <span class="f12 c-999"><i class="round"></i>{{item.updated_at}}</span>
             <div class="user-1 mt10">
-                <span><i></i>VIP专享折扣保养券 - 209级</span>
-                <button class="btn">使用</button>
-            </div>
-        </div>
-        <div class="not-used blue mt10 mb20">
-            <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
-            <div class="user-1 mt10">
-                <span><i></i>VIP专享折扣保养券 - 209级</span>
-                <button class="btn">使用</button>
+                <span><i></i>{{item.title}}</span>
+                <button class="btn" v-if="item.status==7">使用</button>
+                <button class="btn" v-else>已使用</button>
             </div>
             <div class="kjxq">
                 <div class="title-s" style="margin-bottom:0;">
                     <span class="fl fb"><i class="line"></i>卡券详情</span>
                 </div>
                 <van-cell-group>
-                    <van-cell title="购买时间" value="2020/04/10 20:16" />
-                    <van-cell title="卡券号" value="1657 3357 6864" />
+                    <van-cell title="购买时间" :value="item.created_at" />
+                    <van-cell title="卡券号" :value="item.card_coupons" />
                 </van-cell-group>
             </div>
+        </div>
+        <!-- <div class="not-used blue mt10 mb20">
+            <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
+            <div class="user-1 mt10">
+                <span><i></i>VIP专享折扣保养券 - 209级</span>
+                <button class="btn">使用</button>
+            </div>
+            
         </div>
         <div class="not-used green mt10 mb20">
             <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
@@ -29,7 +31,7 @@
                 <span><i></i>VIP专享折扣保养券 - 209级</span>
                 <button class="btn" style="border:1px solid #FF5000;color:#FF5000;">已使用</button>
             </div>
-        </div>
+        </div> -->
 		
 	</div>
 </template>
@@ -39,11 +41,27 @@
 		name:"atm",
 		data(){
 			return{
-				
+                id:this.$route.query.id,
+                listCard:{}
 			}
-		},
+        },
+        mounted(){
+            this.inData()
+        },
 		methods: {
-			
+            inData(){
+                var params={
+					id:this.id
+				}
+				this.$axios.post('api/user/main',params).then(res=>{
+                    this.listCard= res.data.data.data;
+					
+				})
+				.catch( error=>{
+			　　　　console.log(error);
+            　　});
+            }
+
 		},
 	}
 </script>
