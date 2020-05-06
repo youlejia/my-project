@@ -1,69 +1,5 @@
 <template>
-    <!-- <div class="cardorder all">
-        <van-tabs v-model="active" :border='false' line-height='0' title-active-color='#2E81F3'>
-            <van-tab title="待发货">
-                <div class="card-list" v-for="item in sendList" :key="item.value">
-                    <p>有任何问题请联系客服<span class="fr c-999">46431534341157</span></p>
-                    <van-card
-                    :num="item.num"
-                    :price="item.price"
-                    :desc="item.desc"
-                    :title="item.title"
-                    :thumb="item.thumb"
-                    />
-                    <div class="card-btn"><van-button round block plain type="info" size="small" >联系客服</van-button></div>
-                    <div class="clear"></div>
-                </div>
-                
-            </van-tab>
-            <van-tab title="待收货">
-                <div class="card-list" v-for="item in takeList" :key="item.value">
-                    <p>有任何问题请联系客服<span class="fr c-999">46431534341157</span></p>
-                    <van-card
-                    :num="item.num"
-                    :price="item.price"
-                    :desc="item.desc"
-                    :title="item.title"
-                    :thumb="item.thumb"
-                    />
-                    <p style="color:#666">快递单号：<span>65461561615337</span></p>
-                    <div class="card-btn"><van-button round block type="info" size="small" color="linear-gradient(to right, #2E81F3, #4CB1FF)">确认收货</van-button></div>
-                    <div class="card-btn"><van-button round block plain type="info" size="small" >联系客服</van-button></div>
-                    <div class="clear"></div>
-                </div>
-            </van-tab>
-            <van-tab title="已完成">
-                <div class="card-list" v-for="item in doneList" :key="item.value">
-                    <p>有任何问题请联系客服<span class="fr c-ff5000">已完成订单</span></p>
-                    <van-card
-                    :num="item.num"
-                    :price="item.price"
-                    :desc="item.desc"
-                    :title="item.title"
-                    :thumb="item.thumb"
-                    />
-                    <div class="title-s" style="margin-bottom:0;">
-                        <span class="fl f17 fb"><i class="line"></i>商品详情</span>
-                    </div>
-                    <van-cell-group>
-                        <van-cell title="订单" :value="item.order" />
-                        <van-cell title="下单手机号" :value="item.orderPhone" />
-                        <van-cell title="下单时间" :value="item.orderTime" />
-                        <van-cell title="快递单号" :value="item.oddNumber" />
-                    </van-cell-group>
-                    <van-cell-group v-if="item.oilCard !== 0">
-                        <van-cell title="油卡姓名" :value="item.cardName" />
-                        <van-cell title="手机号" :value="item.cardPhone" />
-                        <van-cell title="油卡卡号" :value="item.cardNumber" />
-                    </van-cell-group>
-                    <div class="card-btn"><van-button round block type="info" size="small" color="linear-gradient(to right, #2E81F3, #4CB1FF)">收起详情</van-button></div>
-                    <div class="clear"></div>
-                </div>
-            </van-tab>
-        </van-tabs>
-        
-    </div> -->
-    <div class="cardorder all">
+   <div class="cardorder all">
         <van-tabs
 			sticky
 			v-model="active"
@@ -91,8 +27,8 @@
                 v-for="(el, i) in items"
                 class="order_list--panel"
                 :key="i"
-                :title="'订单号: ' + el.order_sn"
-                   
+                title="有任何问题请联系客服"
+                :status="getStatusText(el.status)"  
                 >
                     <van-card
                     v-for="(goods, goodsI) in el.orderItems"
@@ -100,16 +36,18 @@
                     :title="goods.name"
                     desc=""
                     :num="goods.num"
-                    :price="goods.price"
                     :thumb="goods.pic_url"
                 
-                    />
-                    <p style="color:#666">快递单号：<span>65461561615337</span></p>
+                    >
+                    <p slot="price">{{goods.price}}.00</p>
+                    </van-card>
+                    <!-- <p style="color:#666">快递单号：<span></span></p> -->
                     <component 
                         slot="footer" 
                         :is="'status' + el.status"
                         :reminder="el.is_can_reminder"
                         :isback="el.back_price>0 ? true : false"
+                        :parant="items"
                         @handle="actionHandle($event, i)"
 				    />
             
@@ -134,22 +72,20 @@ import status6 from "./user/order/handle-status-6";
 import loadMore from "../mixin/list-load-more";
 import scrollFixed from "../mixin/scroll-fixed";
 const STATUS_TEXT = {
-  1: "待付款",
   2: "待发货",
   3: "待收货",
   4: "已签收",
-  6: "交易关闭",
 };
 
 export default {
     
     mixins: [loadMore, scrollFixed],
-    props: {
-    active: {
-        type: [String, Number],
-        default: 0
-        }
-    },
+    // props: {
+    // active: {
+    //     type: [String, Number],
+    //     default: 0
+    //     }
+    // },
 
     components: {
         status1,
@@ -162,7 +98,6 @@ export default {
     data() {
 
         return {
-           
             active:0,
             items: {},
             sta:"",
@@ -198,20 +133,16 @@ export default {
     methods: {
         initData() {
             const i = this.active;
-            console.log(i)
             const status = this.tabsItem[i].status;
-            console.log(status)
             let params = {
                 page: this.pages.currPage,
                 status
             }
             this.$axios.post('api/order',params).then(res => {
                 if (res.status != 200) return
-                console.log(res.data.data.length)
                 const items = res.data.data;
                 const page = res.data.meta;
                 this.items.push(...items);
-               
                 return page;
                
             }).catch( error=>{
@@ -241,6 +172,9 @@ export default {
             this.$router.replace({name: "CardOrder",params: { active: status }});
          
         },
+        getStatusText(status) {
+            return STATUS_TEXT[status] || "";
+        },
         actionHandle(handle, i) {
             this[handle] && this[handle](i);
         },
@@ -255,7 +189,7 @@ export default {
 
 <style lang="less" scoped="scoped">
 .cardorder{
-    .card-list{
+    .order_list--panel{
         width:100%;
         // height:428px;
         background:rgba(255,255,255,1);

@@ -26,9 +26,9 @@
             
             <van-cell-group v-if="this.$route.query.goodId == 5">
                
-                <van-field v-model="name" label="姓名" input-align="right" placeholder="请填写姓名"/>
-                <van-field v-model="phone" label="手机号" input-align="right" placeholder="请填写手机号"/>
-                <van-field v-model="card" label="油卡卡号" input-align="right"/>
+                <van-field v-model="oilcard_name" label="姓名" input-align="right" placeholder="请填写姓名"/>
+                <van-field v-model="oil_phone" label="手机号" input-align="right" placeholder="请填写手机号"/>
+                <van-field v-model="oil_number" label="油卡卡号" input-align="right" placeholder="请填写油卡卡号" type="number"/>
             
             </van-cell-group>
             <van-cell-group v-else>
@@ -70,9 +70,9 @@ export default {
         return {
             radioHorizontal:"1",
             payWay:'',
-            name:'',
-            phone:'',
-            card:'',
+            oilcard_name:'',
+            oil_phone:'',
+            oil_number:'',
             remarks:'',
             dataList:[],
             gateways:[],
@@ -119,35 +119,77 @@ export default {
                 addressId:this.addressId,
                 remark:this.remarks,
                 trade_no:this.trade_no,
+                oilcard_name:this.oilcard_name,
+                oil_phone:this.oil_phone,
+                oil_number:this.oil_number,
                 type:this.payWay
             }
 
-            this.$axios.post('api/order/paySub',params).then(res => {
-                if (res.status != 200) return
-                if (res.data.jump) {
-                    window.location = res.data.jump
-                } else if (res.data.router) {
-                    this.$router.push(res.data.router)
-                } else if (res.data.qrcode) {
-                    // console.log(res.data.qrcode)
-                    this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
-                }else if (res.data.html) {
-                    const div = document.createElement('div') // 创建div
-                    div.innerHTML = res.data.html // 将返回的form 放入div
-                    document.body.appendChild(div)
-                    if (res.data.submitkey) {
-                    document.forms[res.data.submitkey].submit()
-                    }
-                } else {
-                    this.$toast.success('支付完成');
-                    setTimeout(() => {
-                    this.$router.push({ name: "user"})
-                    }, 500);
+            if(this.$route.query.goodId == 5){
+                if(!(/^1[34578]\d{9}$/.test(this.oil_phone)) || !this.oilcard_name || !this.oil_number){
+                    this.$toast('请填写姓名、正确的手机号、卡号'); 
+                }else{
+                    this.$axios.post('api/order/paySub',params).then(res => {
+                        if (res.status != 200) return
+                        if (res.data.jump) {
+                            window.location = res.data.jump
+                        } else if (res.data.router) {
+                            this.$router.push(res.data.router)
+                        } else if (res.data.qrcode) {
+                            
+                            this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+                        }else if (res.data.html) {
+                            const div = document.createElement('div') 
+                            div.innerHTML = res.data.html 
+                            document.body.appendChild(div)
+                            if (res.data.submitkey) {
+                            document.forms[res.data.submitkey].submit()
+                            }
+                        } else {
+                            this.$toast.success('支付完成');
+                            setTimeout(() => {
+                            this.$router.push({ name: "User"})
+                            }, 500);
+                        }
+                    }).catch( error=>{
+                    　　console.log(error);
+                    });
+                    
                 }
-            }).catch( error=>{
-            　　console.log(error);
-            });
+            }else{
+                this.$axios.post('api/order/paySub',params).then(res => {
+                    if (res.status != 200) return
+                    if (res.data.jump) {
+                        window.location = res.data.jump
+                    } else if (res.data.router) {
+                        this.$router.push(res.data.router)
+                    } else if (res.data.qrcode) {
+                        
+                        this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+                    }else if (res.data.html) {
+                        const div = document.createElement('div') 
+                        div.innerHTML = res.data.html 
+                        document.body.appendChild(div)
+                        if (res.data.submitkey) {
+                        document.forms[res.data.submitkey].submit()
+                        }
+                    } else {
+                        this.$toast.success('支付完成');
+                        setTimeout(() => {
+                        this.$router.push({ name: "User"})
+                        }, 500);
+                    }
+                }).catch( error=>{
+                　　console.log(error);
+                });
+            }
+
+
+            
         },
+        
+            
+        
         payWayEvent(value) {
             this.payWay = value
         },

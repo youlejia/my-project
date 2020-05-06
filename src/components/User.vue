@@ -41,7 +41,7 @@
 			<van-grid-item @click="$router.push({path: '/user/order/list/3'})">
 				<div>
 					<img src="../assets/image/user_ds.png" alt="">
-					<p>待收货</p>
+					<p class="tc">待收货</p>
 					<span class="num" v-if="userOrders.undelivery ? userOrders.undelivery : ''">{{userOrders.undelivery}}</span>
 				</div>
 				
@@ -49,7 +49,7 @@
 			<van-grid-item  @click="$router.push({path: '/user/order/list/4'})">
 				<div>
 					<img src="../assets/image/user_wc.png" alt="">
-					<p>已完成</p>
+					<p class="tc">已完成</p>
 				</div>
 			</van-grid-item>
 		

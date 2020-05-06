@@ -3,8 +3,8 @@
 		<div class="ishead">
 			<img :src="background_image" />
 			<div class="yu_e">账户余额（元）</div>
-			<div class="yu_e_s">{{balance|numFilter}}</div>
-			<div class="mx">明细</div>
+			<div class="yu_e_s">{{userList.balance}}</div>
+			<div class="mx" @click="Detailed">明细</div>
 		</div>
 		<div class="yu_e" v-if="isAtm==0">
 			<div class="yu_e_cz">余额充值</div>
@@ -29,6 +29,7 @@
 				background_image: require('../assets/image/mingxi.png'),
 				finished: false,
 				loading: false,
+				userList:{},
 				list: [{
 						id: 1,
 						name: "余额充值",
@@ -64,13 +65,25 @@
 		components:{
 	        atm,
 	        recharge
-	    },
+		},
+		mounted(){
+			this.$axios.post('api/user').then(res=>{
+				this.userList = res.data.user;
+			})
+			.catch( error=>{
+		　　　　console.log(error);
+		　　});
+		},
+		
 		methods: {
 			recharge(){
 				this.isAtm=0
 			},
 			atm(){
 				this.isAtm=1
+			},
+			Detailed(){
+				this.$router.push('/DetailsOfBalance')
 			}
 		},
 		filters: {

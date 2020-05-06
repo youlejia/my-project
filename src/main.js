@@ -22,7 +22,7 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
-import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel } from 'vant'
+import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel,Picker } from 'vant'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
@@ -47,6 +47,8 @@ Vue.use(Toast);
 Vue.use(Uploader);
 Vue.use(List);
 Vue.use(Panel);
+Vue.use(Picker);
+
 // Vue.use(AddressEdit);
 //css
 import './assets/css/style.css'
@@ -78,8 +80,35 @@ axios.interceptors.response.use(response => {
   
   return response
 }, error => {
-  // console.log(error.response)
-  return Promise.resolve(error.response)
+  const res = error.response
+  if (res.status === -404) Toast(res.msg)
+  if (res.status === 423) router.push('/close')
+  if (res.status === 429) {
+    let resetTime = res.headers['x-ratelimit-reset']
+    Toast('尝试次数太多，请 ' + dateFormat(resetTime, 'HH:mm:ss') + ' 后操作')
+  }
+  if (res.status === 430) {
+    Toast('账号已冻结')
+    setTimeout(() => {
+      router.push('/login')
+    }, 1000);
+  }
+  if (res.status === 401) router.push('/login')
+  if (res.status === 422 && res.data) {
+    let error
+    if (res.data.error) {
+      error = res.data.error
+    } else {
+      let errors = res.data.errors
+      for (var key in errors) {
+        error = errors[key][0]
+        break
+      }
+    }
+    if (error) Toast(error)
+  }
+  return res
+  // return Promise.resolve(error.response)
 })
 new Vue({
   el: '#app',

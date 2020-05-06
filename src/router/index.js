@@ -141,7 +141,7 @@ const router = new Router({
       component: Atm,
     },
     {
-      path: '/CreditCard',
+      path: '/CreditCard/edit/:id',
       name:'CreditCard',
       meta:{title:'绑定银行卡',header:true,requireAuth: true,},
       component: CreditCard,

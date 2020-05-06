@@ -129,9 +129,9 @@
 				margin-top: 15px;
 				display: inline-block;
 				width: 120px;
-				img {
-					margin-left: -20px;
-				}
+				// img {
+				// 	margin-left: -20px;
+				// }
 			}
 		}
 		.tc_login {

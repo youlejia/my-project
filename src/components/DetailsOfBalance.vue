@@ -1,87 +1,75 @@
 <template>
 	<div class="detailsOfBalance">
 		<div class="ishead">
-			<img :src="background_image" />
+			<img :src="background_items" />
 			<div class="yu_e">账户余额（元）</div>
-			<div class="yu_e_s">{{balance|numFilter}}</div>
+			<div class="yu_e_s">{{balance}}</div>
 		</div>
 		<div class="sz_mx">
 			<div class="mx">账户明细</div>
 		</div>
-		<div v-if='noData'>
-			暂无数据
-		</div>
-		<!-- <van-list 
-			v-model="loading"
-			:finished="finished"
-			finished-text="暂无更多数据"
-			@load="loadMore"
-			:offset="100"
-			class="index-tab">  -->
-		<div class="tabs" v-for="(image, index) in list" :index="index" :key="image.id">
-			<div class="media-content">
-				<div class="left_m">
-					<div class="left_name">{{image.name}}</div>
-					<div class="left_time">{{image.time}}</div>
+		<van-cell-group>
+			<van-list
+				v-model="loading"
+				:immediate-check="false"
+				:offset="100"
+				@load="loadMore"
+			>
+				<div class="tabs" v-for="(items, index) in list" :index="index" :key="items.id">
+					<div class="media-content">
+						<div class="left_m">
+							<div class="left_name">{{items.type}}</div>
+							<div class="left_time">{{items.created_at}}</div>
+						</div>
+						<div class="right_m" :style="{'color':(items.account_type == 2 ? '#333333':'#2E81F3')}">
+							<span v-if="items.account_type == 2">-</span>
+							<span v-else>+</span>
+							{{items.account_amount}}
+						</div>
+					</div>
 				</div>
-				<div class="right_m" :style="{'color':(image.name == '余额提现' ? '#333333':'#2E81F3')}">
-					<span v-if="image.name == '余额提现'">-</span>
-					<span v-else>+</span>
-					{{image.money|numFilter}}
-				</div>
-			</div>
-		</div>
-		<!-- </van-list> -->
+			</van-list>
+		</van-cell-group>
 	</div>
 </template>
 
 <script>
+import loadMore from "../mixin/list-load-more";
 	export default {
+		mixins: [loadMore],
 		data() {
 			return {
-				background_image: require('../assets/image/mingxi.png'),
+				background_items: require('../assets/image/mingxi.png'),
 				finished: false,
 				loading: false,
-				list: [{
-						id: 1,
-						name: "余额充值",
-						time: "2020.03.11 23:33",
-						money: 304.68
-					},
-					{
-						id: 2,
-						name: "余额提现",
-						time: "2020.03.10 23:03",
-						money: 616.68
-					},
-					{
-						id: 3,
-						name: "余额充值",
-						time: "2020.03.09 12:33",
-						money: 500.00
-					},
-					{
-						id: 4,
-						name: "余额提现",
-						time: "2020.03.08 13:33",
-						money: 1000.00
-					}
-				],
-				balance: 21070.00,
+				list:{},
+				balance:'',
 				noData: false,
-				page: 1,
-				pageSize: 10,
 			}
 		},
-		filters: {
-			numFilter(value) {
-				let realVal = ''
-				if(value) {
-					realVal = parseFloat(value).toFixed(2)
+		 created() {
+			this.resetInit();
+		},
+
+		methods: {
+			initData() {
+				let params = {
+					page: this.pages.currPage,
 				}
-				return realVal
+				this.$axios.post('api/user/fund',params).then(res=>{
+					if (res.status != 200) return
+					this.list = res.data.data;
+					const page = res.data.meta;
+					this.balance = res.data.top.balance;
+					this.items.push(...items);
+					return page;
+				})
+				.catch( error=>{
+			　　　　console.log(error);
+			　　});
+				
 			}
-		}
+		},
 	}
 </script>
 
