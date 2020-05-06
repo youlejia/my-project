@@ -188,9 +188,7 @@ export default {
 	.van-radio__label span{
 		font-size: 12px;
 	}
-	[class*=van-hairline]::after{
-
-	}
+	
 
 }
 
