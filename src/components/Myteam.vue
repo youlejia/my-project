@@ -37,15 +37,15 @@
                 <span class="fl f17 fb"><i class="line"></i>我的工资</span>
                 <span class="fr c-2e81f3">玩法规则<van-icon name="question" class='ml5'/></span>
             </div>
-            <van-grid :column-num="2" :border='false'>
+            <van-grid :column-num="1" :border='false'>
                 <van-grid-item>
                     <p slot="default" class="hy">{{teamList.current_salary}}</p>
                     <p>目前工资(元)</p>
                 </van-grid-item>
-                <van-grid-item text="文字">
+                <!-- <van-grid-item text="文字">
                     <p slot="default" class="hy">{{teamList.next_salary}}</p>
                     <p>下一档工资(元)</p>
-                </van-grid-item>
+                </van-grid-item> -->
             </van-grid>
             <p style="text-align: center;color: #666;">每月15日发放上月工资，请注意查收！</p>
         </div>
