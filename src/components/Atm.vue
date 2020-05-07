@@ -1,38 +1,18 @@
 <template>
 	<div class="atm">
-		<div class="cs">
-			<van-row type="flex" justify="center">
-				<van-col span="12">
-					<div class="cz_a" @click="choicea" :class="isChoice==0?'cz_b':'cz_a'">
-						<span class="name">提现500元</span>
-					</div>
-				</van-col>
-				<van-col span="12">
-					<div class="cz_a" @click="choiceb" :class="isChoice==1?'cz_b':'cz_a'">
-						<span class="name">提现1000元</span>
-					</div>
-				</van-col>
-			</van-row>
-			<van-row type="flex" justify="center">
-				<van-col span="12">
-					<div class="cz_a" @click="choicec" :class="isChoice==2?'cz_b':'cz_a'">
-						<span class="name">提现2000元</span>
-					</div>
-				</van-col>
-				<van-col span="12">
-					<div class="cz_a" @click="choiced" :class="isChoice==3?'cz_b':'cz_a'">
-						<span class="name">自定义金额</span>
-					</div>
-				</van-col>
-			</van-row>
+		<div class="cs mt15">
+			<div class="cz_a" @click="choicea(index)" v-for="(item,index) in list" :key="index" :class="{active: price == item.nama }" >
+				<span class="nama">充{{item.nama}}元</span>
+			</div>
+			<van-field v-model="price" type="number" label="自定义金额:" placeholder="请输入充值金额" />
 		</div>
 		<div class="card">
 			<img src="../assets/image/card.png" />
 			<div class="card_yw">EuroAd</div>
-			<div class="card_qh">更换银行卡</div>
-			<div class="card_cardNo">4894 4984 4984 3728</div>
-			<div class="card_name">白**</div>
-			<div class="card_cardName">中国邮政储蓄</div>
+			<div class="card_qh" @click="AtmCard">更换银行卡</div>
+			<div class="card_cardNo">{{cards.card_no}}</div>
+			<div class="card_name">{{cards.real_name}}</div>
+			<div class="card_cardName">{{cards.bank}}</div>
 		</div>
 		<div class="tc_login">
 			<van-button size="large" @click="toAtm">确定提现</van-button>
@@ -41,7 +21,7 @@
 			<img class="imgs" src="../assets/image/atm_tk.png"/>
 			<div class="is_tx">余额提现已成功</div>
 			<div class="is_kf">如有任何问题请联系客服</div>
-			<div class="but_qd" @click="show=false">确定</div>
+			<div class="but_qd" @click="thisOk">确定</div>
 		</van-popup>
 	</div>
 </template>
@@ -51,28 +31,65 @@
 		name:"atm",
 		data(){
 			return{
-				isChoice: 0,
+				currentIndex:0,
+				price:'500',
+				list:[
+					{
+						nama:500,
+					},
+					{
+						nama:1000,
+					},
+					{
+						nama:2000,
+					},
+					{
+						nama:5000
+
+					}
+				],
+				cards:[],
 				show:false
 			}
 		},
-		methods: {
-			choicea() {
-				this.isChoice = 0;
-			},
-			choiceb() {
-				this.isChoice = 1;
-			},
-			choicec() {
-				this.isChoice = 2;
-			},
-			choiced() {
-				this.isChoice = 3;
-			},
-			toAtm(){
-				this.show=true;
-			}
+	created() {
+		this.initData();
+	},
+	methods: {
+		initData(){
+			this.$axios.post('api/atm/placeAtmEntity').then(res => {
+				this.cards=res.data.cards
+			}).catch( error=>{
+			　　console.log(error);
+			});
 		},
+		toAtm(){
+			var param={
+				price:this.price,
+				cardId: this.cards.id,
+			}
+			this.$axios.post('api/atm/sub',param).then(res => {
+				if (res.status != 200) return
+				this.show=true;
+				
+			}).catch( error=>{
+			　　
+			});
+		},
+		thisOk(){
+			this.$router.push({ name: "User"});
+		},
+		choicea(index) {
+			this.currentIndex = index
+			this.price = this.list[index].nama
+			console.log(this.price)
+		},
+		AtmCard(){
+			this.$router.push({name: 'MyBankCard', query: {redirect: 'atm'}})
+		},
+		
 	}
+}
 </script>
 
 <style lang="less" scoped="scoped">
@@ -83,54 +100,25 @@
 	.atm {
 		font-family: 'ps';
 		.cs {
-			padding: 0 8px;
-			.van-col {
-				font-weight: bold;
-				.cz_a {
-					text-align: center;
-					line-height: 80px;
-					width: 88%;
-					margin: 0 auto;
-					margin-top: 20px;
-					box-shadow: 3px 3px 6px #F3F3F3;
-					border-radius: 7px;
-				}
-				.cz_b {
-					text-align: center;
-					line-height: 80px;
-					width: 88%;
-					margin: 0 auto;
-					margin-top: 20px;
-					border: 1px solid #2E81F3;
-					box-shadow: 0 3px 6px #CCEBFF;
-					background-color: rgba(76, 177, 255, 0.1);
-					color: #2E81F3;
-				}
+			.cz_a {
+				text-align: center;
+				line-height: 80px;
+				width: 45%;
+				float: left;
+				margin-left: 3%;
+				margin-bottom:10px;
+				border: 1px solid #F3F3F3;
+				box-shadow: 3px 3px 6px #F3F3F3;
+				border-radius: 7px;
+			}
+			.active{
+				border: 1px solid #2E81F3;
+				box-shadow: 0 3px 6px #CCEBFF;
+				background-color: rgba(76, 177, 255, 0.1);
+				
 			}
 		}
-		.zf_fs {
-			width: 90%;
-			margin: 0 auto;
-			margin-top: 25px;
-			.zf_fs_cz {
-				display: inline-block;
-				margin-right: 12px;
-				border-left: 4px solid #2E81F3;
-				padding-left: 5px;
-				color: #333333;
-				font-weight: 600;
-			}
-		}
-		.radio-group {
-			.xz_zf {
-				margin-top: 15px;
-				display: inline-block;
-				width: 120px;
-				img {
-					margin-left: -20px;
-				}
-			}
-		}
+		
 		.tc_login {
 			width: 84%;
 			margin: 0 auto;
@@ -149,7 +137,6 @@
 			position: relative;
 			width: 94%;
 			margin: 0 auto;
-			margin-top: 18px;
 			color: #FFFFFF;
 			img {
 				width: 100%;

@@ -29,6 +29,7 @@ import Store from '@/components/Store' //门店
 import OilCardOrder from '@/components/OilCardOrder' //油卡订单
 import MemberAgreement from '@/components/MemberAgreement' //会员协议
 import Notice from '@/components/Notice' //公告
+import noticeList from '@/components/noticeList' //公告
 import download from '@/components/Download' //app下载
 import Cooperation from '@/components/Cooperation' //
 import Customer from '@/components/Customer' //
@@ -212,6 +213,12 @@ const router = new Router({
       name:'MemberAgreement',
       component: MemberAgreement,
       meta:{title:'会员协议',header:true,requireAuth: true,},
+    },
+    {
+      path: '/noticeList/:id',
+      name:'noticeList',
+      component: noticeList,
+      meta:{title:'公告详情',header:true,requireAuth: true,},
     },
     {
       path: '/Notice',

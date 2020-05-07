@@ -2,31 +2,31 @@
     <div class="mydirect team all pt20">
         <h2>团队</h2>
         <div class="team-user">
-            <div class="fl"><img :src="user.portrait" alt=""></div>
+            <div class="fl"><img :src="Userdata.avatar" alt=""></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/user_vip.png" alt="">
-                    {{user.username}}
+                    {{Userdata.name}}
                 </p>
-                <p class="ml10 c-fff">{{user.phone}}</p>
+                <p class="ml10 c-fff">{{Userdata.mobile}}</p>
             </div>
         </div>
         <div class="team-number">
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>团队人数</span>
-                <span class="f18 ml5 c-2e81f3">{{teamNum}}</span>
+                <span class="f18 ml5 c-2e81f3">{{teamUser.undernum}}</span>
             </div>
             <van-grid :column-num="3" :border='false'>
                 <van-grid-item>
-                    <p slot="default" class="hy">{{underUmbrellaNum}}</p>
+                    <p slot="default" class="hy">{{teamUser.undernum}}</p>
                     <p>伞下会员</p>
                 </van-grid-item>
                 <van-grid-item text="文字">
-                    <p slot="default" class="hy">{{directPushNum}}</p>
+                    <p slot="default" class="hy">{{teamUser.directvip}}</p>
                     <p>直推会员</p>
                 </van-grid-item>
                 <van-grid-item>
-                    <p slot="default" class="hy">{{earnings}}</p>
+                    <p slot="default" class="hy">{{teamUser.earnings}}</p>
                     <p>累计收益(元)</p>
                 </van-grid-item>
                
@@ -39,34 +39,20 @@
             <ul class="zthy">
                 <li v-for="(item, index) in directPushList" :index="index" :key="item.id">
                     <div class="team-user yqr">
-                        <div class="fl mt10"><img :src="item.portrait" alt=""></div>
+                        <div class="fl mt10"><img :src="item.avatar" alt=""></div>
                         <div class="user-n mt10">
                             <span class="c-ff5000 f12">
                                 <img src="../assets/image/vip4.png" alt="">
-                                {{item.username}}
+                                {{item.name}}
                             </span><br>
                             <span class="f12">
                                 <img src="../assets/image/phone2.png" alt="">
-                                {{item.phone}}
+                                {{item.mobile}}
                             </span>
                         </div>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="team-user yqr">
-                        <div class="fl mt10"><img src="../assets/image/user02.png" alt=""></div>
-                        <div class="user-n mt10">
-                            <span class="c-ff5000 f12">
-                                <img src="../assets/image/vip4.png" alt="">
-                                刘瑞琪
-                            </span><br>
-                            <span class="f12">
-                                <img src="../assets/image/phone2.png" alt="">
-                                1876888888
-                            </span>
-                        </div>
-                    </div>
-                </li> -->
+                
             </ul>
             
             
@@ -81,27 +67,31 @@
 
 export default {
  
-  data() {
-    return {
-        user: {//用户
-            id: 0,
-            portrait: require('../assets/image/user_portrait.png'),
-            username: "刘瑞琪",
-            phone:1876888888
-        },  
-        teamNum:77,
-        underUmbrellaNum:58,
-        directPushNum:19,
-        earnings:27600,
-        directPushList:[
-            {id: 1,portrait: require('../assets/image/user02.png'),username: "刘瑞琪", phone:1876888888},
-            {id: 2,portrait: require('../assets/image/user02.png'),username: "刘瑞琪", phone:1876888888}
-        ]
-    }
-      
-  },
-  methods: {
-  },
+    data() {
+        return {
+            teamUser:{},
+            directPushList:[],
+            Userdata:{},
+        }
+        
+    },
+    created(){
+        this.initdata()
+    },
+    methods: {
+        initdata(){
+            this.$axios.post('api/user/team').then(res => {
+                if (res.status != 200) return
+                this.teamUser = res.data.data;
+                this.directPushList=res.data.data.user
+                this.Userdata=res.data.data.data
+                
+            }).catch( error=>{
+            　　
+            });
+        }
+
+    },
   
 
 }

@@ -2,31 +2,31 @@
     <div class="team all pt20">
         <h2>团队</h2>
         <div class="team-user">
-            <div class="fl"><img :src="user.portrait" alt=""></div>
+            <div class="fl"><img :src="Userdata.avatar" alt=""></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/user_vip.png" alt="">
-                    {{user.username}}
+                    {{Userdata.name}}
                 </p>
-                <p class="ml10 c-fff">{{user.phone}}</p>
+                <p class="ml10 c-fff">{{Userdata.mobile}}</p>
             </div>
         </div>
         <div class="team-number">
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>团队人数</span>
-                <span class="f18 ml5 c-2e81f3">{{teamNum}}</span>
+                <span class="f18 ml5 c-2e81f3">{{teamList.undernum}}</span>
             </div>
             <van-grid :column-num="3" :border='false'>
                 <van-grid-item>
-                    <p slot="default" class="hy">{{underUmbrellaNum}}</p>
+                    <p slot="default" class="hy">{{teamList.undernum}}</p>
                     <p>伞下会员</p>
                 </van-grid-item>
                 <van-grid-item to="/MyDirectPush">
-                    <p slot="default" class="hy">{{directPushNum}}</p>
+                    <p slot="default" class="hy">{{teamList.directvip}}</p>
                     <p>直推会员</p>
                 </van-grid-item>
                 <van-grid-item>
-                    <p slot="default" class="hy">{{earnings}}</p>
+                    <p slot="default" class="hy">{{teamList.earnings}}</p>
                     <p>累计收益(元)</p>
                 </van-grid-item>
                
@@ -39,11 +39,11 @@
             </div>
             <van-grid :column-num="2" :border='false'>
                 <van-grid-item>
-                    <p slot="default" class="hy">{{currentSalary}}</p>
+                    <p slot="default" class="hy">{{teamList.current_salary}}</p>
                     <p>目前工资(元)</p>
                 </van-grid-item>
                 <van-grid-item text="文字">
-                    <p slot="default" class="hy">{{lowerSalary}}</p>
+                    <p slot="default" class="hy">{{teamList.next_salary}}</p>
                     <p>下一档工资(元)</p>
                 </van-grid-item>
             </van-grid>
@@ -52,15 +52,15 @@
         <div class="team-number">
             <p class="fb f14">我的邀请人</p>
             <div class="team-user yqr">
-                <div class="fl"><img :src="superiorUser.superiorPortrait" alt=""></div>
+                <div class="fl"><img :src="inviter.avatar" alt=""></div>
                 <div class="user-n mt10">
                     <p class="c-ff5000 f14">
                         <img src="../assets/image/user_vip.png" alt="">
-                        {{superiorUser.superiorName}}
+                        {{inviter.name}}
                     </p>
                     <p>
                         <img src="../assets/image/phone.png" alt="">
-                        {{superiorUser.superiorPhone}}
+                        {{inviter.mobile}}
                     </p>
                 </div>
             </div>
@@ -76,27 +76,25 @@
 export default { 
     data() {
         return {
-            user: {//用户
-                id: 0,
-                portrait: require('../assets/image/user_portrait.png'),
-                username: "刘瑞琪",
-                phone:1876888888
-            },  
-            currentSalary:6000,
-            lowerSalary:9000,
-            teamNum:77,
-            underUmbrellaNum:58,
-            directPushNum:19,
-            earnings:27600,
-            superiorUser:{//上级用户
-                superiorId:0,
-                superiorPortrait: require('../assets/image/user_portrait.png'),
-                superiorName: "刘瑞琪",
-                superiorPhone:1876888888
-            }
+            inviter:{},
+            teamList:{},
+            Userdata:{},
         }    
     },
+    created(){
+        this.initdata()
+    },
     methods: {
+        initdata(){
+            this.$axios.post('api/user/team').then(res => {
+                if (res.status != 200) return
+                this.teamList = res.data.data;
+                this.Userdata=res.data.data.data
+                this.inviter=res.data.data.inviter
+            }).catch( error=>{
+            　　
+            });
+        }
 
     },
 }

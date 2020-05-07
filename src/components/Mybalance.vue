@@ -30,35 +30,6 @@
 				finished: false,
 				loading: false,
 				userList:{},
-				list: [{
-						id: 1,
-						name: "余额充值",
-						time: "2020.03.11 23:33",
-						money: 304.68
-					},
-					{
-						id: 2,
-						name: "余额提现",
-						time: "2020.03.10 23:03",
-						money: 616.68
-					},
-					{
-						id: 3,
-						name: "余额充值",
-						time: "2020.03.09 12:33",
-						money: 500.00
-					},
-					{
-						id: 4,
-						name: "余额提现",
-						time: "2020.03.08 13:33",
-						money: 1000.00
-					}
-				],
-				balance: 21070.00,
-				noData: false,
-				page: 1,
-				pageSize: 10,
 				isAtm:0
 			}
 		},
@@ -86,15 +57,6 @@
 				this.$router.push('/DetailsOfBalance')
 			}
 		},
-		filters: {
-			numFilter(value) {
-				let realVal = ''
-				if(value) {
-					realVal = parseFloat(value).toFixed(2)
-				}
-				return realVal
-			}
-		}
 	}
 </script>
 
