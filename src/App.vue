@@ -10,13 +10,25 @@
     <div class="main">
       <router-view/>
     </div>
-    <div class="footer-bar" v-if="$route.meta.tabbar">
-      <ul>
-        <li v-for="(item, index) in tabbar" @click="selectNav(item.title)" :key="index">
-        <p class="icon"><img :src="isSelect === item.title ? item.url_one : item.url" alt="item.title"></p>
-        <p :class="isSelect === item.title ? 'active' : ''">{{item.title}}</p>
-        </li>
-      </ul>
+    <div class="footer-bar" v-if="$route.meta.tabbar" >
+      <van-tabbar v-model="active" active-color="#333333" inactive-color="#999" route>
+        <van-tabbar-item to="/home">
+          <span>主页</span>
+          <img slot="icon" slot-scope="props" :src="props.active ? icon.active : icon.inactive" />
+        </van-tabbar-item>
+        <van-tabbar-item to='/Store'>
+          <span>门店</span>
+          <img slot="icon" slot-scope="props" :src="props.active ? icon.active2 : icon.inactive2" />
+        </van-tabbar-item>
+        <van-tabbar-item to='/Myteam'>
+          <span>团队</span>
+          <img slot="icon" slot-scope="props" :src="props.active ? icon.active3 : icon.inactive3" />
+        </van-tabbar-item>
+        <van-tabbar-item to='/User'>
+          <span>我的</span>
+          <img slot="icon" slot-scope="props" :src="props.active ? icon.active4 : icon.inactive4" />
+        </van-tabbar-item>
+      </van-tabbar>
 
     </div>
       
@@ -28,29 +40,17 @@ export default {
   name: 'App',
   data() {
     return {
-      isSelect: '首页',
-      tabbar: [
-        {
-          title: "首页",
-          url: require("./assets/image/nav_icon01.png"),
-          url_one: require("./assets/image/nav_icon01_on.png"),
-        },
-        {
-          title: "门店",
-          url: require("./assets/image/nav_icon02.png"),
-          url_one: require("./assets/image/nav_icon02_on.png"),
-        },
-        {
-          title: "团队",
-          url: require("./assets/image/nav_icon03.png"),
-          url_one: require("./assets/image/nav_icon03_on.png"),
-        },
-        {
-          title: "我的",
-          url: require("./assets/image/nav_icon04.png"),
-          url_one: require("./assets/image/nav_icon04_on.png"),
-        }
-      ]
+      active: 0,
+      icon: {
+        active: require("./assets/image/nav_icon01_on.png"),
+        inactive: require("./assets/image/nav_icon01.png"),
+        active2: require("./assets/image/nav_icon02_on.png"),
+        inactive2: require("./assets/image/nav_icon02.png"),
+        active3: require("./assets/image/nav_icon03_on.png"),
+        inactive3: require("./assets/image/nav_icon03.png"),
+        active4: require("./assets/image/nav_icon04_on.png"),
+        inactive4: require("./assets/image/nav_icon04.png"),
+      }
     };
   },
   computed:{
@@ -58,25 +58,9 @@ export default {
       return this.$route.meta.title ? this.$route.meta.title : ''
     }
   },
-  mounted () {
-  this.isSelect = sessionStorage.getItem('isSelect')
- },
+  
   methods: {
-    selectNav (title) {
-      this.isSelect = title
-      // this.isSelect = this.$route.name
-      switch (title) {
-      case '首页': this.$router.push('/home')
-        break
-      case '门店': this.$router.push('/Store')
-        break
-      case '团队': this.$router.push('/Myteam')
-        break
-      case '我的': this.$router.push('/User')
-        break
-      }
-      sessionStorage.setItem('isSelect', this.isSelect)
-    },
+   
     onClickLeft(){
       history.back();
     }
@@ -119,5 +103,8 @@ export default {
 .footer-bar ul li .icon{
   width: 24px;
   margin: 0 auto;
+}
+.footer-bar .van-tabbar-item__icon img{
+  height: 20px;
 }
 </style>

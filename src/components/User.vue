@@ -139,7 +139,9 @@
 			Logout(){
 				setTimeout(() => {
 					localStorage.removeItem('Authorization');
+					// sessionStorage.removeItem('isSelect')
 					this.$router.push('/login');
+					
 				},1000)
 			}
 		}

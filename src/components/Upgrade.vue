@@ -48,12 +48,17 @@
         <div class="title-s">
           <span class="fl f17 fb"><i class="line"></i>支付方式</span>
         </div>
-        <pay-way :gateways="gateways" @payWayEvent="payWayEvent" />
-        <!-- <van-radio-group v-model="radioHorizontal" direction="horizontal">
-          <van-radio name="1"><img src="../assets/image/zfb.png" alt=""></van-radio>
-          <van-radio name="2"><img src="../assets/image/vxzf.png" alt=""></van-radio><br>
-          <van-radio name="3" class="mt15 f14">账户余额（¥<span>{{balance}}</span>）</van-radio>
-        </van-radio-group> -->
+        <div class="pay_way_group">
+ 
+          <van-radio-group v-model="payWay">
+            <div v-for="(item, i) in gateways" :key="i" class="radioMore">
+              <van-radio v-if="item.name == '支付宝'" :name="item.key"><img src="" alt="">{{item.name}} </van-radio>
+              <van-radio v-else-if="item.key == 'balance'" :name="item.key"> {{item.name}} <span class="pay_way_balance">￥{{ item.balance }}</span> </van-radio>
+              <van-radio v-else :name="item.key"><img src="" alt="">{{item.name}} </van-radio>
+            </div>
+          </van-radio-group>
+        </div>
+        
         <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25" @click="subPay">立即开通</van-button>
         <p class="tc mt10">只有VIP用户拥有升级代理权限</p>
       </div>
@@ -61,26 +66,28 @@
 </template>
 
 <script>
-import payWay from "./pay/way";
-export default {
-  components:{
-  
-    [payWay.name]: payWay,
 
-  },
+export default {
+  
   data() {
     return {
       istrue:3,
       showEagleMap: true,
       radioHorizontal: '1',
-      balance: "26730.00",
+      balance: "",
       gateways:[],
       list:{},
       payWay:'',
       id:'4',
-      userLevel:''
+      userLevel:'',
+      price:'3000.00'
       
     };
+  },
+  watch: {
+    'gateways': function() {
+      if (this.gateways.length > 0) this.payWay = this.gateways[0].key
+    }
   },
   mounted(){
     this.upgrade()
@@ -93,7 +100,7 @@ export default {
           this.gateways=res.data.gateways;
           this.list = res.data.upLevel
           this.userLevel = res.data.userLevel
-          
+          this.price = res.data.balance
       }).catch( error=>{
       　　console.log(error);
       });
@@ -105,23 +112,21 @@ export default {
       }
       this.$axios.post('api/up/add',params).then(res => {
           if (res.status != 200) return
-          if(this.userLevel == this.id){
-             this.$toast('当前等级不能升级');
-          }else{
-            if (res.data.qrcode) {
-              // console.log(res.data.qrcode)
-              this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
-            }else if (res.data.html) {
-                const div = document.createElement('div') // 创建div
-                div.innerHTML = res.data.html // 将返回的form 放入div
-                document.body.appendChild(div)
-                if (res.data.submitkey) {
-                document.forms[res.data.submitkey].submit()
-                }
-            } else {
-                this.$toast.success('支付完成');
-            }
+         
+          if (res.data.qrcode) {
+            // console.log(res.data.qrcode)
+            this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+          }else if (res.data.html) {
+              const div = document.createElement('div') // 创建div
+              div.innerHTML = res.data.html // 将返回的form 放入div
+              document.body.appendChild(div)
+              if (res.data.submitkey) {
+              document.forms[res.data.submitkey].submit()
+              }
+          } else {
+              this.$toast.success('支付完成');
           }
+          
           
       }).catch( error=>{
       　　console.log(error);
@@ -131,11 +136,10 @@ export default {
       this.istrue=index;
       this.showEagleMap = !this.showEagleMap;
       this.id = this.list[index].id;
+      this.price = this.list[index].price;
       
     },
-    payWayEvent(value) {
-      this.payWay = value
-    },
+    
   }
 
 }
@@ -207,4 +211,11 @@ export default {
   background:linear-gradient(87deg,rgba(206,17,234,1) 0%,rgba(105,30,195,1) 100%);
   border-radius:0px 8px 0px 8px;
 }
+.radioMore .van-radio{
+    width: 50%;
+    float: left;
+    margin-bottom: 15px;
+        
+    }
+ 
 </style>
