@@ -15,7 +15,7 @@
 				:offset="100"
 				@load="loadMore"
 			>
-				<div class="tabs" v-for="(items, index) in list" :index="index" :key="items.id">
+				<div class="tabs" v-for="(items, index) in items" :index="index" :key="items.id">
 					<div class="media-content">
 						<div class="left_m">
 							<div class="left_name">{{items.type}}</div>
@@ -30,21 +30,26 @@
 				</div>
 			</van-list>
 		</van-cell-group>
+		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的记录</is-empty>
 	</div>
 </template>
 
 <script>
+import IsEmpty from "./items/is-empty";
 import loadMore from "../mixin/list-load-more";
 	export default {
+		components: {
+
+			[IsEmpty.name]: IsEmpty,
+		},
+
 		mixins: [loadMore],
 		data() {
 			return {
 				background_items: require('../assets/image/mingxi.png'),
-				finished: false,
-				loading: false,
-				list:{},
+				
+				items:{},
 				balance:'',
-				noData: false,
 			}
 		},
 		 created() {
@@ -58,7 +63,7 @@ import loadMore from "../mixin/list-load-more";
 				}
 				this.$axios.post('api/user/fund',params).then(res=>{
 					if (res.status != 200) return
-					this.list = res.data.data;
+					this.items = res.data.data;
 					const page = res.data.meta;
 					this.balance = res.data.top.balance;
 					this.items.push(...items);

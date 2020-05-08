@@ -2,13 +2,14 @@
    <div class="cardorder all">
         <van-tabs
 			sticky
-			v-model="active"
+			v-model="activeName"
 			
 			@click="handleTabClick"
 		>
 			<van-tab 
 				v-for="tab in tabsItem"
 			 	:title="tab.name" 
+                :name="tab.status"
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
@@ -19,7 +20,7 @@
             :offset="100"
             :finished="finished"
             @load="loadMore"
-            v-if="items.length"
+           v-if="items.length"
 		>
             
             <div class="card-list mt20">
@@ -39,15 +40,21 @@
                     :thumb="goods.pic_url"
                 
                     >
-                    <p slot="price">{{goods.price}}.00</p>
+                    <p slot="price" class="c-ff5000 f16">￥{{el.total}}</p>
+
                     </van-card>
-                    <!-- <p style="color:#666">快递单号：<span></span></p> -->
+                    <p style="color:#666">订单号：<span>{{el.order_sn}}</span></p>
                     <component 
                         slot="footer" 
                         :is="'status' + el.status"
                         :reminder="el.is_can_reminder"
                         :isback="el.back_price>0 ? true : false"
-                        :parant="items"
+                        :phone="el.phone"
+                        :updated_at="el.updated_at"
+                        :ship_code="el.ship_code"
+                        :oil_phone="el.oil_phone"
+                        :oilcard_name="el.oilcard_name"
+                        :oil_number="el.oil_number"
                         @handle="actionHandle($event, i)"
 				    />
             
@@ -57,7 +64,7 @@
                 	
 		</van-list>
         
-        <div v-else class='tc mt20'>抱歉,没有找到符合条件的订单</div>
+        <div v-else  class='tc mt20'>抱歉,没有找到符合条件的订单</div>
     </div>
 
 </template>
@@ -80,12 +87,12 @@ const STATUS_TEXT = {
 export default {
     
     mixins: [loadMore, scrollFixed],
-    // props: {
-    // active: {
-    //     type: [String, Number],
-    //     default: 0
-    //     }
-    // },
+    props: {
+    active: {
+        type: [String, Number],
+        default: 0
+        }
+    },
 
     components: {
         status1,
@@ -96,9 +103,8 @@ export default {
     },
  
     data() {
-
         return {
-            active:0,
+            activeName:'',
             items: {},
             sta:"",
             loading: false,
@@ -106,20 +112,22 @@ export default {
             tabsItem: [
                 {
                 name: "待发货",
-                status: 2
+                status: '2',
                 },
                 {
                 name: "待收货",
-                status: 3
+                status: '3',
                 },
                 {
                 name: "已完成",
-                status: 4
+                status: '4',
                 }
+            
             ],
           
         
         }
+      
       
     },
     watch: {
@@ -128,12 +136,12 @@ export default {
   
     created() {
         this.resetInit();
-    
     },
     methods: {
         initData() {
             const i = this.active;
-            const status = this.tabsItem[i].status;
+           this.activeName = i
+            const status = i;
             let params = {
                 page: this.pages.currPage,
                 status
@@ -144,7 +152,6 @@ export default {
                 const page = res.data.meta;
                 this.items.push(...items);
                 return page;
-               
             }).catch( error=>{
             　　console.log(error);
             });
@@ -164,13 +171,9 @@ export default {
             }).catch( error=>{
             　　console.log(error);
             });
-            
-           
         },
         handleTabClick(index) {
-            const status = this.tabsItem[index].status;
-            this.$router.replace({name: "CardOrder",params: { active: status }});
-         
+            this.$router.replace({name: "CardOrder",params: { active: index }});
         },
         getStatusText(status) {
             return STATUS_TEXT[status] || "";

@@ -120,6 +120,7 @@ const router = new Router({
     {
       path: '/user/order/list/:active',
       name:'CardOrder',
+      props: true, 
       meta:{title:'商品订单',header:true,requireAuth: true,},
       component: CardOrder,
     },
