@@ -1,6 +1,12 @@
 <template>
     <div class="store all pt20">
-        <h2>门店</h2>
+        <h2 class="md">门店</h2>
+        <div class="fr">
+            <van-icon name="location" color="#2E81F3" size="20"/>
+            <span class="city">{{LocationCity}}</span>
+        </div>
+        <input v-model="latitude" hidden/>
+        <input v-model="longitude" hidden/>
         <div class="store-main">
             <div class="store-list" v-for="item in storeList" :key="item.value">
                 <van-cell center :title="item.title">
@@ -21,6 +27,7 @@
             </div>
             
         </div>
+        
     </div>
 </template>
 
@@ -28,36 +35,71 @@
 
 export default {
  
-  data() {
-    return {
-        storeList:[
-            {
-                title:'油乐嘉·曼哈顿店',
-                picture:require('../assets/image/store.png'),
-                desc:'郑州市金水区燕庄曼哈顿18号楼',
-                score:'xxxx',
-                orders:1556,
-                person:20,
+    data() {
+        return {
+            LocationCity:'正在定位',
+            longitude:'',
+            latitude:'',
+            storeList:[
+                {
+                    title:'油乐嘉·曼哈顿店',
+                    picture:require('../assets/image/store.png'),
+                    desc:'郑州市金水区燕庄曼哈顿18号楼',
+                    score:'xxxx',
+                    orders:1556,
+                    person:20,
 
-            },
-            {
-                title:'油乐嘉·曼哈顿店',
-                picture:require('../assets/image/store.png'),
-                desc:'郑州市金水区燕庄曼哈顿18号楼',
-                score:'xxxx',
-                orders:1556,
-                person:20,
+                },
+                {
+                    title:'油乐嘉·曼哈顿店',
+                    picture:require('../assets/image/store.png'),
+                    desc:'郑州市金水区燕庄曼哈顿18号楼',
+                    score:'xxxx',
+                    orders:1556,
+                    person:20,
 
-            }
-        ]
-    }
-      
-  },
-  methods: {
-    
-    
-    
-  },
+                }
+            ]
+        }
+        
+    },
+    mounted() {
+        this.city() 
+    },
+    methods: {
+        city(){    //定义获取城市方法
+            const geolocation = new BMap.Geolocation();
+            var _this = this
+            geolocation.getCurrentPosition(function getinfo(position){
+                console.log(position)
+                let city = position.address.city;             //获取城市信息
+                let province = position.address.province;    //获取省份信息
+                let lat = position.point.lat;             //获取城市信息
+                let lng = position.point.lng;     //获取省份信息
+                _this.LocationCity = city;
+                _this.latitude = lat;
+                _this.longitude = lng;
+                var params={
+                    lat:_this.latitude,
+                    lng:_this.longitude,
+                }
+                _this.$axios.post('api/stores',params).then(res => {
+                    if (res.status != 200) return
+                    console.log(res);
+                }).catch( error=>{
+                　　console.log(error);
+                });
+            }, function(e) {
+                _this.LocationCity = "定位失败"
+            }, {provider: 'baidu'});   
+           
+
+            
+        }
+
+        
+        
+    },
   
 
 }
@@ -65,6 +107,15 @@ export default {
 
 <style lang="less" scoped="scoped">
 .store{
+    .md{
+        display: inline-block
+    }
+    .city{
+        margin-top: -22px;
+    display: block;
+    margin-left: 21px;
+
+    }
     .store-main{
         margin-top: 30px;
     }

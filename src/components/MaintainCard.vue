@@ -1,13 +1,17 @@
 <template>
 	<div class="maintainCard all">
-        <div class="not-used mt10 mb20" v-for="item in listCard">
+        <div class="not-used mt10 mb20" v-for="(item,index) in listCard" :key="item.value">
             <span class="f12 c-999"><i class="round"></i>{{item.updated_at}}</span>
             <div class="user-1 mt10">
-                <span><i></i>{{item.title}}</span>
-                <button class="btn" v-if="item.status==7">使用</button>
-                <button class="btn" v-else>已使用</button>
+                <span><i><img src="../assets/image/byj.png" alt=""></i>{{item.title}}</span>
+                <div class="btns">
+                    <p class="btn" v-if="item.status==7">使用</p>
+                    <p class="btn" v-else>已使用</p>
+                    
+                     <p class="btn" @click="details(index)">详情</p>
+                </div>
             </div>
-            <div class="kjxq">
+            <div class="kjxq" v-if="show">
                 <div class="title-s" style="margin-bottom:0;">
                     <span class="fl fb"><i class="line"></i>卡券详情</span>
                 </div>
@@ -17,21 +21,6 @@
                 </van-cell-group>
             </div>
         </div>
-        <!-- <div class="not-used blue mt10 mb20">
-            <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
-            <div class="user-1 mt10">
-                <span><i></i>VIP专享折扣保养券 - 209级</span>
-                <button class="btn">使用</button>
-            </div>
-            
-        </div>
-        <div class="not-used green mt10 mb20">
-            <span class="f12 c-999"><i class="round"></i>2020/04/10 20:16</span>
-            <div class="user-1 mt10">
-                <span><i></i>VIP专享折扣保养券 - 209级</span>
-                <button class="btn" style="border:1px solid #FF5000;color:#FF5000;">已使用</button>
-            </div>
-        </div> -->
 		
 	</div>
 </template>
@@ -42,7 +31,8 @@
 		data(){
 			return{
                 id:this.$route.query.id,
-                listCard:{}
+                listCard:{},
+                show:false
 			}
         },
         mounted(){
@@ -60,6 +50,9 @@
 				.catch( error=>{
 			　　　　console.log(error);
             　　});
+            },
+            details(index){
+                this.show = !this.show
             }
 
 		},
@@ -90,26 +83,25 @@
         i{
             width:34px;
             height:34px;
-            border:4px solid rgba(255,255,255,1);
-            border-radius:50%;
             display: block;
             float: left;
-            margin: 18px 10px 0 15px;
+            margin:23px 10px 0 15px;
         }
-        .btn{
-            width:54px;
-            height:24px;
-            border:1px solid rgba(255,255,255,1);
-            border-radius:12px;
-            line-height: 0;
-            background: none;
-            color: #fff;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translate(-25%,-50%);
-
+        .btns{
+            float: right;
+            margin-top: 12px;
+            text-align: center;
+            margin-right: 8px;
+            .btn{
+                width:54px;
+                height:24px;
+                border:1px solid rgba(255,255,255,1);
+                border-radius:12px;
+                line-height:24px;
+                margin-bottom: 8px;
+            }
         }
+        
     }
     .not-used.blue .round{
         background:#2793F3;

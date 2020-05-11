@@ -137,12 +137,20 @@
 				this.$router.push('/Changeinfo');
 			},
 			Logout(){
-				setTimeout(() => {
-					localStorage.removeItem('Authorization');
-					// sessionStorage.removeItem('isSelect')
-					this.$router.push('/login');
-					
-				},1000)
+				this.$axios.post('api/logout').then(res=>{
+				
+					setTimeout(() => {
+						localStorage.removeItem('Authorization');
+						// sessionStorage.removeItem('isSelect')
+						this.$router.push('/login');
+						
+					},1000)
+						// console.log(res)
+					})
+				.catch( error=>{
+			　　　　console.log(error);
+			　　});
+				
 			}
 		}
 	}
