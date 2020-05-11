@@ -31,7 +31,8 @@
                 </van-cell>
                 <van-cell center title="VIP专享折扣保养">
                     <!-- <p slot="label">已有<span>{{item.person}}</span>人到店使用</p> -->
-                    <van-button type="primary" size="small" slot="right-icon" color="linear-gradient(to right, #2E81F3, #4CB1FF)">电话预约</van-button>
+                            <a :href="'tel:' + item.phone" class="phone-btn">电话预约</a>
+                    <!-- <van-button type="primary" size="small" slot="right-icon" color="linear-gradient(to right, #2E81F3, #4CB1FF)">电话预约</van-button> -->
                 </van-cell>
             </div>
             
@@ -131,6 +132,15 @@ export default {
             width: 10px;
             float: left;
             margin-top: 5px;
+        }
+        .phone-btn{
+            float: right;
+            width: 64px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(to right, rgb(46, 129, 243), rgb(76, 177, 255));
         }
     }
 }
