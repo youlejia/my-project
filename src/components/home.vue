@@ -6,9 +6,7 @@
                 <van-swipe-item  v-for="(image, index) in images" :key="index">
                     <img :src="image" alt="">
                 </van-swipe-item>
-                <!-- <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
-                <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item>
-                <van-swipe-item><img src="../assets/image/banner01.png" alt=""></van-swipe-item> -->
+               
             </van-swipe>
         </div>
         <van-grid :gutter="4" :border="false">
@@ -64,12 +62,12 @@ export default {
                     icon:require('../assets/image/icon_02.png')
                 },
                 {
-                    url:'',
+                    url:'/pattern',
                     text:'模式解说' ,
                     icon:require('../assets/image/icon_03.png')
                 },
                 {
-                    url:'',
+                    url:'/share',
                     text:'立刻分享' ,
                     icon:require('../assets/image/icon_04.png')
                 },

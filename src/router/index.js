@@ -31,8 +31,10 @@ import MemberAgreement from '@/components/MemberAgreement' //会员协议
 import Notice from '@/components/Notice' //公告
 import noticeList from '@/components/noticeList' //公告
 import download from '@/components/Download' //app下载
-import Cooperation from '@/components/Cooperation' //
-import Customer from '@/components/Customer' //
+import Cooperation from '@/components/Cooperation' //商务合作
+import Customer from '@/components/Customer' //联系我们
+import pattern from '@/components/pattern' //模式解说
+import share from '@/components/share' //立刻分享
 import sdfds from '@/components/sdfds'
 Vue.use(Router)
 
@@ -241,6 +243,17 @@ const router = new Router({
       path: '/Customer',
       name:'Customer',
       component: Customer,
+    },
+    {
+      path: '/pattern',
+      name:'pattern',
+      component: pattern,
+    },
+    {
+      path: '/share',
+      name:'share',
+      component: share,
+      meta:{title:'分享赚钱',header:true,requireAuth: true,},
     },
   ]
 })

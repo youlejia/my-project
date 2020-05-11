@@ -22,7 +22,7 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
-import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel,Picker } from 'vant'
+import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel,Picker,Circle } from 'vant'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
@@ -48,7 +48,7 @@ Vue.use(Uploader);
 Vue.use(List);
 Vue.use(Panel);
 Vue.use(Picker);
-
+Vue.use(Circle);
 // Vue.use(AddressEdit);
 //css
 import './assets/css/style.css'
