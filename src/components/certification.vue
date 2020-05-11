@@ -61,8 +61,9 @@ export default {
                 username:this.username,
                 idnumber:this.id_card,
             }
-             this.$axios.post('api/real',params).then(res=>{
-                console.log(res)
+            this.$axios.post('api/real',params).then(res=>{
+                if (res.status != 200) return
+                this.$router.push({name: 'login'})
 
             })
             .catch( error=>{

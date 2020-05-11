@@ -138,10 +138,10 @@
 			},
 			Logout(){
 				this.$axios.post('api/logout').then(res=>{
-				
+					if (res.status != 200) return;
+					localStorage.removeItem('Authorization');
+					this.$toast.success('退出成功');
 					setTimeout(() => {
-						localStorage.removeItem('Authorization');
-						// sessionStorage.removeItem('isSelect')
 						this.$router.push('/login');
 						
 					},1000)

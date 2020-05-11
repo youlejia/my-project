@@ -11,7 +11,7 @@
                      <p class="btn" @click="details(index)">详情</p>
                 </div>
             </div>
-            <div class="kjxq" v-if="show">
+            <div class="kjxq" v-show="activeIndex===index">
                 <div class="title-s" style="margin-bottom:0;">
                     <span class="fl fb"><i class="line"></i>卡券详情</span>
                 </div>
@@ -32,7 +32,7 @@
 			return{
                 id:this.$route.query.id,
                 listCard:{},
-                show:false
+                activeIndex: -1 
 			}
         },
         mounted(){
@@ -52,7 +52,7 @@
             　　});
             },
             details(index){
-                this.show = !this.show
+                  this.activeIndex = index;
             }
 
 		},
