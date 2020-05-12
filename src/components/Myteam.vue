@@ -2,7 +2,7 @@
     <div class="team all pt20">
         <h2>团队</h2>
         <div class="team-user">
-            <div class="fl"><img :src="Userdata.avatar" alt=""></div>
+            <div class="fl"><img :src="Userdata.avatar" alt="" class="user-m"></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/user_vip.png" alt="">
@@ -52,7 +52,7 @@
         <div class="team-number">
             <p class="fb f14">我的邀请人</p>
             <div class="team-user yqr">
-                <div class="fl"><img :src="inviter.avatar" alt=""></div>
+                <div class="fl"><img :src="inviter.avatar" alt="" class="yqr-m"></div>
                 <div class="user-n mt10">
                     <p class="c-ff5000 f14">
                         <img src="../assets/image/user_vip.png" alt="">
@@ -109,6 +109,10 @@ export default {
         overflow: hidden;
         border-radius:12px;
         margin-top: 15px;
+        .user-m{
+            width: 68px;
+            border-radius: 100px;
+        }
         .user-n{
             font-size: 14px;
             margin-left: 9px;
@@ -127,6 +131,10 @@ export default {
         padding: 0;
         margin: 10px 0;
         background: none;
+        .yqr-m{
+            width: 45px;
+            border-radius: 100px;
+        }
     }
     .team-number{
         width:100%;

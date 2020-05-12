@@ -52,7 +52,7 @@ import loadMore from "../mixin/list-load-more";
 				balance:'',
 			}
 		},
-		 created() {
+		created() {
 			this.resetInit();
 		},
 

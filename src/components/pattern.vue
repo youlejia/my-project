@@ -3,8 +3,8 @@
         <div class="left"  @click="goback()">
             <van-icon name="arrow-left" size='18px' color="#fff" />
         </div>
-        <div>
-            <img src="../assets/image/wfjs.jpg" alt="">
+        <div v-html="pattern">
+            <!-- <img src="../assets/image/wfjs.jpg" alt=""> -->
         </div>
         
     </div>
@@ -13,11 +13,31 @@
 <script>
 import QRCode  from "qrcodejs2"
 export default {
-    methods:{
+    data(){
+        return{
+            pattern:''
+        }
+    },
+    created() {
+        this.initData();
+    },
+
+    methods: {
+        initData() {
+            this.$axios.post('api/index').then(res=>{
+                if (res.status != 200) return
+                this.pattern = res.data.user_equity;
+            })
+            .catch( error=>{
+        　　　　console.log(error);
+        　　});
+            
+        },
         goback(){
             this.$router.go(-1);
         }
     },
+    
 
 }
 </script>

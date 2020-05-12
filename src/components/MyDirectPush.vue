@@ -2,7 +2,7 @@
     <div class="mydirect team all pt20">
         <h2>团队</h2>
         <div class="team-user">
-            <div class="fl"><img :src="Userdata.avatar" alt=""></div>
+            <div class="fl"><img :src="Userdata.avatar" alt="" class="user-m"></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/user_vip.png" alt="">
@@ -39,7 +39,7 @@
             <ul class="zthy">
                 <li v-for="(item, index) in directPushList" :index="index" :key="item.id">
                     <div class="team-user yqr">
-                        <div class="fl mt10"><img :src="item.avatar" alt=""></div>
+                        <div class="fl mt10"><img :src="item.avatar" alt="" class="yqr-m"></div>
                         <div class="user-n mt10">
                             <span class="c-ff5000 f12">
                                 <img src="../assets/image/vip4.png" alt="">
@@ -106,6 +106,10 @@ export default {
         overflow: hidden;
         border-radius:12px;
         margin-top: 15px;
+        .user-m{
+            width: 68px;
+            border-radius: 100px;
+        }
         .user-n{
             font-size: 14px;
             float: left;
@@ -123,6 +127,10 @@ export default {
         padding: 0;
         margin:0 10px;
         background: none;
+        .yqr-m{
+            width: 45px;
+            border-radius: 100px;
+        }
     }
     .zthy li{
         width: 48%;

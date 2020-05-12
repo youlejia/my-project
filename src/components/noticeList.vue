@@ -1,7 +1,7 @@
 <template>
     <div class="noticeList" style="padding:10px;">
        <p class="mt10 tc f18 mb10">{{list.title}}</p>
-       <p>{{list.content}}</p>
+       <p v-html="clauseHtml"></p>
     </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
     data() {
         return {
             id:this.$route.params.id,
-            list:[]
+            list:[],
+            clauseHtml: '',
         }
         
     },
@@ -25,7 +26,7 @@ export default {
             this.$axios.post('api/notice/detail',{id:this.id}).then(res => {
                 if (res.status != 200) return
                 this.list = res.data;
-                
+                this.clauseHtml = res.data.content
             }).catch( error=>{
             　　
             });

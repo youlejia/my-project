@@ -99,7 +99,7 @@ export default {
 
 <style>
 .maintain-m .label li{
-  width:31%;
+  /* width:31%; */
   margin-right: 3%;
   height:26px;
   margin-bottom: 10px;

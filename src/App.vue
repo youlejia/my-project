@@ -72,12 +72,12 @@ export default {
 <style>
 #app{
   background: #fff;
-  /* height: 100vh; */
+  height: 100vh;
 }
 .all{
   width: 90%;
   margin: 0 auto;
-  padding-bottom: 60px;
+  padding-bottom: 32px;
 }
 .main{
   position: relative;

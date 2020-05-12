@@ -105,6 +105,10 @@ export default {
         initData(){
             this.$axios.post('api/index').then((res) => {
                 if (res.status == 200){
+                    if(res.data.user_real_name == 2){
+                        this.$toast('未实名认证')
+                        this.$router.push({name: 'certification'})
+                    }
                     this.images = res.data.banners;
                     this.items = res.data.items;
                     this.id = res.data.id;
