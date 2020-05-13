@@ -55,10 +55,10 @@
 		
 		</van-grid>
 		<!--<van-cell-group>	-->
-		<van-cell title="车友会">
+		<van-cell title="车友会" @click="onClickAlert">
 			<template slot="icon" to=''><img src="../assets/image/user_cy.png" /></template>
 		</van-cell>
-		<van-cell title="公益基金" to=''>
+		<van-cell title="公益基金" to='' @click="onClickAlert">
 			<template slot="icon"><img src="../assets/image/user_jijin.png" /></template>
 		</van-cell>
 		<van-cell title="收货地址" to='/ReceivingAddress'>
@@ -151,7 +151,14 @@
 			　　　　console.log(error);
 			　　});
 				
-			}
+			},
+			onClickAlert() {
+				this.$dialog.alert({
+					
+					message:'敬请期待！' ,
+				});
+			},
+
 		}
 	}
 </script>

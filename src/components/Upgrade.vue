@@ -26,22 +26,24 @@
             </li>
           </ul>
         </div>
-         <div class="clear"></div>
-        <div class="gradeText mt25">
-          <div class="tb">
-            <div class="zxqx">尊享权限 1</div>
-            <p>伞下出VIP会员奖励<span class="c-ff5000">30</span>元</p>
+        <div class="clear"></div>
+        <div class="mt25">
+          <div class="gradeText" v-for='(itemCon,index) in tabContents' :key="index" v-show="itemCon.key == istrue">
+            <div class="tb">
+              <div class="zxqx">尊享权限 1</div>
+              <p>{{itemCon.reward}}<span class="c-ff5000">{{itemCon.money}}</span>元</p>
+            </div>
+            <div class="tb">
+              <div class="zxqx">尊享权限 2</div>
+              <p>{{itemCon.assistant}}<span class="c-ff5000">{{itemCon.money2}}</span>,{{itemCon.assisText}}<span class="c-ff5000">{{itemCon.money3}}</span>,以此类推！</p>
+            </div>
+            <div class="tb">
+              <div class="zxqx">尊享权限 3</div>
+              <p>{{itemCon.pushVip}}<span class="c-ff5000">{{itemCon.money4}}</span>元</p>
+            </div>
           </div>
-          <div class="tb">
-            <div class="zxqx">尊享权限 1</div>
-            <p>直推会员10个助理代理及以上代理级别即可享受工资叠加<span class="c-ff5000">3000</span>,20个升级为助理及以上代理即可享受工资叠加<span class="c-ff5000">6000</span>,以此类推！</p>
-          </div>
-          <div class="tb">
-            <div class="zxqx">尊享权限 1</div>
-            <p>直推VIP用户奖励<span class="c-ff5000">400</span>元</p>
-          </div>
-          
         </div>
+        
        
       </div>
       <div>
@@ -80,7 +82,42 @@ export default {
       payWay:'',
       id:'4',
       userLevel:'',
-      price:'3000.00'
+      price:'3000.00',
+      tabContents:[
+        {
+          key:3,
+          reward:'伞下出VIP会员奖励',
+          money:'30',
+          assistant:'直推会员10个助理代理及以上代理级别即可享受工资叠加',
+          money2:'3000',
+          assisText:'20个升级为助理及以上代理即可享受工资叠加',
+          money3:'6000',
+          pushVip:'直推VIP用户奖励',
+          money4:'400'
+        },
+        {
+          key:4,
+          reward:'伞下出VIP会员奖励',
+          money:'50',
+          assistant:'直推会员10个升级为乡镇及以上代理即可享受工资',
+          money2:'5000',
+          assisText:'20个升级为乡镇及以上代理即可享受工资',
+          money3:'10000',
+          pushVip:'直推VIP用户奖励',
+          money4:'400'
+        },
+        {
+          key:5,
+          reward:'伞下出VIP会员奖励',
+          money:'100',
+          assistant:'直推会员10个升级为县区代理即可享受工资叠加',
+          money2:'10000',
+          assisText:',20个升级为县区代理即可享受工资叠加',
+          money3:'20000',
+          pushVip:'直推VIP用户奖励',
+          money4:'400'
+        }
+      ]
       
     };
   },

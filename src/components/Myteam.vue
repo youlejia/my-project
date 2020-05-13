@@ -25,7 +25,7 @@
                     <p slot="default" class="hy">{{teamList.directvip}}</p>
                     <p>直推会员</p>
                 </van-grid-item>
-                <van-grid-item>
+                <van-grid-item @click="profit">
                     <p slot="default" class="hy">{{teamList.earnings}}</p>
                     <p>累计收益(元)</p>
                 </van-grid-item>
@@ -35,7 +35,7 @@
         <div class="team-number">
             <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>我的工资</span>
-                <span class="fr c-2e81f3">玩法规则<van-icon name="question" class='ml5'/></span>
+                <span class="fr c-2e81f3" @click="pattern">模式解说<van-icon name="question" class='ml5'/></span>
             </div>
             <van-grid :column-num="1" :border='false'>
                 <van-grid-item>
@@ -94,7 +94,14 @@ export default {
             }).catch( error=>{
             　　
             });
-        }
+        },
+        profit(){
+           this.$router.push('/DetailsOfBalance')
+        },
+        pattern(){
+           this.$router.push('/pattern')
+		}
+        
 
     },
 }

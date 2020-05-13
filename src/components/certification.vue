@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="login-bg">
+         <div class="login-bg">
             <div>
                <img src="../assets/image/login.png" alt="">
                 <p class="f18 c-fff mt25">欢迎来到油乐嘉</p> 
@@ -8,71 +8,97 @@
         </div>
         <div class="login-box">
             <h2>实名认证</h2>
-            
+            <van-cell-group>
                 <van-field
-                    v-model="username"
-                    name="用户名"
-                    placeholder="姓名"
+                    v-model="name"
+                    label="真实姓名"
+                    placeholder="请输入真实姓名"
                 />
                 <van-field
-                    v-model="idnumber"
-                    type="password"
-                    name="身份证号码"
-                    placeholder="身份证号码"
-                   
+                    v-model="cardNo"
+                    label="证件号"
+                    placeholder="请输入身份证号"
                 />
-              
-                <van-radio-group v-model="radio" class="mt15">
-                    <van-radio name="1" icon-size="14px">
-                    注册即代表您已阅读并同意<a class="c-2e81f3">《油乐嘉用户协议》</a>
-                    </van-radio>
-                </van-radio-group>
-               
+                <!-- <van-field
+                    v-model="cardValidity"
+                    label="证件有效期"
+                    placeholder="请输入有效期时间"
+                /> -->
+            </van-cell-group>
+            <div class="sm_but">
                 
-                <div style="margin-top: 45px;">
-                    <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" @click="onSubmit">
-                        确认并注册
-                    </van-button>
-                </div>
-                
-            
+                <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" @click="sbAuth">
+                    提交认证
+                </van-button>
+            </div>
         </div>
         <div>
             <router-link to='' class="lxkf">联系客服</router-link>
         </div>
     </div>
-  
 </template>
 
 <script>
 export default {
-    
-    data() {
-        return {
-            username: '',
-            idnumber: '',
-            radio: '1'
-        };
+  
+    data(){
+        return{
+            name:'',
+            cardNo:'',
+            id:this.$route.params.id
+        }
     },
-    methods: {
-        onSubmit() {
-            var params={
-                id: this.id,
-                username:this.username,
-                idnumber:this.id_card,
-            }
-            this.$axios.post('api/real',params).then(res=>{
-                if (res.status != 200) return
-                this.$router.push({name: 'login'})
+    vuelidation: {
+        data: {
+            name: {
+                required: true,
+                msg() {
+                return '请输入姓名'
+                }
+            },
+            cardNo: {
+                required: true,
+                // betweenLength: 18,
+                msg() {
+                return '请输入正确证件号格式'
+                }
+            },
+            
+        }
+    },
+    methods:{
+        sbAuth() {
+            const onSubmit = this.onSubmit();
+            this.isRegistering = true;
+            this.$axios.post('api/real',onSubmit).then(res=>{
+                // if (res.status != 200) return
+                if(res.data.code==200){
+                    this.$toast.success('认证成功');
+                    // setTimeout(() => {
+                   
+                    // }, 2000);
+                }else{
+                    this.$toast('认证失败,请填写真实信息');
+                }
 
             })
             .catch( error=>{
-        　　　　
         　　});
         },
-    },
+        onSubmit(){
+            const id = this.id
+            const name = this.name
+            const id_card = this.cardNo
+            return {
+                id,
+                name,
+                id_card
+            }
+        }
+    }
 }
-</script> 
-<style>
+</script>
+
+<style lang="less" scoped>
 @import "../assets/css/login.css";
 </style>

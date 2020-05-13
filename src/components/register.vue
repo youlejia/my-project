@@ -68,11 +68,15 @@ export default {
             content: '发送验证码',
             totalTime: 60,
             canClick: true,
+            id:0
         };
+    },
+    created() {
+        this.codeNumber = this.$route.query.id || '';
     },
     methods: {
         send(){
-            if(!(/^1[34578]\d{9}$/.test(this.phone))){
+            if(!(/^1[345789]\d{9}$/.test(this.phone))){
                 this.$toast('请输入正确的手机号格式');
                 return false;
             }
@@ -114,7 +118,9 @@ export default {
             }else{
                 this.$axios.post('api/register',params).then( res=>{
                     if(res.status == 200){
-                        this.$router.push('/certification')
+                    this.id = res.data.id    
+                    this.$router.push({ name: 'certification',params:{id:this.id}})
+       
                         console.log(res)
                     }else{
 

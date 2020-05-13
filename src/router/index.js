@@ -68,7 +68,7 @@ const router = new Router({
       component: register
     },
     {
-      path: '/certification',
+      path: '/certification:id',
       name:'certification',
       component: certification
     },

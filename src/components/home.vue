@@ -40,7 +40,14 @@
                 <a href=""><img src="../assets/image/us03.jpg" alt=""></a>
             </div>
         </div>
-
+    <van-popup v-model="showAuth" :close-on-click-overlay="false" class="vp">
+      <div class="asas">
+        <!-- <div class="renImg"><img class="im" :src="Authtan" alt=""></div> -->
+        <div class="tishi_t">您还未实名认证</div>
+        <div class="title_ts">为确保交易及资金安全，请先实名认证</div>
+        <div class="but" @click="toAuth(id)">前往认证</div>
+      </div> 
+    </van-popup>
 
   </div>
 </template>
@@ -57,7 +64,7 @@ export default {
                     icon:require('../assets/image/icon_01.png')
                 },
                 {
-                    url:'',
+                    url:'/AddTo/4',
                     text:'折扣保养' ,
                     icon:require('../assets/image/icon_02.png')
                 },
@@ -94,7 +101,8 @@ export default {
             ],
             images: [], 
             items:[],
-            id:0  
+            id:0,
+            showAuth:false,
         }
         
     },
@@ -106,8 +114,7 @@ export default {
             this.$axios.post('api/index').then((res) => {
                 if (res.status == 200){
                     if(res.data.user_real_name == 2){
-                        this.$toast('未实名认证')
-                        this.$router.push({name: 'certification'})
+                        this.showAuth = true;
                     }
                     this.images = res.data.banners;
                     this.items = res.data.items;
@@ -116,6 +123,9 @@ export default {
             }).catch( error=>{
             　　console.log(error);
             });
+        },
+        toAuth(id){
+            this.$router.push({ name: 'certification',params:{id:id}})
         },
         addTo(id){
             this.$router.push({name: 'AddTo',params:{id:id}})
@@ -197,6 +207,39 @@ export default {
     }
     .van-grid{
         margin: 10px 0;
+    }
+    .vp{
+        border-radius: 15px;
+        background-color: #fff;
+        padding-top: 20px;
+        text-align: center;
+        padding-bottom: 1px;
+        .renImg{
+            padding: 20px 0;
+            .im{
+            width: 100px;
+            }
+        }
+        .tishi_t{
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            line-height: 20px;
+        }
+        .title_ts{
+            font-size: 12px;
+            color: #666666;
+            line-height: 20px;
+            width: 260px;
+        }
+        .but{
+            width: 60%;
+            margin: 20px auto;
+            line-height: 36px;
+            color: #fff;
+            background-color:#2e82f3;
+            border-radius: 6px;
+        }
     }
 }
 </style>
