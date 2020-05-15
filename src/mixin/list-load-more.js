@@ -14,15 +14,15 @@ export default {
 	},
 
 	methods: {
-		resetInit(params) {
+		async resetInit(params) {
 			this.resetData();
 
-			const page = this.initData();
+			const page = await this.initData();
 			this.$nextTick(() => {
 				this.setPages(page);
 			})
 		},
-		loadMore() {
+		async loadMore() {
 			var vm = this;
 			if (vm.pages.pageCount < vm.pages.currPage) {
 				vm.$toast({
@@ -30,7 +30,7 @@ export default {
 					position: "top"
 				});
 			} else {
-				const page = vm.initData(true);
+				const page = await vm.initData(true);
 				vm.nextPage(page.last_page);
 			}
 			vm.loading = false;
@@ -44,8 +44,6 @@ export default {
 			if (page.total <= this.pages.perPage) {
 				// 不满一页
 				this.finished = true;
-				console.log(page.total)
-				console.log(this.pages.perPage)
 			} else {
 				// 下一页
 				this.nextPage(page.last_page);

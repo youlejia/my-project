@@ -32,6 +32,7 @@
                
             </van-grid>
         </div>
+        <div class="clear"></div>
         <div class="mt10">
             <div class="title-s">
                 <span class="fl f17 fb"><i class="line"></i>直推会员</span>
@@ -39,24 +40,24 @@
             <ul class="zthy">
                 <li v-for="(item, index) in directPushList" :index="index" :key="item.id">
                     <div class="team-user yqr">
-                        <div class="fl"><img :src="item.avatar" alt="" class="yqr-m"></div>
+                        <div class="yqr-t"><img :src="item.avatar" alt="" class="yqr-m"></div>
                         <div class="user-n mt10">
                             <span class="c-ff5000 f12">
                                 <img src="../assets/image/vip.svg" alt="">
                                 <i class="vip_nums">{{item.level_id}}</i>
-                                <span>{{item.name}}</span>
+                                <span style="display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.name}}</span>
                                 
-                            </span><br>
+                            </span>
                             <div class="f12 mt5">
-                                <img src="../assets/image/phone2.png" alt="">
-                                <span>{{item.mobile}}</span>
+                                <img src="../assets/image/phone2.png" alt="" class="phone">
+                                <span style="display: block;overflow-wrap: break-word;">{{item.mobile}}</span>
                             </div>
                         </div>
                     </div>
                 </li>
                 
             </ul>
-            
+            <div class="clear"></div>
             
         </div>
         
@@ -138,10 +139,25 @@ export default {
         padding: 0;
         margin:0 10px;
         background: none;
+        .user-n{
+            float: right;
+            width: 64%;
+            margin: 10px 0 0 0;
+        }
         .yqr-m{
-            width: 45px;
+            width:100%;
             border-radius: 100px;
         }
+        .yqr-t{
+            width: 32%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .phone{
+            width: 19px;
+        }
+
     }
     .zthy li{
         width: 48%;

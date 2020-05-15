@@ -12,7 +12,7 @@
     </div>
     <div class="footer-bar" v-if="$route.meta.tabbar" >
       <van-tabbar v-model="active" active-color="#333333" inactive-color="#999" route>
-        <van-tabbar-item to="/home">
+        <van-tabbar-item to="/">
           <span>主页</span>
           <img slot="icon" slot-scope="props" :src="props.active ? icon.active : icon.inactive" />
         </van-tabbar-item>

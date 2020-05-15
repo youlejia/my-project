@@ -118,8 +118,12 @@ export default {
             }else{
                 this.$axios.post('api/register',params).then( res=>{
                     if(res.status == 200){
-                    this.id = res.data.id    
-                    this.$router.push({ name: 'certification',params:{id:this.id}})
+                    this.$toast('注册成功');
+                    setTimeout(() => {
+                        this.$router.push({ name: 'home'})
+                    }, 2000);
+                    // this.id = res.data.id    
+                    // this.$router.push({ name: 'certification',params:{id:this.id}})
        
                         console.log(res)
                     }else{

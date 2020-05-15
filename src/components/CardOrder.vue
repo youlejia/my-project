@@ -105,7 +105,7 @@ export default {
     data() {
         return {
             activeName:'',
-            items: {},
+            items: [],
             sta:"",
             loading: false,
             finished: false,
@@ -150,7 +150,8 @@ export default {
                 if (res.status != 200) return
                 const items = res.data.data;
                 const page = res.data.meta;
-                this.items.push(...items);
+                this.items = this.items.concat(res.data.data)
+                // this.items.push(...items);
                 return page;
             }).catch( error=>{
             　　console.log(error);

@@ -10,70 +10,81 @@
 		</div>
 		<van-cell-group>
 			<van-list
-				v-model="loading"
-				:immediate-check="false"
-				:offset="100"
-				@load="loadMore"
+			v-model="loading"
+            :finished="finished"
+            finished-text="- 没有更多了 -"
+            @load="onLoad"
+            :offset="130"
 			>
-				<div class="tabs" v-for="(items, index) in items" :index="index" :key="items.id">
+				<div class="tabs" v-for="(item, index) in items" :index="index" :key="item.id">
 					<div class="media-content">
 						<div class="left_m">
-							<div class="left_name">{{items.type}}</div>
-							<div class="left_time">{{items.created_at}}</div>
+							<div class="left_name">{{item.type}}</div>
+							<div class="left_time">{{item.created_at}}</div>
 						</div>
-						<div class="right_m" :style="{'color':(items.account_type == 2 ? '#333333':'#2E81F3')}">
-							<span v-if="items.account_type == 2">-</span>
+						<div class="right_m" :style="{'color':(item.account_type == 2 ? '#333333':'#2E81F3')}">
+							<span v-if="item.account_type == 2">-</span>
 							<span v-else>+</span>
-							{{items.account_amount}}
+							{{item.account_amount}}
 						</div>
 					</div>
 				</div>
 			</van-list>
 		</van-cell-group>
-		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的记录</is-empty>
 	</div>
 </template>
 
 <script>
-import IsEmpty from "./items/is-empty";
-import loadMore from "../mixin/list-load-more";
+
 	export default {
-		components: {
-
-			[IsEmpty.name]: IsEmpty,
-		},
-
-		mixins: [loadMore],
+		
 		data() {
 			return {
 				background_items: require('../assets/image/mingxi.png'),
-				
-				items:{},
+				items:[],
 				balance:'',
+				page: 1,
+				loading: false,
+				finished: false,
+				noData: false
 			}
 		},
 		created() {
-			this.resetInit();
+			this.initData();
 		},
 
 		methods: {
 			initData() {
 				let params = {
-					page: this.pages.currPage,
+					page: this.page,
 				}
 				this.$axios.post('api/user/fund',params).then(res=>{
 					if (res.status != 200) return
-					this.items = res.data.data;
-					const page = res.data.meta;
 					this.balance = res.data.top.balance;
-					this.items.push(...items);
-					return page;
+					this.loading = false
+					this.items = this.items.concat(res.data.data)
+					this.page++
+					// 如果没有数据，显示暂无数据
+					if (this.items.length === 0 && this.page === 1) {
+						this.noData = true
+					}
+					// 如果加载完毕，显示没有更多了
+					if (res.data.data.length === 0) {
+						this.finished = true
+					}
+
 				})
 				.catch( error=>{
 			　　　　console.log(error);
 			　　});
 				
-			}
+			},
+			onLoad () {
+				setTimeout(() => {
+					this.initData()
+					this.loading = true
+				}, 500)
+			},
 		},
 	}
 </script>
