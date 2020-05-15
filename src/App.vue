@@ -70,14 +70,19 @@ export default {
 </script>
 
 <style>
+body{
+  height: 100%;
+  min-height: 100%;
+  background: #fff;
+}
 #app{
   background: #fff;
-  height: 100vh;
+  /* height: 100vh; */
 }
 .all{
   width: 90%;
   margin: 0 auto;
-  padding-bottom: 32px;
+  padding-bottom:60px;
 }
 .main{
   position: relative;

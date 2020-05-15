@@ -35,7 +35,10 @@ import Cooperation from '@/components/Cooperation' //商务合作
 import Customer from '@/components/Customer' //联系我们
 import pattern from '@/components/pattern' //模式解说
 import share from '@/components/share' //立刻分享
-import sdfds from '@/components/sdfds'
+import Company from '@/components/Company' //公司介绍
+import Product from '@/components/Product' //产品介绍
+import CompanyTeam from '@/components/CompanyTeam' //团队介绍
+
 Vue.use(Router)
 
 const router = new Router({
@@ -44,11 +47,6 @@ const router = new Router({
       path: '/',
       meta:{tabbar: true,requireAuth: true,},
       component: home
-    },
-    {
-      path: '/sdfds',
-    
-      component: sdfds
     },
     {
       path: '/home',
@@ -68,7 +66,7 @@ const router = new Router({
       component: register
     },
     {
-      path: '/certification:id',
+      path: '/certification',
       name:'certification',
       component: certification
     },
@@ -254,6 +252,24 @@ const router = new Router({
       name:'share',
       component: share,
       meta:{title:'分享赚钱',header:true,requireAuth: true,},
+    },
+    {
+      path: '/Company',
+      name:'Company',
+      component: Company,
+      meta:{title:'公司介绍',header:true,requireAuth: true,},
+    },
+    {
+      path: '/Product',
+      name:'Product',
+      component: Product,
+      meta:{title:'产品介绍',header:true,requireAuth: true,},
+    },
+    {
+      path: '/CompanyTeam',
+      name:'CompanyTeam',
+      component: CompanyTeam,
+      meta:{title:'团队介绍',header:true,requireAuth: true,},
     },
   ]
 })

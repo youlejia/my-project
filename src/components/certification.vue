@@ -45,7 +45,7 @@ export default {
         return{
             name:'',
             cardNo:'',
-            id:this.$route.params.id
+            id:this.$route.query.id
         }
     },
     vuelidation: {
@@ -74,9 +74,7 @@ export default {
                 // if (res.status != 200) return
                 if(res.data.code==200){
                     this.$toast.success('认证成功');
-                    // setTimeout(() => {
-                   
-                    // }, 2000);
+                    this.$router.go(-1);
                 }else{
                     this.$toast('认证失败,请填写真实信息');
                 }

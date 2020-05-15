@@ -105,8 +105,6 @@ export default {
                  this.$toast('请输入正确的邀请码');
             }else{
                 this.$axios.post('api/user/forgetPassword',params).then( res=>{
-                    
-                    console.log(res)
                     if(res.status == 200){
                         this.$router.push('/login')
                         this.$toast('修改成功')

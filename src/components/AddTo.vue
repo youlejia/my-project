@@ -94,7 +94,8 @@ export default {
         listGood:[],
         speci:[],
         price:'',
-        goodsId:''
+        goodsId:'',
+        userId:''
     }
       
   },
@@ -112,6 +113,7 @@ export default {
         this.speci=res.data.data.speci;
         this.price = res.data.data.speci[0].price
         this.goodsId = res.data.data.speci[0].id
+        this.userId = res.data.data.id
       }).catch( error=>{
       　　console.log(error);
       });
@@ -123,7 +125,24 @@ export default {
       
     },
     goBuy(goodId){
-      this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
+      var params={
+       
+        goodId:this.goodId,
+        price:this.price,
+        goodsId:this.goodsId,
+        
+      }
+      this.$axios.post('api/order/placeOrderEntity',params).then((res) => {
+        console.log(res)
+        if(res.data.code == 22){
+          this.$router.push({ name: "certification",query:{id:this.userId}});
+        }else{
+          this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
+        }
+      }).catch( error=>{
+      　　console.log(error);
+      });
+      
     },
     onChange(index) {
       this.current = index;

@@ -35,19 +35,19 @@
                 <span class="fl f17 fb"><i class="line"></i>了解我们</span>
             </div>
             <div class='usList'>
-                <a href="" class="mb10"><img src="../assets/image/us01.jpg" alt=""></a>
-                <a href="" class="mb10"><img src="../assets/image/us02.jpg" alt=""></a>
-                <a href=""><img src="../assets/image/us03.jpg" alt=""></a>
+                <router-link to="/Company"><img src="../assets/image/us01.jpg" alt=""></router-link>
+                <router-link to="/Product"><img src="../assets/image/us02.jpg" alt=""></router-link>
+                <router-link to="/CompanyTeam"><img src="../assets/image/us03.jpg" alt=""></router-link>
             </div>
         </div>
-    <van-popup v-model="showAuth" :close-on-click-overlay="false" class="vp">
+    <!-- <van-popup v-model="showAuth" :close-on-click-overlay="false" class="vp">
       <div class="asas">
-        <!-- <div class="renImg"><img class="im" :src="Authtan" alt=""></div> -->
+        
         <div class="tishi_t">您还未实名认证</div>
         <div class="title_ts">为确保交易及资金安全，请先实名认证</div>
         <div class="but" @click="toAuth(id)">前往认证</div>
       </div> 
-    </van-popup>
+    </van-popup> -->
 
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
             images: [], 
             items:[],
             id:0,
-            showAuth:false,
+            // showAuth:false,
         }
         
     },
@@ -113,9 +113,9 @@ export default {
         initData(){
             this.$axios.post('api/index').then((res) => {
                 if (res.status == 200){
-                    if(res.data.user_real_name == 2){
-                        this.showAuth = true;
-                    }
+                    // if(res.data.user_real_name == 2){
+                    //     this.showAuth = true;
+                    // }
                     this.images = res.data.banners;
                     this.items = res.data.items;
                     this.id = res.data.id;
@@ -124,9 +124,9 @@ export default {
             　　console.log(error);
             });
         },
-        toAuth(id){
-            this.$router.push({ name: 'certification',params:{id:id}})
-        },
+        // toAuth(id){
+        //     this.$router.push({ name: 'certification',params:{id:id}})
+        // },
         addTo(id){
             this.$router.push({name: 'AddTo',params:{id:id}})
         }

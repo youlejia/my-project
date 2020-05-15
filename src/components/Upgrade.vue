@@ -17,7 +17,7 @@
             >
               <div class="pt25 f14">
                 <p class="c-ff5000 f12 mb5 vsp" v-if="istrue==index">
-                  <img class="imgs" src="../assets/image/vip3.png" alt="">
+                  <img class="imgs" src="../assets/image/vip.svg" alt="">
                 </p>
                 <p class="c-ff5000 f12 mb5" v-else>LEVEL{{item.id}}</p>
                 <p>{{item.name}}</p>
@@ -64,6 +64,26 @@
         <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" class="mt25" @click="subPay">立即开通</van-button>
         <p class="tc mt10">只有VIP用户拥有升级代理权限</p>
       </div>
+      <van-dialog v-model="showPop" title="" show-cancel-button @confirm="confirmFn">
+        <van-field
+            v-model="phone"
+            name="手机号"
+            placeholder="请输入手机号"
+        />
+        <van-field
+            v-model="number"
+            name="验证码"
+            placeholder="请输入验证码"
+            
+        >
+            <template #button>
+                <span>|</span>
+                <van-button size="small" type="default" style="border: none;" @click="send">{{content}}</van-button>
+                
+            </template>
+        
+        </van-field>
+		</van-dialog>
     </div>
 </template>
 
@@ -83,6 +103,12 @@ export default {
       id:'4',
       userLevel:'',
       price:'3000.00',
+      showPop:false,
+      phone:'',
+      number:'',
+      content: '发送验证码',
+      totalTime: 60,
+      canClick: true,
       tabContents:[
         {
           key:3,
@@ -143,28 +169,96 @@ export default {
       });
     },
     subPay(){
-      var params={
-        type:this.payWay,
-        id:this.id,
+      if(this.payWay == 'balance'){
+        this.showPop = true;
+      }else{
+        var params={
+          type:this.payWay,
+          id:this.id,
+          sms:this.number,
+        }
+        this.$axios.post('api/up/add',params).then(res => {
+            if (res.status != 200) return
+          
+            if (res.data.qrcode) {
+              // console.log(res.data.qrcode)
+              this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+            }else if (res.data.html) {
+                const div = document.createElement('div') // 创建div
+                div.innerHTML = res.data.html // 将返回的form 放入div
+                document.body.appendChild(div)
+                if (res.data.submitkey) {
+                document.forms[res.data.submitkey].submit()
+                }
+            } else {
+                this.$toast.success('支付完成');
+            }
+            
+            
+        }).catch( error=>{
+        　　console.log(error);
+        });
+
       }
-      this.$axios.post('api/up/add',params).then(res => {
-          if (res.status != 200) return
-         
-          if (res.data.qrcode) {
-            // console.log(res.data.qrcode)
-            this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
-          }else if (res.data.html) {
-              const div = document.createElement('div') // 创建div
-              div.innerHTML = res.data.html // 将返回的form 放入div
-              document.body.appendChild(div)
-              if (res.data.submitkey) {
-              document.forms[res.data.submitkey].submit()
-              }
-          } else {
-              this.$toast.success('支付完成');
+      
+    },
+    confirmFn(){
+			if(this.phone && this.number){
+				var params={
+          type:this.payWay,
+          id:this.id,
+          sms:this.number,
+        }
+        this.$axios.post('api/up/add',params).then(res => {
+            if (res.status != 200) return
+          
+            if (res.data.qrcode) {
+              // console.log(res.data.qrcode)
+              this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
+            }else if (res.data.html) {
+                const div = document.createElement('div') // 创建div
+                div.innerHTML = res.data.html // 将返回的form 放入div
+                document.body.appendChild(div)
+                if (res.data.submitkey) {
+                document.forms[res.data.submitkey].submit()
+                }
+            } else {
+                this.$toast.success('支付完成');
+            }
+            
+            
+        }).catch( error=>{
+        　　console.log(error);
+        });
+			}else{
+				this.$toast('请输入手机号和验证码')
+				
+			}
+		},
+		
+		send(){
+      if(!(/^1[345789]\d{9}$/.test(this.phone))){
+          this.$toast('请输入正确的手机号格式');
+          return false;
+      }
+      if (!this.canClick) return
+      this.canClick = false
+      this.content = '剩余'+ this.totalTime + '秒'
+      let clock = window.setInterval(() => {
+          this.totalTime--
+          this.content = '剩余'+ this.totalTime + '秒'
+          if (this.totalTime < 0) {
+              window.clearInterval(clock)
+              this.content = '重新发送验证码'
+              this.totalTime = 60
+              this.canClick = true
           }
-          
-          
+      },1000);
+      var params = { 
+          mobile:this.phone,
+      };
+      this.$axios.post('api/sms',params).then( res=>{
+          console.log(res)
       }).catch( error=>{
       　　console.log(error);
       });

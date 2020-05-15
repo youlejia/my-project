@@ -22,7 +22,7 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
-import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel,Picker,Circle } from 'vant'
+import { Button,Form,Field,Radio,RadioGroup,Tabbar,TabbarItem,Swipe,SwipeItem,Grid,GridItem,Image,NavBar,Cell,Row,Col,Icon,Card,AddressList,Popup,Tab,Tabs,CellGroup,Toast,Uploader,List,Panel,Picker,Circle,Dialog  } from 'vant'
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
@@ -49,6 +49,7 @@ Vue.use(List);
 Vue.use(Panel);
 Vue.use(Picker);
 Vue.use(Circle);
+Vue.use(Dialog)
 // Vue.use(AddressEdit);
 //css
 import './assets/css/style.css'
@@ -107,6 +108,12 @@ axios.interceptors.response.use(response => {
     }
     if (error) Toast(error)
   }
+  // if (res.code === 22){
+  //   Toast(res.msg);
+  //   setTimeout(() => {
+  //     router.push('/certification')
+  //   }, 1000);
+  // }
   return res
   // return Promise.resolve(error.response)
 })

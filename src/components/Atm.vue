@@ -6,7 +6,7 @@
 			</div>
 			<van-field v-model="price" type="number" label="自定义金额:" placeholder="请输入充值金额" />
 		</div>
-		<div class="card">
+		<div class="card" v-if="cards">
 			<img src="../assets/image/card.png" />
 			<div class="card_yw">EuroAd</div>
 			<div class="card_qh" @click="AtmCard">更换银行卡</div>
@@ -14,15 +14,41 @@
 			<div class="card_name">{{cards.real_name}}</div>
 			<div class="card_cardName">{{cards.bank}}</div>
 		</div>
+		<div class="card" v-else >
+			<img src="../assets/image/card.png" />
+			<div class="card_yw">EuroAd</div>
+			<div class="card_qh" @click="AtmCard">添加银行卡</div>
+		</div>
 		<div class="tc_login">
 			<van-button size="large" @click="toAtm">确定提现</van-button>
 		</div>
+		
 		<van-popup class="popup" v-model="show">
 			<img class="imgs" src="../assets/image/atm_tk.png"/>
 			<div class="is_tx">余额提现已成功</div>
 			<div class="is_kf">如有任何问题请联系客服</div>
 			<div class="but_qd" @click="thisOk">确定</div>
 		</van-popup>
+		<van-dialog v-model="showPop" title="" show-cancel-button @confirm="confirmFn">
+				<van-field
+                    v-model="phone"
+                    name="手机号"
+                    placeholder="请输入手机号"
+                />
+                <van-field
+                    v-model="number"
+                    name="验证码"
+                    placeholder="请输入验证码"
+                   
+                >
+                    <template #button>
+                        <span>|</span>
+                        <van-button size="small" type="default" style="border: none;" @click="send">{{content}}</van-button>
+                       
+                    </template>
+                
+                </van-field>
+		</van-dialog>
 	</div>
 </template>
 
@@ -49,7 +75,13 @@
 					}
 				],
 				cards:[],
-				show:false
+				show:false,
+				showPop:false,
+				phone:'',
+				number:'',
+				content: '发送验证码',
+				totalTime: 60,
+				canClick: true,
 			}
 		},
 	created() {
@@ -64,18 +96,64 @@
 			});
 		},
 		toAtm(){
-			var param={
-				price:this.price,
-				cardId: this.cards.id,
+			
+			if(!this.cards){
+				this.$toast('请先添加一个银行卡')
+			}else{
+				this.showPop = true
 			}
-			this.$axios.post('api/atm/sub',param).then(res => {
-				if (res.status != 200) return
-				this.show=true;
-				
-			}).catch( error=>{
-			　　
-			});
+			
 		},
+		confirmFn(){
+			if(this.phone && this.number){
+				var param={
+					price:this.price,
+					cardId: this.cards.id,
+					sms:this.number
+				}
+				this.$axios.post('api/atm/sub',param).then(res => {
+					if (res.status != 200) return
+					this.showPop = false;
+					setTimeout(() => {
+						this.show=true;
+					}, 1000);
+					
+				}).catch( error=>{
+					console.log(error)
+				});
+			}else{
+				this.$toast('请输入手机号和验证码')
+				
+			}
+		},
+		
+		send(){
+            if(!(/^1[345789]\d{9}$/.test(this.phone))){
+                this.$toast('请输入正确的手机号格式');
+                return false;
+            }
+            if (!this.canClick) return
+            this.canClick = false
+            this.content = '剩余'+ this.totalTime + '秒'
+            let clock = window.setInterval(() => {
+                this.totalTime--
+                this.content = '剩余'+ this.totalTime + '秒'
+                if (this.totalTime < 0) {
+                    window.clearInterval(clock)
+                    this.content = '重新发送验证码'
+                    this.totalTime = 60
+                    this.canClick = true
+                }
+            },1000);
+            var params = { 
+                mobile:this.phone,
+            };
+            this.$axios.post('api/sms',params).then( res=>{
+                console.log(res)
+            }).catch( error=>{
+            　　console.log(error);
+            });
+        },
 		thisOk(){
 			this.$router.push({ name: "User"});
 		},
@@ -87,6 +165,7 @@
 		AtmCard(){
 			this.$router.push({name: 'MyBankCard', query: {redirect: 'atm'}})
 		},
+		
 		
 	}
 }

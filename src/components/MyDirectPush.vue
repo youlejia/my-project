@@ -5,7 +5,7 @@
             <div class="fl"><img :src="Userdata.avatar" alt="" class="user-m"></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
-                    <img src="../assets/image/user_vip.png" alt="">
+                    <img src="../assets/image/vip.svg" alt="">
                     {{Userdata.name}}
                 </p>
                 <p class="ml10 c-fff">{{Userdata.mobile}}</p>
@@ -39,16 +39,18 @@
             <ul class="zthy">
                 <li v-for="(item, index) in directPushList" :index="index" :key="item.id">
                     <div class="team-user yqr">
-                        <div class="fl mt10"><img :src="item.avatar" alt="" class="yqr-m"></div>
+                        <div class="fl"><img :src="item.avatar" alt="" class="yqr-m"></div>
                         <div class="user-n mt10">
                             <span class="c-ff5000 f12">
-                                <img src="../assets/image/vip4.png" alt="">
-                                {{item.name}}
+                                <img src="../assets/image/vip.svg" alt="">
+                                <i class="vip_nums">{{item.level_id}}</i>
+                                <span>{{item.name}}</span>
+                                
                             </span><br>
-                            <span class="f12">
+                            <div class="f12 mt5">
                                 <img src="../assets/image/phone2.png" alt="">
-                                {{item.mobile}}
-                            </span>
+                                <span>{{item.mobile}}</span>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -113,13 +115,22 @@ export default {
         .user-n{
             font-size: 14px;
             float: left;
+            position: relative;
             margin: 5px 0 5px 9px;
         }
         .user-n img{
-            width: 18px;
+            width: 20px;
             float: left;
-            margin-top: 2px;
+            // margin-top: 2px;
             margin-right: 5px;
+        }
+        .vip_nums{
+            position: absolute;
+            top:4px;
+            left: 12px;
+            font-size: 11px;
+            color: #000;
+            text-shadow: #F93 2px 3px 6px;
         }
         
     }

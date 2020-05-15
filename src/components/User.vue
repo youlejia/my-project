@@ -11,10 +11,11 @@
 				<div class="yh_js">
 					<div class="yh_name">{{userList.name}}</div>
 					<div class="yh_c">
-						<div class="yh_dj" v-if="userList.level_id >= 3">
-							<img src="../assets/image/user_vip.png" alt=""/>
+						<div class="yh_dj">
+							<img src="../assets/image/vip.svg" alt=""/>
+							<i class="vip_num">{{userList.level_id}}</i>
 						</div>
-						<div class="yh_zh">{{userList.levelName}}</div>
+						<span class="yh_zh">{{userList.levelName}}</span>
 					</div>
 				</div>
 				<div class="card_quan" @click="maintain">
@@ -117,7 +118,6 @@
 				this.userList = res.data.user;
 				this.securities =res.data.securities;
 				this.userOrders = res.data.orders;
-				
 				// console.log(res)
 			})
 			.catch( error=>{
@@ -175,8 +175,7 @@
 	.mycore {
 		font-family: 'ps';
 		margin: 0;
-		padding: 0;
-		padding-bottom:60px;//添加底部导航栏后 定
+		padding-bottom:60px;
 		.head {
 			padding-top: 10px;
 			position: relative;
@@ -207,8 +206,8 @@
 				.yh_js {
 					display: inline-block;
 					position: absolute;
-					left: 80px;
-					top: 12px;
+					left: 85px;
+					top:21px;
 					color: #ffffff;
 					.yh_name {
 						font-size: 15px;
@@ -219,19 +218,27 @@
 						.yh_dj {
 							display: inline-block;
 							// padding-top: 3px;
-							text-align: center;
-							vertical-align: middle;
+							position: relative;
+							// text-align: center;
+							// vertical-align: middle;
 							img {
-								width: 15px;
-								height: 15px;
+								width: 20px;
+								height:20px;
+							}
+							.vip_num{
+								position: absolute;
+								top: 5px;
+								left: 12px;
+            					color: #fff;
+								text-shadow: #F93 2px 3px 6px;
+								font-size: 12px;
 							}
 						}
 						.yh_zh {
-							font-size: 11px;
-							display: inline-block;
+							font-size: 13px;
+							position: relative;
 							color: #FF5000;
-							margin-top: 1px;
-							// margin-left: -5px;
+							top: -3px;
 						}
 					}
 				}

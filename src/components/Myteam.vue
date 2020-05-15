@@ -5,8 +5,9 @@
             <div class="fl"><img :src="Userdata.avatar" alt="" class="user-m"></div>
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
-                    <img src="../assets/image/user_vip.png" alt="">
-                    {{Userdata.name}}
+                    <img src="../assets/image/vip.svg" alt="">
+                    <i class="vip_num">{{Userdata.level_id}}</i>
+                    <span>{{Userdata.name}}</span>
                 </p>
                 <p class="ml10 c-fff">{{Userdata.mobile}}</p>
             </div>
@@ -53,12 +54,13 @@
             <p class="fb f14">我的邀请人</p>
             <div class="team-user yqr">
                 <div class="fl"><img :src="inviter.avatar" alt="" class="yqr-m"></div>
-                <div class="user-n mt10">
+                <div class="user-n">
                     <p class="c-ff5000 f14">
-                        <img src="../assets/image/user_vip.png" alt="">
-                        {{inviter.name}}
+                        <img src="../assets/image/vip.svg" alt="">
+                        <i class="vip_num yq">{{inviter.level_id}}</i>
+                        <span>{{inviter.name}}</span>
                     </p>
-                    <p>
+                    <p class="mt5">
                         <img src="../assets/image/phone.png" alt="">
                         {{inviter.mobile}}
                     </p>
@@ -125,18 +127,30 @@ export default {
             margin-left: 9px;
             margin-bottom: 10px;
             float: left;
+            position: relative;
         }
         .user-n img{
-            width: 18px;
+            width: 20px;
             float: left;
             margin-top: 2px;
             margin-right: 5px;
+        }
+        .vip_num{
+            position: absolute;
+            top: 7px;
+            left: 13px;
+            font-size: 11px;
+            color: #fff;
+            // text-shadow: #F93 2px 3px 6px;
+        }
+        .vip_num.yq{
+           color: #000; 
         }
         
     }
     .team-user.yqr{
         padding: 0;
-        margin: 10px 0;
+        // margin: 10px 0;
         background: none;
         .yqr-m{
             width: 45px;
