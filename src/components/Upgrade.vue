@@ -164,6 +164,7 @@ export default {
           this.list = res.data.upLevel
           this.userLevel = res.data.userLevel
           this.price = res.data.balance
+          this.phone = res.data.mobile
       }).catch( error=>{
       　　console.log(error);
       });
@@ -181,7 +182,7 @@ export default {
             if (res.status != 200) return
           
             if (res.data.qrcode) {
-              // console.log(res.data.qrcode)
+              
               this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
             }else if (res.data.html) {
                 const div = document.createElement('div') // 创建div
@@ -213,7 +214,7 @@ export default {
             if (res.status != 200) return
           
             if (res.data.qrcode) {
-              // console.log(res.data.qrcode)
+      
               this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
             }else if (res.data.html) {
                 const div = document.createElement('div') // 创建div
@@ -258,7 +259,7 @@ export default {
           mobile:this.phone,
       };
       this.$axios.post('api/sms',params).then( res=>{
-          console.log(res)
+         
       }).catch( error=>{
       　　console.log(error);
       });

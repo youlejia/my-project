@@ -35,8 +35,24 @@
         </div>
         <div class="team-number">
             <div class="title-s" style="margin-bottom:0;">
+                <span class="fl f17 fb"><i class="line"></i>我的业绩</span>
+            </div>
+            <van-grid :column-num="2" :border='false'>
+                <van-grid-item>
+                    <p slot="default" class="hy">{{teamList.the_performance}}</p>
+                    <p>累计业绩</p>
+                </van-grid-item>
+                <van-grid-item to="/MyDirectPush">
+                    <p slot="default" class="hy">{{teamList.Results_month}}</p>
+                    <p>本月业绩</p>
+                </van-grid-item>
+               
+            </van-grid>
+        </div>
+        <div class="team-number">
+            <div class="title-s" style="margin-bottom:0;">
                 <span class="fl f17 fb"><i class="line"></i>我的工资</span>
-                <span class="fr c-2e81f3" @click="pattern">模式解说<van-icon name="question" class='ml5'/></span>
+                <span class="fr c-2e81f3" @click="pattern">合伙人权益<van-icon name="question" class='ml5'/></span>
             </div>
             <van-grid :column-num="1" :border='false'>
                 <van-grid-item>
@@ -52,7 +68,7 @@
         </div>
         <div class="team-number">
             <p class="fb f14">我的邀请人</p>
-            <div class="team-user yqr">
+            <div class="team-user yqr" v-if="inviter.name">
                 <div class="fl"><img :src="inviter.avatar" alt="" class="yqr-m"></div>
                 <div class="user-n">
                     <p class="c-ff5000 f14">
@@ -66,6 +82,7 @@
                     </p>
                 </div>
             </div>
+            <div class="tc mt10" v-else>暂无邀请人</div>
             
         </div>
 
@@ -137,15 +154,15 @@ export default {
         }
         .vip_num{
             position: absolute;
-            top: 7px;
-            left: 13px;
-            font-size: 11px;
-            color: #fff;
-            // text-shadow: #F93 2px 3px 6px;
+            top: 5px;
+            left: 14px;
+            color: #ff5000;
+            font-size: 12px;
+            -webkit-text-stroke: .5px #f7e9da;
         }
-        .vip_num.yq{
-           color: #000; 
-        }
+        // .vip_num.yq{
+        //    color: #000; 
+        // }
         
     }
     .team-user.yqr{

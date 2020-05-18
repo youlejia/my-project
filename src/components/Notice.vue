@@ -34,7 +34,6 @@ export default {
         },
         goNotice(index){
             this.id = this.noticeList[index].id;
-            console.log(this.id)
             this.$router.push({name: 'noticeList',params:{id:this.id}})
         }
     

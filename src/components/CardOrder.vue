@@ -14,16 +14,9 @@
 			</van-tab>
 		</van-tabs>
 
-		<van-list
-            v-model="loading"
-			:immediate-check="false"
-            :offset="100"
-            :finished="finished"
-            @load="loadMore"
-           v-if="items.length"
-		>
+		
             
-            <div class="card-list mt20">
+            <div class="card-list mt20" v-if="this.items">
                 <van-panel 
                 v-for="(el, i) in items"
                 class="order_list--panel"
@@ -62,7 +55,7 @@
 
             </div>   
                 	
-		</van-list>
+		
         
         <div v-else  class='tc mt20'>抱歉,没有找到符合条件的订单</div>
     </div>
@@ -76,8 +69,8 @@ import status2 from "./user/order/handle-status-2";
 import status3 from "./user/order/handle-status-3";
 import status4 from "./user/order/handle-status-4";
 import status6 from "./user/order/handle-status-6";
-import loadMore from "../mixin/list-load-more";
-import scrollFixed from "../mixin/scroll-fixed";
+// import loadMore from "../mixin/list-load-more";
+// import scrollFixed from "../mixin/scroll-fixed";
 const STATUS_TEXT = {
   2: "待发货",
   3: "待收货",
@@ -86,7 +79,7 @@ const STATUS_TEXT = {
 
 export default {
     
-    mixins: [loadMore, scrollFixed],
+    // mixins: [loadMore, scrollFixed],
     props: {
     active: {
         type: [String, Number],
@@ -107,6 +100,7 @@ export default {
             activeName:'',
             items: [],
             sta:"",
+            page:1,
             loading: false,
             finished: false,
             tabsItem: [
@@ -130,29 +124,29 @@ export default {
       
       
     },
-    watch: {
-        $route: "resetInit"
-    },
+    // watch: {
+    //     $route: "resetInit"
+    // },
   
     created() {
-        this.resetInit();
+        this.initData();
     },
     methods: {
         initData() {
             const i = this.active;
-           this.activeName = i
+            this.activeName = i
             const status = i;
             let params = {
-                page: this.pages.currPage,
+                page: this.page,
                 status
             }
             this.$axios.post('api/order',params).then(res => {
                 if (res.status != 200) return
-                const items = res.data.data;
-                const page = res.data.meta;
-                this.items = this.items.concat(res.data.data)
+                this.items = res.data;
+                // const page = res.data.meta;
+                // this.items = this.items.concat(res.data.data)
                 // this.items.push(...items);
-                return page;
+                // return page;
             }).catch( error=>{
             　　console.log(error);
             });

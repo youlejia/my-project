@@ -66,12 +66,10 @@ export default {
                         'scope': ''
                     //}
                 }).then((res) => {
-                    console.log(res)
                     if(res.status == 200){
                         this.userToken = 'Bearer ' + res.data.access_token;
                         this.changeLogin({ Authorization: this.userToken });
                         this.$toast('登录成功')
-                         console.log(res)
                         this.$router.push('/')
                     } else {
                         this.$toast(res.data.message)

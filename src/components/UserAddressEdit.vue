@@ -38,7 +38,6 @@ export default {
     computed: {
         isEdit() {
             return this.addressId > 0
-            console.log(addressId)
         },
     },
     
@@ -60,7 +59,6 @@ export default {
                         let redirect = query.redirect
                         delete query.redirect
                         query.addressId = res.data.id
-                        console.log(query)
                         this.$router.push({name: redirect, query: query})
                     } else {
                         this.$router.go(-1);

@@ -70,7 +70,7 @@ export default {
                 },
                 {
                     url:'/pattern',
-                    text:'模式解说' ,
+                    text:'会员权益' ,
                     icon:require('../assets/image/icon_03.png')
                 },
                 {

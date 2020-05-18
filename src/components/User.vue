@@ -118,7 +118,7 @@
 				this.userList = res.data.user;
 				this.securities =res.data.securities;
 				this.userOrders = res.data.orders;
-				// console.log(res)
+			
 			})
 			.catch( error=>{
 		　　　　console.log(error);
@@ -145,7 +145,7 @@
 						this.$router.push('/login');
 						
 					},1000)
-						// console.log(res)
+				
 					})
 				.catch( error=>{
 			　　　　console.log(error);
@@ -228,10 +228,10 @@
 							.vip_num{
 								position: absolute;
 								top: 5px;
-								left: 12px;
-            					color: #fff;
-								text-shadow: #F93 2px 3px 6px;
+								left: 14px;
+								color: #ff5000;
 								font-size: 12px;
+								-webkit-text-stroke: .5px #f7e9da;
 							}
 						}
 						.yh_zh {

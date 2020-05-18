@@ -56,7 +56,7 @@ export default {
                     name:this.username
                 };
                 this.$axios.post('api/user/resetName',params).then(res => {
-                    console.log(res)
+                
                 })
                 .catch(error => {
                 　　console.log(error);

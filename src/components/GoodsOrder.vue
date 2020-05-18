@@ -119,12 +119,13 @@ export default {
             this.goods=res.data.goods;
             this.balance = res.data.gateways[0].balance;
             this.statuss = res.data.goods[0].statuss;
-            this.address = res.data.address ? res.data.address : '' 
+            this.address = res.data.address ? res.data.address : {} 
             this.trade_no = res.data.trade_no
             this.phone = res.data.mobile;
             if(res.data.address){
                 this.addressId = res.data.address.id
             }
+            
         }).catch( error=>{
         　　console.log(error);
         });
@@ -205,7 +206,7 @@ export default {
                 mobile:this.phone,
             };
             this.$axios.post('api/sms',params).then( res=>{
-                console.log(res)
+           
             }).catch( error=>{
             　　console.log(error);
             });
@@ -259,7 +260,7 @@ export default {
                 });
                 }
             }else if(this.$route.query.goodId == 6){
-                if(this.address === ''){
+                if(!this.addressId){
                      this.$toast('收货地址不能为空');
                 }else{
                     if(this.payWay == 'balance'){

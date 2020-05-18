@@ -91,6 +91,7 @@
 		initData(){
 			this.$axios.post('api/atm/placeAtmEntity').then(res => {
 				this.cards=res.data.cards
+				this.phone = res.data.mobile
 			}).catch( error=>{
 			　　console.log(error);
 			});
@@ -149,7 +150,7 @@
                 mobile:this.phone,
             };
             this.$axios.post('api/sms',params).then( res=>{
-                console.log(res)
+                
             }).catch( error=>{
             　　console.log(error);
             });
@@ -160,7 +161,6 @@
 		choicea(index) {
 			this.currentIndex = index
 			this.price = this.list[index].nama
-			console.log(this.price)
 		},
 		AtmCard(){
 			this.$router.push({name: 'MyBankCard', query: {redirect: 'atm'}})

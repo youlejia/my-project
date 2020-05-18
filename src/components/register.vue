@@ -42,7 +42,7 @@
                 />
                 <div style="margin-top: 45px;">
                     <van-button round block type="info" color="linear-gradient(to right, #2E81F3, #4CB1FF)" @click="onSubmit">
-                        进行实名认证
+                        确定注册
                     </van-button>
                 </div>
                
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-
+import { mapMutations } from 'vuex';
 export default {
     
     data() {
@@ -75,6 +75,7 @@ export default {
         this.codeNumber = this.$route.query.id || '';
     },
     methods: {
+        ...mapMutations(['changeLogin']),
         send(){
             if(!(/^1[345789]\d{9}$/.test(this.phone))){
                 this.$toast('请输入正确的手机号格式');
@@ -97,7 +98,7 @@ export default {
                 mobile:this.phone,
             };
             this.$axios.post('api/sms',params).then( res=>{
-                console.log(res)
+              
             }).catch( error=>{
             　　console.log(error);
             });
@@ -117,20 +118,28 @@ export default {
                  this.$toast('请输入正确的邀请码');
             }else{
                 this.$axios.post('api/register',params).then( res=>{
-                    if(res.status == 200){
-                    this.$toast('注册成功');
-                    setTimeout(() => {
-                        this.$router.push({ name: 'home'})
-                    }, 2000);
-                    // this.id = res.data.id    
-                    // this.$router.push({ name: 'certification',params:{id:this.id}})
-       
-                        console.log(res)
-                    }else{
-
-                        // console.log(res.data.errors.mobile)
-                    }
-                    
+                    if (res.status != 200)return
+                    this.$toast.success('注册成功')
+                    this.$axios.post('api/oauth/token',{
+                        'grant_type': 'password',
+                        'client_id': '2',
+                        'client_secret': 'u2vxPEC7scHT79djwP7gsN7oY4ZoJC8WDHvwzO2D',
+                        'username':this.phone,   // 登录名
+                        'password':this.password,  // 登录密码
+                        'scope': ''
+                    }).then((res) => {
+                        if(res.status == 200){
+                            this.userToken = 'Bearer ' + res.data.access_token;
+                            this.changeLogin({ Authorization: this.userToken });
+                            this.$router.push('/')
+                        } else {
+                            this.$toast(res.data.message)
+                        }
+                    }).catch( error=>{
+                    　　
+                    });
+                }).catch( error=>{
+                　　console.log(error);
                 });
             }
          },

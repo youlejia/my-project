@@ -86,7 +86,7 @@ export default {
                 mobile:this.phone,
             };
             this.$axios.post('api/sms',params).then( res=>{
-                console.log(res)
+            
             }).catch( error=>{
             　　console.log(error);
             });

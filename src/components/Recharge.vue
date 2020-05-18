@@ -84,7 +84,6 @@ export default {
 		choicea(index) {
 			this.currentIndex = index
 			this.price = this.list[index].nama
-			console.log(this.price)
 		},
 		
 		payWayEvent(value) {

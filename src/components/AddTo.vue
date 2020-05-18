@@ -95,7 +95,8 @@ export default {
         speci:[],
         price:'',
         goodsId:'',
-        userId:''
+        userId:'',
+        user_level:''
     }
       
   },
@@ -114,6 +115,7 @@ export default {
         this.price = res.data.data.speci[0].price
         this.goodsId = res.data.data.speci[0].id
         this.userId = res.data.data.id
+        this.user_level = res.data.data.user_level
       }).catch( error=>{
       　　console.log(error);
       });
@@ -125,23 +127,29 @@ export default {
       
     },
     goBuy(goodId){
-      var params={
-       
-        goodId:this.goodId,
-        price:this.price,
-        goodsId:this.goodsId,
-        
-      }
-      this.$axios.post('api/order/placeOrderEntity',params).then((res) => {
-        console.log(res)
-        if(res.data.code == 22){
-          this.$router.push({ name: "certification",query:{id:this.userId}});
-        }else{
-          this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
+      if(this.user_level <= 2 && this.$route.params.id == 5){
+        this.$toast('用户等级不足无法购买！')
+      }else{
+        var params={
+          goodId:this.goodId,
+          price:this.price,
+          goodsId:this.goodsId,
+          
         }
-      }).catch( error=>{
-      　　console.log(error);
-      });
+        this.$axios.post('api/order/placeOrderEntity',params).then((res) => {
+          console.log(res)
+          if(res.data.code == 22){
+            this.$router.push({ name: "certification",query:{id:this.userId}});
+          }else if(res.data.code == 11){
+            this.$toast(res.data.msg)
+          }else{
+            this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
+          }
+        }).catch( error=>{
+        　　console.log(error);
+        });
+      }
+      
       
     },
     onChange(index) {

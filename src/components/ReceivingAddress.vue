@@ -69,7 +69,6 @@
 			setAddressList(data) {
 				this.firstSet = true
 				this.addressList = data.data
-				console.log(data)
 				this.default_address = data.attributes.default
 				this.$nextTick(() => {
 					this.firstSet = false
@@ -77,7 +76,7 @@
 			},
 			setDefaultAddress(id){
 				if (this.firstSet) return
-				console.log(111)
+			
 				this.$axios.post('api/address/setDefault',{id: id}).then(res => {
 					if (res.status != 200) return
       				this.setAddressList(res.data)

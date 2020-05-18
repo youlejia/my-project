@@ -6,7 +6,8 @@
             <div class="fl mt10">
                 <p class="user-n c-ff5000 f14">
                     <img src="../assets/image/vip.svg" alt="">
-                    {{Userdata.name}}
+                    <i class="vip_num">{{Userdata.level_id}}</i>
+                    <span>{{Userdata.name}}</span>
                 </p>
                 <p class="ml10 c-fff">{{Userdata.mobile}}</p>
             </div>
@@ -44,7 +45,7 @@
                         <div class="user-n mt10">
                             <span class="c-ff5000 f12">
                                 <img src="../assets/image/vip.svg" alt="">
-                                <i class="vip_nums">{{item.level_id}}</i>
+                                <i class="vip_num">{{item.level_id}}</i>
                                 <span style="display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.name}}</span>
                                 
                             </span>
@@ -125,13 +126,13 @@ export default {
             // margin-top: 2px;
             margin-right: 5px;
         }
-        .vip_nums{
+        .vip_num{
             position: absolute;
-            top:4px;
-            left: 12px;
-            font-size: 11px;
-            color: #000;
-            text-shadow: #F93 2px 3px 6px;
+            top: 5px;
+            left: 14px;
+            color: #ff5000;
+            font-size: 12px;
+            -webkit-text-stroke: .5px #f7e9da;
         }
         
     }
