@@ -39,6 +39,7 @@
                         确认并修改
                     </van-button>
                 </div>
+                <router-link to='/login'><P class="tc mt10 c-2e81f3">登录</P></router-link>
                
           
         </div>

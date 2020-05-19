@@ -61,42 +61,42 @@ export default {
                 {
                     url:'/Upgrade',
                     text:'升级代理' ,
-                    icon:require('../assets/image/icon_01.png')
+                    icon:require('../assets/image/icon_01.svg')
                 },
                 {
                     url:'/AddTo/4',
                     text:'折扣保养' ,
-                    icon:require('../assets/image/icon_02.png')
+                    icon:require('../assets/image/icon_02.svg')
                 },
                 {
                     url:'/pattern',
                     text:'会员权益' ,
-                    icon:require('../assets/image/icon_03.png')
+                    icon:require('../assets/image/icon_03.svg')
                 },
                 {
                     url:'/share',
                     text:'立刻分享' ,
-                    icon:require('../assets/image/icon_04.png')
+                    icon:require('../assets/image/icon_04.svg')
                 },
                 {
                     url:'',
                     text:'敬请期待' ,
-                    icon:require('../assets/image/icon_05.png')
+                    icon:require('../assets/image/icon_05.svg')
                 },
                 {
                     url:'',
                     text:'敬请期待' ,
-                    icon:require('../assets/image/icon_06.png')
+                    icon:require('../assets/image/icon_06.svg')
                 },
                 {
                     url:'',
                     text:'敬请期待' ,
-                    icon:require('../assets/image/icon_07.png')
+                    icon:require('../assets/image/icon_07.svg')
                 },
                 {
                     url:'',
                     text:'敬请期待' ,
-                    icon:require('../assets/image/icon_08.png')
+                    icon:require('../assets/image/icon_08.svg')
                 }
             ],
             images: [], 

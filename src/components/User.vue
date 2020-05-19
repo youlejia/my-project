@@ -10,6 +10,7 @@
 				</div>
 				<div class="yh_js">
 					<div class="yh_name">{{userList.name}}</div>
+					<p class="c-ff5000">{{userList.id}}</p>
 					<div class="yh_c">
 						<div class="yh_dj">
 							<img src="../assets/image/vip.svg" alt=""/>
@@ -33,7 +34,7 @@
 		<van-grid :border="false" :column-num="3">
 			<van-grid-item  @click="$router.push({path: '/user/order/list/2'})">
 				<div slot="default">
-					<img src="../assets/image/user_df.png" alt="">
+					<img src="../assets/image/user_df.svg" alt="">
 					<p class="tc">待发货</p>
 					<span class="num" v-if="userOrders.unship ? userOrders.unship : ''">{{userOrders.unship}}</span>
 				</div>
@@ -41,7 +42,7 @@
 			</van-grid-item>
 			<van-grid-item @click="$router.push({path: '/user/order/list/3'})">
 				<div>
-					<img src="../assets/image/user_ds.png" alt="">
+					<img src="../assets/image/user_ds.svg" alt="" style="width:58px;">
 					<p class="tc">待收货</p>
 					<span class="num" v-if="userOrders.undelivery ? userOrders.undelivery : ''">{{userOrders.undelivery}}</span>
 				</div>
@@ -49,7 +50,7 @@
 			</van-grid-item>
 			<van-grid-item  @click="$router.push({path: '/user/order/list/4'})">
 				<div>
-					<img src="../assets/image/user_wc.png" alt="">
+					<img src="../assets/image/user_wc.svg" alt="">
 					<p class="tc">已完成</p>
 				</div>
 			</van-grid-item>
@@ -57,28 +58,28 @@
 		</van-grid>
 		<!--<van-cell-group>	-->
 		<van-cell title="车友会" @click="onClickAlert">
-			<template slot="icon" to=''><img src="../assets/image/user_cy.png" /></template>
+			<template slot="icon" to=''><img src="../assets/image/user_cy.svg" /></template>
 		</van-cell>
 		<van-cell title="公益基金" to='' @click="onClickAlert">
-			<template slot="icon"><img src="../assets/image/user_jijin.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_jijin.svg" /></template>
 		</van-cell>
 		<van-cell title="收货地址" to='/ReceivingAddress'>
-			<template slot="icon"><img src="../assets/image/user_dz.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_dz.svg" /></template>
 		</van-cell>
 		<van-cell title="会员协议" to='/MemberAgreement'>
-			<template slot="icon"><img src="../assets/image/user_xy.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_xy.svg" /></template>
 		</van-cell>
 		<van-cell title="商务合作" to='/Cooperation'>
-			<template slot="icon"><img src="../assets/image/user_hz.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_hz.svg" /></template>
 		</van-cell>
 		<van-cell title="联系客服" to='/Customer'>
-			<template slot="icon"><img src="../assets/image/user_kf.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_kf.svg" /></template>
 		</van-cell>
 		<van-cell title="我的银行卡" to='MyBankCard'>
-			<template slot="icon"><img src="../assets/image/user_yhk.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_yhk.svg" /></template>
 		</van-cell>
 		<van-cell title="APP下载" to='/download' :border="false">
-			<template slot="icon"><img src="../assets/image/user_xz.png" /></template>
+			<template slot="icon"><img src="../assets/image/user_xz.svg" /></template>
 		</van-cell>
 		<div class="user_but">
 			<van-button size="large"  @click="Logout">退出登录</van-button>
@@ -92,25 +93,11 @@
 			return {
 				
 				background_image: require('../assets/image/wd_bj.png'),
-				useric: require('../assets/image/user_setup.png'),
+				useric: require('../assets/image/user_setup.svg'),
 				show: false,
 				userList:[],
 				userOrders:[],
 				securities:'',
-				List:[
-					{
-						text:'待发货',
-						src:require('../assets/image/user_df.png'),
-					},
-					{
-						text:'待收货',
-						src:require('../assets/image/user_ds.png'),
-					},
-					{
-						text:'已完成',
-						src:require('../assets/image/user_wc.png'),
-					}
-				]
 			}
 		},
 		mounted(){
@@ -164,16 +151,8 @@
 </script>
 
 <style lang="less" scoped="scoped">
-	@font-face {
-		font-family: 'ps';
-		src: url('../assets/font/PingFangSC.ttf');
-	}
-	@font-face {
-		font-family: 'cp';
-		src: url('../assets/font/ChaparralPro-Light.otf');
-	}	
+	
 	.mycore {
-		font-family: 'ps';
 		margin: 0;
 		padding-bottom:60px;
 		.head {
@@ -214,7 +193,7 @@
 					}
 					.yh_c {
 						display: inline-block;
-						margin-top: 6px;
+						// margin-top: 6px;
 						.yh_dj {
 							display: inline-block;
 							// padding-top: 3px;
@@ -251,7 +230,6 @@
 					text-align: center;
 					.quan_zhang{
 						font-size: 16px;
-						font-family: 'cp';
 						font-weight: bold;
 					}
 				}
@@ -278,10 +256,8 @@
 					line-height: 30px;
 					font-weight: 600;
 					color: #E0DCAB;
-					font-family: 'cp';
 					span {
 						font-size: 12px;
-						font-family: 'ps';
 						margin-right: 3px;
 					}
 				}

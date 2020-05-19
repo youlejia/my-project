@@ -42,14 +42,14 @@ export default {
     return {
       active: 0,
       icon: {
-        active: require("./assets/image/nav_icon01_on.png"),
-        inactive: require("./assets/image/nav_icon01.png"),
-        active2: require("./assets/image/nav_icon02_on.png"),
-        inactive2: require("./assets/image/nav_icon02.png"),
-        active3: require("./assets/image/nav_icon03_on.png"),
-        inactive3: require("./assets/image/nav_icon03.png"),
-        active4: require("./assets/image/nav_icon04_on.png"),
-        inactive4: require("./assets/image/nav_icon04.png"),
+        active: require("./assets/image/nav_icon01_on.svg"),
+        inactive: require("./assets/image/nav_icon01.svg"),
+        active2: require("./assets/image/nav_icon02_on.svg"),
+        inactive2: require("./assets/image/nav_icon02.svg"),
+        active3: require("./assets/image/nav_icon03_on.svg"),
+        inactive3: require("./assets/image/nav_icon03.svg"),
+        active4: require("./assets/image/nav_icon04_on.svg"),
+        inactive4: require("./assets/image/nav_icon04.svg"),
       }
     };
   },

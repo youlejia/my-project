@@ -46,6 +46,8 @@
                     </van-button>
                 </div>
                
+                <router-link to='/login'><P class="tc mt10 c-2e81f3">登录</P></router-link>
+               
             
         </div>
         <div>
@@ -131,7 +133,7 @@ export default {
                         if(res.status == 200){
                             this.userToken = 'Bearer ' + res.data.access_token;
                             this.changeLogin({ Authorization: this.userToken });
-                            this.$router.push('/')
+                            this.$router.push('/download')
                         } else {
                             this.$toast(res.data.message)
                         }

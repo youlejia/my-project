@@ -61,18 +61,7 @@
 </script>
 
 <style lang="less" scoped="scoped">
-	@font-face {
-		font-family: 'ps';
-		src: url('../assets/font/PingFangSC.ttf');
-	}
-	
-	@font-face {
-		font-family: 'cp';
-		src: url('../assets/font/ChaparralPro-Light.otf');
-	}
-	
 	.mybalance {
-		font-family: 'ps';
 		padding-bottom: 50px; //看app页如设置的有,可以去掉
 		.van-nav-bar__title {
 			font-weight: 600;
@@ -104,7 +93,6 @@
 				top: 64px;
 				font-size: 40px;
 				color: #FFFFFF;
-				font-family: 'cp';
 				font-weight: 600;
 			}
 			.mx {

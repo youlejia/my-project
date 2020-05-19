@@ -33,5 +33,7 @@ export default {
 </script>
 
 <style>
-
+.team-gs p{
+  
+}
 </style>

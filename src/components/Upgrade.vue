@@ -112,8 +112,8 @@ export default {
       tabContents:[
         {
           key:3,
-          reward:'伞下出VIP会员奖励',
-          money:'30',
+          reward:'团队出VIP会员奖励',
+          money:'100',
           assistant:'直推会员10个助理代理及以上代理级别即可享受工资叠加',
           money2:'3000',
           assisText:'20个升级为助理及以上代理即可享受工资叠加',
@@ -123,7 +123,7 @@ export default {
         },
         {
           key:4,
-          reward:'伞下出VIP会员奖励',
+          reward:'团队出VIP会员奖励',
           money:'50',
           assistant:'直推会员10个升级为乡镇及以上代理即可享受工资',
           money2:'5000',
@@ -134,8 +134,8 @@ export default {
         },
         {
           key:5,
-          reward:'伞下出VIP会员奖励',
-          money:'100',
+          reward:'团队出VIP会员奖励',
+          money:'50',
           assistant:'直推会员10个升级为县区代理即可享受工资叠加',
           money2:'10000',
           assisText:',20个升级为县区代理即可享受工资叠加',

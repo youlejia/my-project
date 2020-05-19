@@ -119,13 +119,7 @@
 </script>
 
 <style lang="less" scoped="scoped">
-	@font-face {
-		font-family: 'ps';
-		src: url('../assets/font/PingFangSC.ttf');
-	}
-	
 	.receivingAddress {
-		font-family: 'ps';
 		.address {
 			.time_count {
 				width: 80%;

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import img from '../assets/image/xingX.png'
-import imgB from '../assets/image/xingB.png'
+// import img from '../assets/image/xingX.png'
+// import imgB from '../assets/image/xingB.png'
 export default {
    
     data() {
@@ -53,8 +53,8 @@ export default {
             latitude:'',
             storeList:[],
             data:'3',
-            bu:imgB,
-            ling:img
+            // bu:imgB,
+            // ling:img
            
         }
         

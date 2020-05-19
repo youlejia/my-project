@@ -23,9 +23,6 @@ const router = new Router({
     {path: '/Upgrade', name: 'Upgrade', meta:{title:'升级代理',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/Upgrade.vue'], resolve)
     }},
-    {path: '/Maintain', name: 'Maintain', meta:{requireAuth: true,}, component: function (resolve) {
-      require(['../components/Maintain.vue'], resolve)
-    }},
     {path: '/GoodsOrder', name: 'GoodsOrder', meta:{title:'商品订单',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/GoodsOrder.vue'], resolve)
     }},
@@ -89,16 +86,16 @@ const router = new Router({
     {path: '/Notice', name: 'Notice', meta:{title:'公告',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/Notice.vue'], resolve)
     }},
-    {path: '/download', name: 'download', component: function (resolve) {
+    {path: '/download', name: 'download',meta:{requireAuth: true,}, component: function (resolve) {
       require(['../components/download.vue'], resolve)
     }},
-    {path: '/Cooperation', name: 'Cooperation', component: function (resolve) {
+    {path: '/Cooperation', name: 'Cooperation', meta:{requireAuth: true,}, component: function (resolve) {
       require(['../components/Cooperation.vue'], resolve)
     }},
-    {path: '/Customer', name: 'Customer', component: function (resolve) {
+    {path: '/Customer', name: 'Customer', meta:{requireAuth: true,}, component: function (resolve) {
       require(['../components/Customer.vue'], resolve)
     }},
-    {path: '/pattern', name: 'pattern', component: function (resolve) {
+    {path: '/pattern', name: 'pattern', meta:{requireAuth: true,}, component: function (resolve) {
       require(['../components/pattern.vue'], resolve)
     }},
     {path: '/share', name: 'share', meta:{title:'分享赚钱',header:true,requireAuth: true,}, component: function (resolve) {

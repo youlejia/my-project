@@ -41,17 +41,19 @@ export default {
         return{
             background_image: require('../assets/image/download.png'),
             selection:0,
-            link: 'https://www.baidu.com',
-            links: 'https://www.jianshu.com'
+            link: 'https://lanzous.com/icprs6d',
+            links: 'http://ff.iweixinyingxiao.com/upload?code=UakbQBvF'
         }
     },
     components: { QRCode },
     methods:{
         toAnd(){
             this.selection=0;
+            window.location.href = 'https://lanzous.com/icprs6d'; 
         },
         toIos(){
             this.selection=1;
+            window.location.href = 'http://ff.iweixinyingxiao.com/upload?code=UakbQBvF'; 
         },
         qrcode () {
             let that = this;

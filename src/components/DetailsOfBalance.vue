@@ -90,16 +90,9 @@
 </script>
 
 <style lang="less" scoped="scoped">
-	@font-face {
-		font-family: 'ps';
-		src: url('../assets/font/PingFangSC.ttf');
-	}
-	@font-face {
-		font-family: 'cp';
-		src: url('../assets/font/ChaparralPro-Light.otf');
-	}
+	
 	.detailsOfBalance {
-		font-family: 'ps';
+		
 		.van-nav-bar__title {
 			font-weight: 600;
 			color: #333333;
@@ -130,7 +123,6 @@
 				top: 64px;
 				font-size: 40px;
 				color: #FFFFFF;
-				font-family: 'cp';
 				font-weight: 600;
 			}
 		}
@@ -171,7 +163,6 @@
 					}
 				}
 				.right_m {
-					font-family: 'cp';
 					position: absolute;
 					display: inline-block;
 					right: 15px;

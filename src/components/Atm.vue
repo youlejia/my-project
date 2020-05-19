@@ -172,12 +172,7 @@
 </script>
 
 <style lang="less" scoped="scoped">
-	@font-face {
-		font-family: 'ps';
-		src: url('../assets/font/PingFangSC.ttf');
-	}
 	.atm {
-		font-family: 'ps';
 		.cs {
 			.cz_a {
 				text-align: center;
