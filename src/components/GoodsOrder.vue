@@ -185,7 +185,7 @@ export default {
 		},
 		
 		send(){
-            if(!(/^1[345789]\d{9}$/.test(this.phone))){
+            if(!(/^1[3456789]\d{9}$/.test(this.phone))){
                 this.$toast('请输入正确的手机号格式');
                 return false;
             }
@@ -214,7 +214,7 @@ export default {
        
         paySubmit(){
             if(this.$route.query.goodId == 5){
-                if(!(/^1[34578]\d{9}$/.test(this.oil_phone)) || !this.oilcard_name || !this.oil_number){
+                if(!(/^1[3456789]\d{9}$/.test(this.oil_phone)) || !this.oilcard_name || !this.oil_number){
                     this.$toast('请填写姓名、正确的手机号、卡号'); 
                 }else if(this.payWay == 'balance'){
                     this.showPop = true;

@@ -79,23 +79,23 @@ export default {
                     icon:require('../assets/image/icon_04.svg')
                 },
                 {
-                    url:'',
-                    text:'敬请期待' ,
+                    url:'/discount',
+                    text:'八折加油' ,
                     icon:require('../assets/image/icon_05.svg')
                 },
                 {
-                    url:'',
-                    text:'敬请期待' ,
+                    url:'/CarWash',
+                    text:'优惠洗车' ,
                     icon:require('../assets/image/icon_06.svg')
                 },
                 {
-                    url:'',
-                    text:'敬请期待' ,
+                    url:'/RoadRescue',
+                    text:'道路救援' ,
                     icon:require('../assets/image/icon_07.svg')
                 },
                 {
-                    url:'',
-                    text:'敬请期待' ,
+                    url:'/StoreEntry',
+                    text:'门店入驻' ,
                     icon:require('../assets/image/icon_08.svg')
                 }
             ],

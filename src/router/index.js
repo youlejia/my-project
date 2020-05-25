@@ -110,7 +110,18 @@ const router = new Router({
     {path: '/CompanyTeam', name: 'CompanyTeam', meta:{title:'团队介绍',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/CompanyTeam.vue'], resolve)
     }},
-    
+    {path: '/discount', name: 'discount', meta:{title:'八折优惠',header:true,requireAuth: true,}, component: function (resolve) {
+      require(['../components/discount.vue'], resolve)
+    }},
+    {path: '/CarWash', name: 'CarWash', meta:{title:'优惠洗车',header:true,requireAuth: true,}, component: function (resolve) {
+      require(['../components/CarWash.vue'], resolve)
+    }},
+    {path: '/RoadRescue', name: 'RoadRescue', meta:{title:'道路救援',header:true,requireAuth: true,}, component: function (resolve) {
+      require(['../components/RoadRescue.vue'], resolve)
+    }},
+    {path: '/StoreEntry', name: 'StoreEntry', meta:{title:'门店入驻',header:true,requireAuth: true,}, component: function (resolve) {
+      require(['../components/StoreEntry.vue'], resolve)
+    }},
    
   ]
 })

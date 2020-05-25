@@ -35,15 +35,15 @@
 			<van-grid-item  @click="$router.push({path: '/user/order/list/2'})">
 				<div slot="default">
 					<img src="../assets/image/user_df.svg" alt="">
-					<p class="tc">待发货</p>
+					<p class="tc mt5">待发货</p>
 					<span class="num" v-if="userOrders.unship ? userOrders.unship : ''">{{userOrders.unship}}</span>
 				</div>
 				
 			</van-grid-item>
 			<van-grid-item @click="$router.push({path: '/user/order/list/3'})">
 				<div>
-					<img src="../assets/image/user_ds.svg" alt="" style="width:58px;">
-					<p class="tc">待收货</p>
+					<img src="../assets/image/user_ds.svg" alt="">
+					<p class="tc mt5">待收货</p>
 					<span class="num" v-if="userOrders.undelivery ? userOrders.undelivery : ''">{{userOrders.undelivery}}</span>
 				</div>
 				
@@ -51,7 +51,7 @@
 			<van-grid-item  @click="$router.push({path: '/user/order/list/4'})">
 				<div>
 					<img src="../assets/image/user_wc.svg" alt="">
-					<p class="tc">已完成</p>
+					<p class="tc mt5">已完成</p>
 				</div>
 			</van-grid-item>
 		
@@ -273,6 +273,12 @@
 					font-size: 11px;
 					color: #E0DCAB;
 				}
+			}
+		}
+		.van-grid-item__content{
+			padding: 16px 8px;
+			div{
+				width: 38px;
 			}
 		}
 		.user_dd {

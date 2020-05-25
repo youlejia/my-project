@@ -1,5 +1,8 @@
 <template>
     <div class="login">
+         <div class="left"  @click="goback()">
+            <van-icon name="arrow-left" size='20px' color="#fff" />
+        </div>
          <div class="login-bg">
             <div>
                <img src="../assets/image/login.png" alt="">
@@ -74,7 +77,9 @@ export default {
                 // if (res.status != 200) return
                 if(res.data.code==200){
                     this.$toast.success('认证成功');
-                    this.$router.go(-1);
+                    setTimeout(() => {
+                        this.$router.push('/')
+                    }, 2000);
                 }else{
                     this.$toast('认证失败,请填写真实信息');
                 }
@@ -92,6 +97,9 @@ export default {
                 name,
                 id_card
             }
+        },
+        goback(){
+            this.$router.go(-1);
         }
     }
 }
@@ -99,4 +107,10 @@ export default {
 
 <style lang="less" scoped>
 @import "../assets/css/login.css";
+.left{
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    z-index: 2;
+}
 </style>

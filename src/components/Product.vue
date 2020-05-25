@@ -20,9 +20,9 @@ export default {
   },
   methods:{
     initData(){
-        this.$axios.post('api/index').then(res => {
+        this.$axios.post('api/introduce').then(res => {
             if (res.status != 200) return
-            this.product = res.data.make_money_model
+            this.product = res.data.data.make_money_model
         }).catch( error=>{
         　　console.log(error);
         });

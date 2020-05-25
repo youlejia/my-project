@@ -20,9 +20,9 @@ export default {
   },
   methods:{
     initData(){
-        this.$axios.post('api/index').then(res => {
+        this.$axios.post('api/introduce').then(res => {
             if (res.status != 200) return
-            this.company = res.data.receive_redpack
+            this.company = res.data.data.receive_redpack
         }).catch( error=>{
         　　console.log(error);
         });

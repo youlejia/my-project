@@ -20,7 +20,7 @@
             <van-grid :column-num="3" :border='false'>
                 <van-grid-item>
                     <p slot="default" class="hy">{{teamList.undernum}}</p>
-                    <p>伞下会员</p>
+                    <p>团队会员</p>
                 </van-grid-item>
                 <van-grid-item to="/MyDirectPush">
                     <p slot="default" class="hy">{{teamList.directvip}}</p>
@@ -42,7 +42,7 @@
                     <p slot="default" class="hy">{{teamList.the_performance}}</p>
                     <p>累计业绩</p>
                 </van-grid-item>
-                <van-grid-item to="/MyDirectPush">
+                <van-grid-item>
                     <p slot="default" class="hy">{{teamList.Results_month}}</p>
                     <p>本月业绩</p>
                 </van-grid-item>
@@ -59,10 +59,6 @@
                     <p slot="default" class="hy">{{teamList.current_salary}}</p>
                     <p>目前工资(元)</p>
                 </van-grid-item>
-                <!-- <van-grid-item text="文字">
-                    <p slot="default" class="hy">{{teamList.next_salary}}</p>
-                    <p>下一档工资(元)</p>
-                </van-grid-item> -->
             </van-grid>
             <p style="text-align: center;color: #666;">每月15日发放上月工资，请注意查收！</p>
         </div>

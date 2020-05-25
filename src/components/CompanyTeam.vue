@@ -20,9 +20,9 @@ export default {
   },
   methods:{
     initData(){
-        this.$axios.post('api/index').then(res => {
+        this.$axios.post('api/introduce').then(res => {
             if (res.status != 200) return
-            this.teams = res.data.receive_rule
+            this.teams = res.data.data.receive_rule
         }).catch( error=>{
         　　console.log(error);
         });
@@ -33,7 +33,5 @@ export default {
 </script>
 
 <style>
-.team-gs p{
-  
-}
+
 </style>

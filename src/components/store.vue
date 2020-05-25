@@ -75,6 +75,7 @@ export default {
                 _this.LocationCity = city;
                 _this.latitude = lat;
                 _this.longitude = lng;
+                console.log(lat,lng)
                 var params={
                     lat:_this.latitude,
                     lng:_this.longitude,
@@ -117,7 +118,8 @@ export default {
     }
     .store-list{
         width:100%;
-        height: 139px;
+        // height: 139px;
+        padding-bottom: 10px;
         padding-top: 5px;
         background:rgba(255,255,255,1);
         box-shadow:0px 3px 6px rgba(46,129,243,0.32);
