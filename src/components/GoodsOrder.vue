@@ -236,7 +236,7 @@ export default {
                 }
 				this.$axios.post('api/order/paySub',params).then(res => {
                     if (res.status != 200) return
-                   
+
                         if(res.data.qrcode) {
                             this.$router.push('/recharge-qrcode?qrcode=' + res.data.qrcode)
                         }else if (res.data.html) {

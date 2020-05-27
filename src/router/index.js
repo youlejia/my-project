@@ -122,7 +122,9 @@ const router = new Router({
     {path: '/StoreEntry', name: 'StoreEntry', meta:{title:'门店入驻',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/StoreEntry.vue'], resolve)
     }},
-   
+    { path: '/recharge-qrcode', meta:{title: '二维码支付',header:true,requireAuth: true,}, component: function (resolve) {
+      require(['../components/Qrcode.vue'], resolve)
+    }},
   ]
 })
 router.beforeEach((to, from, next) => {

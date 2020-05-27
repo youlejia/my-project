@@ -39,7 +39,13 @@
         <div v-if="this.$route.params.id == 4">
           <p>商品规格选择</p>
           <ul class="mt10">
-              <li v-for="(oitem,index) in speci" :key="index" :class="{active:istrue==index}" @click="toolEventSlot(index)">
+
+              <li 
+              v-for="(oitem,index) in speci" 
+              :key="index" 
+              :class="{active:istrue==index}" 
+              @click="toolEventSlot(index)"
+              >
                 {{oitem.title}}
                 <input type="text" v-model='price' hidden>
                 <input type="text" v-model='goodsId' hidden>
@@ -96,7 +102,8 @@ export default {
         price:'',
         goodsId:'',
         userId:'',
-        user_level:''
+        user_level:'',
+        num:1
     }
       
   },
@@ -134,7 +141,7 @@ export default {
           goodId:this.goodId,
           price:this.price,
           goodsId:this.goodsId,
-          
+          num:this.num
         }
         this.$axios.post('api/order/placeOrderEntity',params).then((res) => {
           console.log(res)
@@ -143,7 +150,7 @@ export default {
           }else if(res.data.code == 11){
             this.$toast(res.data.msg)
           }else{
-            this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId}});
+            this.$router.push({ name: "GoodsOrder", query:{goodId:this.goodId,price:this.price,goodsId:this.goodsId,num:this.num}});
           }
         }).catch( error=>{
         　　console.log(error);
