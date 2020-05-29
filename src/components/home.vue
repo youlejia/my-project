@@ -40,16 +40,7 @@
                 <router-link to="/CompanyTeam"><img src="../assets/image/us03.jpg" alt=""></router-link>
             </div>
         </div>
-    <!-- <van-popup v-model="showAuth" :close-on-click-overlay="false" class="vp">
-      <div class="asas">
-        
-        <div class="tishi_t">您还未实名认证</div>
-        <div class="title_ts">为确保交易及资金安全，请先实名认证</div>
-        <div class="but" @click="toAuth(id)">前往认证</div>
-      </div> 
-    </van-popup> -->
-
-  </div>
+    </div>
 </template>
 
 <script>

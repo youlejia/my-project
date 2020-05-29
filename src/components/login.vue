@@ -72,7 +72,7 @@ export default {
                         this.$toast('登录成功')
                         this.$router.push('/')
                     } else {
-                        this.$toast(res.data.message)
+                        this.$toast('账号或密码错误！')
                     }
                 }).catch( error=>{
                 　　
