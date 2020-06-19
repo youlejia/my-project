@@ -63,12 +63,12 @@ import './assets/css/style.css'
 // 请求拦截器
 axios.interceptors.request.use( 
   config => {
-    Toast.loading({
-      mask: true,
-      duration: 0,       
-      forbidClick: true, 
-      message: '加载中...'
-    });
+    // Toast.loading({
+    //   mask: true,
+    //   duration: 0,       
+    //   forbidClick: true, 
+    //   message: '加载中...'
+    // });
    
     if (localStorage.getItem('Authorization')) {
       config.headers.Authorization = localStorage.getItem('Authorization');

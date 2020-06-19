@@ -35,7 +35,7 @@
             </div>
             <div class="tb">
               <div class="zxqx">尊享权限 2</div>
-              <p>{{itemCon.assistant}}<span class="c-ff5000">{{itemCon.money2}}</span>,{{itemCon.assisText}}<span class="c-ff5000">{{itemCon.money3}}</span>,以此类推！</p>
+              <p>{{itemCon.assistant}}<span class="c-ff5000">{{itemCon.money2}}</span>,{{itemCon.assisText}}<span class="c-ff5000">{{itemCon.money3}}</span>,以此类推,同级别代理不享受团队管理奖！</p>
             </div>
             <div class="tb">
               <div class="zxqx">尊享权限 3</div>
@@ -115,9 +115,9 @@ export default {
           reward:'团队出VIP会员奖励',
           money:'100',
           assistant:'直推会员10个助理代理及以上代理级别即可享受工资叠加',
-          money2:'3000',
+          money2:'3000元',
           assisText:'20个升级为助理及以上代理即可享受工资叠加',
-          money3:'6000',
+          money3:'6000元',
           pushVip:'直推VIP用户奖励',
           money4:'400'
         },
@@ -126,9 +126,9 @@ export default {
           reward:'团队出VIP会员奖励',
           money:'50',
           assistant:'直推会员10个升级为乡镇及以上代理即可享受工资',
-          money2:'5000',
+          money2:'5000元',
           assisText:'20个升级为乡镇及以上代理即可享受工资',
-          money3:'10000',
+          money3:'10000元',
           pushVip:'直推VIP用户奖励',
           money4:'400'
         },
@@ -137,9 +137,9 @@ export default {
           reward:'团队出VIP会员奖励',
           money:'50',
           assistant:'直推会员10个升级为县区代理即可享受工资叠加',
-          money2:'10000',
+          money2:'10000元',
           assisText:',20个升级为县区代理即可享受工资叠加',
-          money3:'20000',
+          money3:'20000元',
           pushVip:'直推VIP用户奖励',
           money4:'400'
         }

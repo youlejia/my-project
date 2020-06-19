@@ -43,6 +43,7 @@ export default {
     },
     methods: {
         onRead(file){
+                console.log(file)
                 var params = {
                     file:file.content,
                     name: file.file.name,
