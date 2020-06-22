@@ -86,7 +86,7 @@ const router = new Router({
     {path: '/Notice', name: 'Notice', meta:{title:'公告',header:true,requireAuth: true,}, component: function (resolve) {
       require(['../components/Notice.vue'], resolve)
     }},
-    {path: '/download', name: 'download',meta:{requireAuth: true,}, component: function (resolve) {
+    {path: '/download', name: 'download', component: function (resolve) {
       require(['../components/download.vue'], resolve)
     }},
     {path: '/Cooperation', name: 'Cooperation', meta:{requireAuth: true,}, component: function (resolve) {

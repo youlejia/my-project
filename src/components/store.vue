@@ -37,7 +37,7 @@
             </div>
             
         </div>
-        
+        <div id="allmap"></div>
     </div>
 </template>
 
@@ -64,31 +64,99 @@ export default {
     },
    
     methods: {
-        city(){    //定义获取城市方法
-            const geolocation = new BMap.Geolocation();
-            var _this = this
-            geolocation.getCurrentPosition(function getinfo(position){
-                let city = position.address.city;             //获取城市信息
-                let province = position.address.province;    //获取省份信息
-                let lat = position.point.lat;             //获取城市信息
-                let lng = position.point.lng;     //获取省份信息
-                _this.LocationCity = city;
-                _this.latitude = lat;
-                _this.longitude = lng;
-                console.log(lat,lng)
-                var params={
-                    lat:_this.latitude,
-                    lng:_this.longitude,
+        city(){ //定义获取城市方法
+
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;
+        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        var _this = this;
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(116.331398,39.897445);
+        map.centerAndZoom(point,12);
+        var geolocation = new BMap.Geolocation();
+        if (isAndroid) {
+           // 开启SDK辅助定位
+            geolocation.enableSDKLocation();
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                    var mk = new BMap.Marker(r.point);
+                    map.addOverlay(mk);
+                    map.panTo(r.point);
+                    _this.LocationCity = r.address.city;
+                    _this.latitude = r.point.lat;
+                    _this.longitude = r.point.lng;
+                    // alert(_this.longitude)
+                    // alert( _this.latitude)
+                    var params={
+                        lat:_this.latitude,
+                        lng:_this.longitude,
+                    }
+                    _this.$axios.post('api/stores',params).then(res => {
+                        if (res.status != 200) return
+                        _this.storeList = res.data.data
+                    }).catch( error=>{
+                    　　console.log(error);
+                    });
                 }
-                _this.$axios.post('api/stores',params).then(res => {
-                    if (res.status != 200) return
-                    _this.storeList = res.data.data
-                }).catch( error=>{
-                　　console.log(error);
-                });
-            }, function(e) {
-                _this.LocationCity = "定位失败"
-            }, {provider: 'baidu'});   
+                else {
+                    alert('failed'+this.getStatus());
+                }        
+            });
+            
+
+        }
+        if (isIOS) {
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                    var mk = new BMap.Marker(r.point);
+                    map.addOverlay(mk);
+                    map.panTo(r.point);
+                    _this.LocationCity = r.address.city;
+                    _this.latitude = r.point.lat;
+                    _this.longitude = r.point.lng;
+                    var params={
+                        lat:_this.latitude,
+                        lng:_this.longitude,
+                    }
+                    _this.$axios.post('api/stores',params).then(res => {
+                        if (res.status != 200) return
+                        _this.storeList = res.data.data
+                    }).catch( error=>{
+                    　　console.log(error);
+                    });
+                }
+                else {
+                    alert('failed'+this.getStatus());
+                }        
+            });
+
+        }
+            
+            // const geolocation = new BMap.Geolocation();
+            
+            // geolocation.getCurrentPosition(function getinfo(position){
+            //     let city = position.address.city;             //获取城市信息
+            //     let province = position.address.province;    //获取省份信息
+            //     let lat = position.point.lat;             //获取城市信息
+            //     let lng = position.point.lng;     //获取省份信息
+            //     _this.LocationCity = city;
+            //     _this.latitude = lat;
+            //     _this.longitude = lng;
+            //     alert(lat)
+            //     alert(lng)
+            //     var params={
+            //         lat:_this.latitude,
+            //         lng:_this.longitude,
+            //     }
+            //     _this.$axios.post('api/stores',params).then(res => {
+            //         if (res.status != 200) return
+            //         _this.storeList = res.data.data
+            //     }).catch( error=>{
+            //     　　console.log(error);
+            //     });
+            // }, function(e) {
+            //     _this.LocationCity = "定位失败"
+            // }, {provider: 'baidu'});   
            
 
             
