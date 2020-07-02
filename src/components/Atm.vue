@@ -110,6 +110,7 @@
 				var param={
 					price:this.price,
 					cardId: this.cards.id,
+					mobile:this.phone,
 					sms:this.number
 				}
 				this.$axios.post('api/atm/sub',param).then(res => {

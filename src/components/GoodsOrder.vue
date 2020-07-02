@@ -152,6 +152,7 @@ export default {
                     oil_phone:this.oil_phone,
                     oil_number:this.oil_number,
                     type:this.payWay,
+                    mobile:this.phone,
                     sms:this.number,
                 }
 				this.$axios.post('api/order/paySub',params).then(res => {

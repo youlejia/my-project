@@ -208,6 +208,7 @@ export default {
 				var params={
           type:this.payWay,
           id:this.id,
+          mobile:this.phone,
           sms:this.number,
         }
         this.$axios.post('api/up/add',params).then(res => {
